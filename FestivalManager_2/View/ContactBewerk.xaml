@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="FestivalManager_2.View.ContactBewerk"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500">
+
+    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1">
+        <Grid x:Name="Grid_Contact" Background="#FFF2F2F2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="109"/>
+                <ColumnDefinition Width="92"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="211*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="107"/>
+                <RowDefinition Height="126"/>
+                <RowDefinition Height="94"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="1" Grid.ColumnSpan="2" Margin="10,20,10,50" Grid.RowSpan="2" Source="{Binding SelectedContact.Image}" Stretch="UniformToFill"/>
+            <Button Grid.Row="2" Content="Upload logo" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.ColumnSpan="2"/>
+            <Image Source="/Images/Logo.png" Stretch="None" Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,0,0,0" VerticalAlignment="Top" Width="120"/>
+            <Button Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,0,0,0" VerticalAlignment="Top" Width="120" Cursor="Hand" Command="{Binding GaNaarOverzichtCommand}" Opacity="0"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,31,0,0" Text="Voornaam:" RenderTransformOrigin="0.3,0.062"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,61,0,0" Text="Naam:" RenderTransformOrigin="0.3,0.062" />
+            <TextBox Grid.Row="1" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,30,3,0" Text="{Binding SelectedContact.Voornaam}"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,3,0" Text="{Binding SelectedContact.Naam}"/>
+
+            <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,20,0,0" Text="Straat + Nr:" RenderTransformOrigin="0.3,0.062" Grid.Row="2"/>
+            <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,50,0,0" Text="Postcode:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
+            <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,80,0,0" Text="Gemeente:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
+            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,3,0" Text="{Binding SelectedContact.Straat_Nr}"/>
+            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,50,3,0" Text="{Binding SelectedContact.Postcode}"/>
+            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,80,3,0" Text="{Binding SelectedContact.Gemeente}"/>
+
+            <TextBlock Grid.Column="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textblock}" Margin="0,21,0,0" Text="Functie:" RenderTransformOrigin="0.3,0.062"/>
+            <TextBlock Grid.Column="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textblock}" Margin="0,51,0,0" Text="Organisatie:" RenderTransformOrigin="0.3,0.062" />
+            <ComboBox Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,21,10,0" Grid.Row="3" VerticalAlignment="Top" Height="22" ItemsSource="{Binding Functies}" Text="{Binding SelectedContact.Functie.Naam}" SelectedItem="{Binding SelectedContact.Functie}"/>
+            <ComboBox Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,51,10,0" Grid.Row="3" VerticalAlignment="Top" Height="22" ItemsSource="{Binding Organisaties}" Text="{Binding SelectedContact.Organisatie.Naam}" SelectedItem="{Binding SelectedContact.Organisatie}"/>
+
+            <TextBlock Grid.Column="2" Grid.Row="4" Style="{DynamicResource Algemeen_Textblock}" Margin="0,21,0,0" Text="Tel:" RenderTransformOrigin="0.3,0.062"/>
+            <TextBlock Grid.Column="2" Grid.Row="4" Style="{DynamicResource Algemeen_Textblock}" Margin="0,51,0,0" Text="E-mail:" RenderTransformOrigin="0.3,0.062" />
+            <TextBox Grid.Column="3" Grid.Row="4" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,3,0" Text="{Binding SelectedContact.Tel}" />
+            <TextBox Grid.Column="3" Grid.Row="4" Style="{DynamicResource Algemeen_Textbox}" Margin="10,50,3,0" Text="{Binding SelectedContact.Email}"/>
+
+            <Image x:Name="Save" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Right" Height="31" Margin="0,10,10,0" VerticalAlignment="Top" Width="31" Source="/Images/save.png"/>
+            <Button Opacity="0" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Right" Height="31" Margin="0,10,10,0" VerticalAlignment="Top" Width="31" Command="{Binding SaveContactCommand}" />
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7449F923-5970-4131-865E-F5705642C506}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FestivalManager_2</RootNamespace>
+    <AssemblyName>FestivalManager_2</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WPF45, Version=4.1.24.16411, Culture=neutral, PublicKeyToken=0e27b6f8be9b2ef7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Downloads\mvvmlight-65f161b8d6a4\mvvmlight_65f161b8d6a4\NuGet\V4Libs\lib\net45\GalaSoft.MvvmLight.Extras.WPF45.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WPF45, Version=4.1.24.16411, Culture=neutral, PublicKeyToken=eabbf6a5f5af5004, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Downloads\mvvmlight-65f161b8d6a4\mvvmlight_65f161b8d6a4\NuGet\V4Libs\lib\net45\GalaSoft.MvvmLight.WPF45.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\..\Week_5_-_ADO.NET\Week_6_ADOnet\packages\Microsoft.Owin.2.0.0-rc1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Owin">
+      <HintPath>..\..\..\Week_5_-_ADO.NET\Week_6_ADOnet\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Downloads\mvvmlight-65f161b8d6a4\mvvmlight_65f161b8d6a4\NuGet\V4Libs\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\ContactType.cs" />
+    <Compile Include="Model\DAL\ContactRepository.cs" />
+    <Compile Include="Model\DAL\ContactTypeRepository.cs" />
+    <Compile Include="Model\DAL\FestivalRepository.cs" />
+    <Compile Include="Model\DAL\FunctieRepository.cs" />
+    <Compile Include="Model\DAL\GroepenRepository.cs" />
+    <Compile Include="Model\DAL\OptredenRepository.cs" />
+    <Compile Include="Model\DAL\OrganisatieRepository.cs" />
+    <Compile Include="Model\DAL\RelayCommand.cs" />
+    <Compile Include="Model\DAL\ReserveringRepository.cs" />
+    <Compile Include="Model\DAL\TicketRepository.cs" />
+    <Compile Include="Model\Database.cs" />
+    <Compile Include="Model\Festival.cs" />
+    <Compile Include="Model\Functie.cs" />
+    <Compile Include="Model\Genre.cs" />
+    <Compile Include="Model\Groep.cs" />
+    <Compile Include="Model\Optreden.cs" />
+    <Compile Include="Model\Organisatie.cs" />
+    <Compile Include="Model\Podium.cs" />
+    <Compile Include="Model\Reservering.cs" />
+    <Compile Include="Model\Ticket.cs" />
+    <Compile Include="ViewModel\AlgemeenVM.cs" />
+    <Compile Include="ViewModel\ApplicationVM.cs" />
+    <Compile Include="ViewModel\ContactBewerkVM.cs" />
+    <Compile Include="ViewModel\ContactContainerVM.cs" />
+    <Compile Include="ViewModel\ContactpersonenVM.cs" />
+    <Compile Include="ViewModel\IPage.cs" />
+    <Compile Include="ViewModel\Line_UpGroepenVM.cs" />
+    <Compile Include="ViewModel\Line_UpPodiaVM.cs" />
+    <Compile Include="ViewModel\ObservableObject.cs" />
+    <Compile Include="ViewModel\TicketsBeherenVM.cs" />
+    <Compile Include="ViewModel\TicketsOverzichtVM.cs" />
+    <Compile Include="ViewModel\TicketsVM.cs" />
+    <Compile Include="View\ContactContainer.xaml.cs">
+      <DependentUpon>ContactContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Converters\DummyConvertercs.cs" />
+    <Compile Include="View\GridLengthAnimations.cs" />
+    <Compile Include="View\ContactBewerk.xaml.cs">
+      <DependentUpon>ContactBewerk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Instellingen.xaml.cs">
+      <DependentUpon>Instellingen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-UpGroepen.xaml.cs">
+      <DependentUpon>Line-UpGroepen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-UpGroepenBewerk.xaml.cs">
+      <DependentUpon>Line-UpGroepenBewerk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-UpGroepenOverzicht.xaml.cs">
+      <DependentUpon>Line-UpGroepenOverzicht.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-UpPodia.xaml.cs">
+      <DependentUpon>Line-UpPodia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-UpPodiaBewerk.xaml.cs">
+      <DependentUpon>Line-UpPodiaBewerk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tickets.xaml.cs">
+      <DependentUpon>Tickets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TicketsBeheren.xaml.cs">
+      <DependentUpon>TicketsBeheren.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TicketsOverzicht.xaml.cs">
+      <DependentUpon>TicketsOverzicht.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\Algemeen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ContactBewerk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ContactContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Contactpersonen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Instellingen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-Up.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-UpGroepen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-UpGroepenBewerk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-UpGroepenOverzicht.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-UpPodia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-UpPodiaBewerk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\Algemeen.xaml.cs">
+      <DependentUpon>Algemeen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contactpersonen.xaml.cs">
+      <DependentUpon>Contactpersonen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-Up.xaml.cs">
+      <DependentUpon>Line-Up.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tickets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TicketsBeheren.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TicketsOverzicht.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Animations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\person-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete-icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

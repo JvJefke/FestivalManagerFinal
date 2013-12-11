@@ -1,0 +1,362 @@
+﻿<Window x:Class="FestivalManager_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:FestivalManager_2.ViewModel"
+        xmlns:v="clr-namespace:FestivalManager_2.View"
+        Title="MainWindow" Height="721" Width="1024" ResizeMode="CanMinimize"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        UseLayoutRounding="True">
+    <Window.DataContext>
+        <vm:ApplicationVM />
+    </Window.DataContext>
+    <Window.Resources>        
+        <Storyboard x:Key="Algemeen_Click"/>
+
+        <Style x:Key="Main_Button" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0px 0px 0px 0px" />
+            <Setter Property="Margin" Value="30,10,0,0"/>
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="RenderTransformOrigin" Value="0,1" />
+        </Style>
+
+        <Storyboard x:Key="Reset_Accordion">
+            <DoubleAnimation
+                Storyboard.TargetName="btnAlgemeenRotate"
+                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                To="-90" Duration="00:00:00" />
+            <DoubleAnimation
+                Storyboard.TargetName="btnContactRotate"
+                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                To="-90" Duration="00:00:00" />
+            <DoubleAnimation
+                Storyboard.TargetName="btnLineUpRotate"
+                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                To="-90" Duration="00:00:00" />
+            <DoubleAnimation
+                Storyboard.TargetName="btnTicketsRotate"
+                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                To="-90" Duration="00:00:00" />
+            <!--<DoubleAnimation
+                Storyboard.TargetName="btnSettingsRotate"
+                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                To="-90" Duration="00:00:00" />-->
+            <v:GridLengthAnimation
+                Storyboard.TargetName="Algemeen_Window"
+                Storyboard.TargetProperty="Width"
+                From="{Binding ElementName=Algemeen_Window, Path=Width}" To="0*"
+                Duration="00:00:00" />
+            <v:GridLengthAnimation
+                Storyboard.TargetName="Contact_Window"
+                Storyboard.TargetProperty="Width"
+                From="{Binding ElementName=Contact_Window, Path=Width}" To="0*"
+                Duration="00:00:00" />
+            <v:GridLengthAnimation
+                Storyboard.TargetName="Line_ups_Window"
+                Storyboard.TargetProperty="Width"
+                From="{Binding ElementName=Line_ups_Window, Path=Width}" To="0*"
+                Duration="00:00:00" />
+            <v:GridLengthAnimation
+                Storyboard.TargetName="Tickets_Window"
+                Storyboard.TargetProperty="Width"
+                From="{Binding ElementName=Tickets_Window, Path=Width}" To="0*"
+                Duration="00:00:00" />
+            <!--<v:GridLengthAnimation
+                Storyboard.TargetName="Settings_Window"
+                Storyboard.TargetProperty="Width"
+                From="{Binding ElementName=Settings_Window, Path=Width}" To="0*"
+                Duration="00:00:0.4" />-->
+        </Storyboard>
+
+    </Window.Resources>
+
+    <Grid Margin="0,0,30,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            
+            <ColumnDefinition x:Name="Algemeen_btn" Width="100*"/>
+            <ColumnDefinition x:Name="Algemeen_Window" Width="0*"/>
+            <ColumnDefinition x:Name="Contact_btn" Width="100*"/>
+            <ColumnDefinition x:Name="Contact_Window" Width="0*"/>
+            <ColumnDefinition x:Name="Line_ups_btn" Width="100*"/>
+            <ColumnDefinition x:Name="Line_ups_Window" Width="0*"/>
+            <ColumnDefinition x:Name="Tickets_btn" Width="100*"/>
+            <ColumnDefinition x:Name="Tickets_Window" Width="0*"/>
+            <!--<ColumnDefinition x:Name="Settings_btn" Width="100*"/>
+            <ColumnDefinition x:Name="Settings_Window" Width="0*"/>-->
+        </Grid.ColumnDefinitions>
+
+        <!--Main met accordion-->
+        <Button x:Name="btnAlgemeen" Content="Algemeen" Grid.Column="0" Style="{DynamicResource Main_Button}">
+            <Button.LayoutTransform>
+                <RotateTransform x:Name="btnAlgemeenRotate" Angle="0" />                
+            </Button.LayoutTransform>           
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource Reset_Accordion}" />
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="btnAlgemeenRotate"
+                                    Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                    To="0" Duration="00:00:00" />                                                         
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Algemeen_Window"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Algemeen_Window, Path=Width}" To="700*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Algemeen_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="323*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Contact_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Line_ups_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Tickets_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <!--<v:GridLengthAnimation
+                                    Storyboard.TargetName="Settings_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>-->
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <v:Algemeen Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" />
+        
+        <Button x:Name="btnContact" Content="Contactpersonen" Grid.Column="2" Style="{DynamicResource Main_Button}">
+            <Button.LayoutTransform>
+                <RotateTransform x:Name="btnContactRotate" Angle="0" />
+            </Button.LayoutTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource Reset_Accordion}" />
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="btnContactRotate"
+                                    Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                    To="0" Duration="00:00:00" />
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Contact_Window"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Contact_Window, Path=Width}" To="700*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Contact_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="323*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Algemeen_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Line_ups_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Tickets_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <!--<v:GridLengthAnimation
+                                    Storyboard.TargetName="Settings_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>-->
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <v:ContactContainer Grid.Column="3" Grid.Row="1" Margin="0,10,0,0" />
+        
+        <Button Content="Line-ups" Grid.Column="4" Style="{DynamicResource Main_Button}">
+            <Button.LayoutTransform>
+                <RotateTransform x:Name="btnLineUpRotate" Angle="0" />
+            </Button.LayoutTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource Reset_Accordion}" />
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="btnLineUpRotate"
+                                    Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                    To="0" Duration="00:00:00" />
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Line_ups_Window"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Line_ups_Window, Path=Width}" To="700*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Line_ups_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="323*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Algemeen_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Contact_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Tickets_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <!--<v:GridLengthAnimation
+                                    Storyboard.TargetName="Settings_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>-->
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <v:Line_Up Grid.Column="5" Grid.Row="1" Margin="0,10,0,0" />
+        
+        <Button Content="Tickets" Grid.Column="6" Style="{DynamicResource Main_Button}">
+            <Button.LayoutTransform>
+                <RotateTransform x:Name="btnTicketsRotate" Angle="0" />
+            </Button.LayoutTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource Reset_Accordion}" />
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="btnTicketsRotate"
+                                    Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                    To="0" Duration="00:00:00" />
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Tickets_Window"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Tickets_Window, Path=Width}" To="700*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Tickets_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="323*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Contact_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Line_ups_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Algemeen_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <!--<v:GridLengthAnimation
+                                    Storyboard.TargetName="Settings_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>-->
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <v:Tickets Grid.Column="7" Grid.Row="1" Margin="0,10,0,0" />
+        
+        <!--<Button Content="Instellingen" Grid.Column="8" Style="{DynamicResource Main_Button}">
+            <Button.LayoutTransform>
+                <RotateTransform x:Name="btnSettingsRotate" Angle="0" />
+            </Button.LayoutTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource Reset_Accordion}" />
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="btnSettingsRotate"
+                                    Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                    To="0" Duration="00:00:00" />
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Settings_Window"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Settings_Window, Path=Width}" To="700*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Settings_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Settings, Path=Width}" To="323*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Contact_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Line_ups_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Algemeen_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                                <v:GridLengthAnimation
+                                    Storyboard.TargetName="Tickets_btn"
+                                    Storyboard.TargetProperty="Width"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    Duration="00:00:0.4"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <v:Algemeen Grid.Column="9" Grid.Row="1" Margin="0,10,0,0" />-->
+        
+        <Label Content="Festival Manager&#xA;" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="36" Height="60" Width="996" Grid.ColumnSpan="7"/>
+       
+    </Grid>
+</Window>

@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace FestivalManager_2.View
+{
+    /// <summary>
+    /// Interaction logic for ContactBewerk.xaml
+    /// </summary>
+    public partial class ContactBewerk : UserControl
+    {
+        public ContactBewerk()
+        {
+            InitializeComponent();
+        }
+
+        private void Contact_Back_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+    }
+}
