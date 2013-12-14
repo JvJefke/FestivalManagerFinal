@@ -79,15 +79,19 @@
     <Compile Include="Model\ContactType.cs" />
     <Compile Include="Model\DAL\ContactRepository.cs" />
     <Compile Include="Model\DAL\ContactTypeRepository.cs" />
+    <Compile Include="Model\DAL\DatumRepository.cs" />
     <Compile Include="Model\DAL\FestivalRepository.cs" />
     <Compile Include="Model\DAL\FunctieRepository.cs" />
     <Compile Include="Model\DAL\GroepenRepository.cs" />
     <Compile Include="Model\DAL\OptredenRepository.cs" />
     <Compile Include="Model\DAL\OrganisatieRepository.cs" />
+    <Compile Include="Model\DAL\PodiumRepository.cs" />
     <Compile Include="Model\DAL\RelayCommand.cs" />
     <Compile Include="Model\DAL\ReserveringRepository.cs" />
     <Compile Include="Model\DAL\TicketRepository.cs" />
+    <Compile Include="Model\DAL\UrenRepository.cs" />
     <Compile Include="Model\Database.cs" />
+    <Compile Include="Model\Datum.cs" />
     <Compile Include="Model\Festival.cs" />
     <Compile Include="Model\Functie.cs" />
     <Compile Include="Model\Genre.cs" />
@@ -97,6 +101,7 @@
     <Compile Include="Model\Podium.cs" />
     <Compile Include="Model\Reservering.cs" />
     <Compile Include="Model\Ticket.cs" />
+    <Compile Include="Model\Uur.cs" />
     <Compile Include="ViewModel\AlgemeenVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\ContactBewerkVM.cs" />
@@ -134,6 +139,9 @@
     </Compile>
     <Compile Include="View\Line-UpPodiaBewerk.xaml.cs">
       <DependentUpon>Line-UpPodiaBewerk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Line-UpPodiaOverzicht.xaml.cs">
+      <DependentUpon>Line-UpPodiaOverzicht.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -188,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Line-UpPodiaBewerk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Line-UpPodiaOverzicht.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

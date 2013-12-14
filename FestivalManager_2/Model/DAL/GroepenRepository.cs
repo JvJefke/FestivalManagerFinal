@@ -19,13 +19,13 @@ namespace FestivalManager_2.Model.DAL
 
             while (reader.Read())
             {
-                lGroepen.Add(MaakFunctie(reader));
+                lGroepen.Add(MaakGroep(reader));
             }
 
             return lGroepen;
         }
 
-        private static Groep MaakFunctie(DbDataReader reader)
+        private static Groep MaakGroep(DbDataReader reader)
         {
             Groep g = new Groep();
 
@@ -47,6 +47,18 @@ namespace FestivalManager_2.Model.DAL
         internal static void DeleteGroep(Groep g)
         {
             throw new NotImplementedException();
+        }
+
+        internal static Groep GetGroepenById(int ID)
+        {
+            string sql = "SELECT * FROM groep WHERE GroepID = @ID";
+
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", ID));
+
+            if (reader.Read())
+                return MaakGroep(reader);
+            else
+                return null;
         }
     }
 }

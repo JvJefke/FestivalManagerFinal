@@ -25,8 +25,8 @@
                     <TextBlock Margin="10,10,10,0" Grid.Row="0" Grid.Column="1" FontSize="18" Text="{Binding Naam}"/>
                     <TextBlock Margin="25,0,0,0" Text="{Binding GenreString}" Grid.Row="1" Grid.Column="1" FontSize="16" Foreground="#CF000000"/>
                     <Rectangle Grid.Column="2" Grid.RowSpan="2" Width="1" VerticalAlignment="Stretch" Margin="0,5,0,5" HorizontalAlignment="Left" Fill="Black"/>
-                    <Button Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding DataContext.PasGroepAanCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Opacity="0"/>
-                    <Button Grid.Column="3" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding DataContext.DeleteGroepCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Opacity="0"/>
+                    <Button Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding DataContext.PasGroepAanCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Opacity="0" Cursor="Hand"/>
+                    <Button Grid.Column="3" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding DataContext.DeleteGroepCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Opacity="0" Cursor="Hand"/>
                 </Grid>
             </Border>
         </DataTemplate>

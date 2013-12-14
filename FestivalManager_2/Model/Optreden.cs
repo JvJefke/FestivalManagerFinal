@@ -11,8 +11,6 @@ namespace FestivalManager_2.Model
         public int ID { get; set; }
         public Groep Groep { get; set; }
         public Podium Podium { get; set; }
-        public DateTime Datum { get; set; }
-        public DateTime BeginUur { get; set; }
-        public DateTime EindUur { get; set; }
+        public Datum Datum { get; set; }
     }
 }
