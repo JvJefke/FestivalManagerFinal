@@ -21,7 +21,8 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Padding="10,0,10,0" Margin="0,3,0,0" Text="Genre" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"/>
                     <Rectangle Grid.Column="0" Width="1" VerticalAlignment="Stretch" Margin="0,5,0,5" HorizontalAlignment="Right" Fill="Black"/>
-                    <Image Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    <Image Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/Images/Delete-icon.png" Height="15"/>
+                    <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0" Cursor="Hand" Command="{Binding DataContext.VerwijderGenreCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
                 </Grid>
             </Border>
         </DataTemplate>

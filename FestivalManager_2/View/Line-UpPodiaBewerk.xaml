@@ -38,7 +38,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" />
+        <TextBox Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" Text="{Binding SelectedPodium.Naam}" />
         <ComboBox Grid.Column="2" Margin="10,10,10,10" Style="{StaticResource Algemeen_ComboBox}" ItemsSource="{Binding Datums}" SelectedItem="{Binding SelectedDatum}"/>
         <Button x:Name="VoegNieuwPodiumToe" Grid.ColumnSpan="3" Content="Voeg een nieuwe groep toe" HorizontalAlignment="Stretch" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Stretch" />
         <ListBox Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,10" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid_Podia_Bewerk}" ItemsSource="{Binding Uren}">

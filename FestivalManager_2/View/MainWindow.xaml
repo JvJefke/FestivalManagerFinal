@@ -18,7 +18,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Padding" Value="0px 0px 0px 0px" />
-            <Setter Property="Margin" Value="30,10,0,0"/>
+            <Setter Property="Margin" Value="20,10,0,0"/>
             <Setter Property="Grid.Row" Value="1" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -42,10 +42,10 @@
                 Storyboard.TargetName="btnTicketsRotate"
                 Storyboard.TargetProperty="(RotateTransform.Angle)"
                 To="-90" Duration="00:00:00" />
-            <!--<DoubleAnimation
+            <DoubleAnimation
                 Storyboard.TargetName="btnSettingsRotate"
                 Storyboard.TargetProperty="(RotateTransform.Angle)"
-                To="-90" Duration="00:00:00" />-->
+                To="-90" Duration="00:00:00" />
             <v:GridLengthAnimation
                 Storyboard.TargetName="Algemeen_Window"
                 Storyboard.TargetProperty="Width"
@@ -66,11 +66,11 @@
                 Storyboard.TargetProperty="Width"
                 From="{Binding ElementName=Tickets_Window, Path=Width}" To="0*"
                 Duration="00:00:00" />
-            <!--<v:GridLengthAnimation
+            <v:GridLengthAnimation
                 Storyboard.TargetName="Settings_Window"
                 Storyboard.TargetProperty="Width"
                 From="{Binding ElementName=Settings_Window, Path=Width}" To="0*"
-                Duration="00:00:0.4" />-->
+                Duration="00:00:0.4" />
         </Storyboard>
 
     </Window.Resources>
@@ -81,8 +81,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            
+        <Grid.ColumnDefinitions>            
             <ColumnDefinition x:Name="Algemeen_btn" Width="100*"/>
             <ColumnDefinition x:Name="Algemeen_Window" Width="0*"/>
             <ColumnDefinition x:Name="Contact_btn" Width="100*"/>
@@ -91,8 +90,8 @@
             <ColumnDefinition x:Name="Line_ups_Window" Width="0*"/>
             <ColumnDefinition x:Name="Tickets_btn" Width="100*"/>
             <ColumnDefinition x:Name="Tickets_Window" Width="0*"/>
-            <!--<ColumnDefinition x:Name="Settings_btn" Width="100*"/>
-            <ColumnDefinition x:Name="Settings_Window" Width="0*"/>-->
+            <ColumnDefinition x:Name="Settings_btn" Width="100*"/>
+            <ColumnDefinition x:Name="Settings_Window" Width="0*"/>
         </Grid.ColumnDefinitions>
 
         <!--Main met accordion-->
@@ -118,28 +117,28 @@
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Algemeen_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Algemeen, Path=Width}" To="323*"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="275*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Contact_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Line_ups_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Tickets_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
-                                <!--<v:GridLengthAnimation
+                                <v:GridLengthAnimation
                                     Storyboard.TargetName="Settings_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
-                                    Duration="00:00:0.4"/>-->
+                                    From="{Binding ElementName=Settings, Path=Width}" To="75*"
+                                    Duration="00:00:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -170,28 +169,28 @@
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Contact_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Contact, Path=Width}" To="323*"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="275*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Algemeen_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Line_ups_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Tickets_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
-                                <!--<v:GridLengthAnimation
+                                <v:GridLengthAnimation
                                     Storyboard.TargetName="Settings_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
-                                    Duration="00:00:0.4"/>-->
+                                    From="{Binding ElementName=Settings, Path=Width}" To="75*"
+                                    Duration="00:00:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -222,28 +221,28 @@
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Line_ups_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Line_ups, Path=Width}" To="323*"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="275*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Algemeen_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Contact_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Tickets_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
-                                <!--<v:GridLengthAnimation
+                                <v:GridLengthAnimation
                                     Storyboard.TargetName="Settings_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
-                                    Duration="00:00:0.4"/>-->
+                                    From="{Binding ElementName=Settings, Path=Width}" To="75*"
+                                    Duration="00:00:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -274,28 +273,28 @@
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Tickets_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Tickets, Path=Width}" To="323*"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="275*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Contact_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Line_ups_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Algemeen_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
-                                <!--<v:GridLengthAnimation
+                                <v:GridLengthAnimation
                                     Storyboard.TargetName="Settings_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Settings, Path=Width}" To="100*"
-                                    Duration="00:00:0.4"/>-->
+                                    From="{Binding ElementName=Settings, Path=Width}" To="75*"
+                                    Duration="00:00:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -304,7 +303,7 @@
         </Button>
         <v:Tickets Grid.Column="7" Grid.Row="1" Margin="0,10,0,0" />
         
-        <!--<Button Content="Instellingen" Grid.Column="8" Style="{DynamicResource Main_Button}">
+        <Button Content="Instellingen" Grid.Column="8" Style="{DynamicResource Main_Button}">
             <Button.LayoutTransform>
                 <RotateTransform x:Name="btnSettingsRotate" Angle="0" />
             </Button.LayoutTransform>
@@ -326,27 +325,27 @@
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Settings_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Settings, Path=Width}" To="323*"
+                                    From="{Binding ElementName=Settings, Path=Width}" To="275*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Contact_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Contact, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Contact, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Line_ups_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Line_ups, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Line_ups, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Algemeen_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Algemeen, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Algemeen, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                                 <v:GridLengthAnimation
                                     Storyboard.TargetName="Tickets_btn"
                                     Storyboard.TargetProperty="Width"
-                                    From="{Binding ElementName=Tickets, Path=Width}" To="100*"
+                                    From="{Binding ElementName=Tickets, Path=Width}" To="75*"
                                     Duration="00:00:0.4"/>
                             </Storyboard>
                         </BeginStoryboard>
@@ -354,7 +353,7 @@
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-        <v:Algemeen Grid.Column="9" Grid.Row="1" Margin="0,10,0,0" />-->
+        <v:Settings Grid.Column="9" Grid.Row="1" Margin="0,10,0,0" />
         
         <Label Content="Festival Manager&#xA;" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="36" Height="60" Width="996" Grid.ColumnSpan="7"/>
        
