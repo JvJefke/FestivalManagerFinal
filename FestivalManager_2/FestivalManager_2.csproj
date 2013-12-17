@@ -83,6 +83,7 @@
     <Compile Include="Model\DAL\DatumRepository.cs" />
     <Compile Include="Model\DAL\FestivalRepository.cs" />
     <Compile Include="Model\DAL\FunctieRepository.cs" />
+    <Compile Include="Model\DAL\GenreRepository.cs" />
     <Compile Include="Model\DAL\GroepenRepository.cs" />
     <Compile Include="Model\DAL\OptredenRepository.cs" />
     <Compile Include="Model\DAL\OrganisatieRepository.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="ViewModel\Line_UpGroepenVM.cs" />
     <Compile Include="ViewModel\Line_UpPodiaVM.cs" />
     <Compile Include="ViewModel\ObservableObject.cs" />
+    <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="ViewModel\TicketsBeherenVM.cs" />
     <Compile Include="ViewModel\TicketsOverzichtVM.cs" />
     <Compile Include="ViewModel\TicketsVM.cs" />
