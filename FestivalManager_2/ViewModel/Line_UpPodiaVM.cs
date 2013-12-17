@@ -119,7 +119,29 @@ namespace FestivalManager_2.ViewModel
         private void InitLineUp()
         {            
             FillUren();
+            //GetFirstOfOptreden();
             //this.Optredens = OptredenRepository.GetOptredensVanPodium(this.SelectedPodium);
+        }
+
+        private void GetFirstOfOptreden()
+        {
+            ObservableCollection<Uur> lNieuweUren = new ObservableCollection<Uur>();
+            
+            foreach(Uur u in this.Uren)
+            {
+                if (u.Optreden != null && this.Uren.Where(x => x.Optreden.ID == u.Optreden.ID).FirstOrDefault() != null)
+                {
+                    Uur first = this.Uren.Where(x => x.Optreden.ID == u.Optreden.ID).FirstOrDefault();
+                    if (u.UrenID == first.UrenID)
+                        lNieuweUren.Add(u);
+                    else
+                    {
+                        u.Optreden = null;
+                        lNieuweUren.Add(u);
+                    }
+                }else
+                        lNieuweUren.Add(u);
+            }
         }
 
         private void FillUren()

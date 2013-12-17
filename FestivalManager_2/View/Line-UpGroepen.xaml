@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:FestivalManager_2.ViewModel"
              xmlns:v="clr-namespace:FestivalManager_2.View"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="500">
+             d:DesignHeight="550" d:DesignWidth="500" ClipToBounds="False">
     <UserControl.DataContext>
         <vm:Line_UpGroepenVM />
     </UserControl.DataContext>

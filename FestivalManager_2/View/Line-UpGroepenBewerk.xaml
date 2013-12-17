@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="500">
+             d:DesignHeight="550" d:DesignWidth="500" ClipToBounds="False">
     <UserControl.Resources>
         <ItemsPanelTemplate x:Key="Genres_Wrappanel">
             <WrapPanel />
@@ -27,7 +27,7 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid x:Name="Groepen_Bewerk_Grid" Background="#FFF2F2F2">
+    <Grid x:Name="Groepen_Bewerk_Grid" Background="#FFF2F2F2" ClipToBounds="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="109"/>
             <ColumnDefinition Width="90"/>
@@ -41,8 +41,13 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <Image Source="/Images/Logo.png" Stretch="None" Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,0,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,0,0,0" VerticalAlignment="Top" Width="120" Cursor="Hand" Command="{Binding GaNaarOverzichtCommand}" Opacity="0"/>
+        <Button Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,-50,0,0" VerticalAlignment="Top" Width="120" Cursor="Hand" Command="{Binding GaNaarOverzichtCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/Images/Logo.png" Stretch="None" HorizontalAlignment="Left" Height="45" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <Image HorizontalAlignment="Left" Height="181" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding SelectedGroep.Image}"/>
         <Button Content="Upload logo" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="0" Grid.ColumnSpan="2"/>
         <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,36,0,0" Text="Groepnaam:"/>
@@ -54,7 +59,7 @@
         <TextBox Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,116,10,0" Text="{Binding SelectedGroep.Twitter}" TextWrapping="NoWrap"/>
         <TextBlock Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Margin="10,176,10,10" Width="100" Height="25" Text="Dag" FontSize="12"/>
         <TextBlock Grid.Column="3" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Top" Margin="50,176,10,10" Width="100" Height="25" Text="00:00 - 00:00" FontSize="12"/>
-        <Button Content="Wijzig" Grid.Column="3" HorizontalAlignment="Right" Margin="10,201,10,0" VerticalAlignment="Top" Width="75" Height="35"/>
+        <Button Content="Wijzig" Grid.Column="3" HorizontalAlignment="Right" Margin="10,201,10,0" VerticalAlignment="Top" Width="75" Height="35" />
 
         <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Beschrijving:" RenderTransformOrigin="0.3,0.062" Grid.Row="1"/>
         <TextBox Grid.Row="2" Grid.ColumnSpan="4" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding SelectedGroep.Beschrijving}"/>
@@ -66,7 +71,6 @@
             <ListItem></ListItem>
             <ListItem></ListItem>
             <ListItem></ListItem>
-        </ItemsControl>
-
+        </ItemsControl>        
     </Grid>
 </UserControl>

@@ -50,6 +50,7 @@
       <HintPath>..\..\..\Week_5_-_ADO.NET\Week_6_ADOnet\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -118,6 +119,7 @@
       <DependentUpon>ContactContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Converters\DummyConvertercs.cs" />
+    <Compile Include="View\Converters\IsOptredenToColorConverter.cs" />
     <Compile Include="View\GridLengthAnimations.cs" />
     <Compile Include="View\ContactBewerk.xaml.cs">
       <DependentUpon>ContactBewerk.xaml</DependentUpon>
@@ -281,6 +283,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Delete-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

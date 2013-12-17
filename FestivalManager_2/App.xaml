@@ -129,5 +129,23 @@
                 </Grid>
             </Border>
         </DataTemplate>
+        
+        <ControlTemplate x:Key="txtErrorRight">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderThickness="1px" BorderBrush="red">
+                    <AdornedElementPlaceholder />
+                </Border>
+                    <Polygon Points="15,0 0,10 15,20" Stroke="black" Fill="#FFFEF2" Margin="5,0,0,0"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="1px" Margin="-1,-6,0,0" Height="22" Background="#FFFEF2">
+                        <TextBlock Grid.Column="0" Text="{Binding ErrorContent}"  Foreground="red" />
+                    </Border>
+                </Grid>                
+            </StackPanel>
+        </ControlTemplate>
+        
     </Application.Resources>
 </Application>

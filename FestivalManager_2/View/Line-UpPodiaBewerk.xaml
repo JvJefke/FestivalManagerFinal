@@ -3,13 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:FestivalManager_2.View.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="545" d:DesignWidth="500">
     
     <UserControl.Resources>
+        
+        <c:IsOptredenToColorConverter x:Key="OptredentToColorConverter" />
+        
         <DataTemplate x:Key="List_Grid_Podia_Bewerk">
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,-5" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                <Grid HorizontalAlignment="Stretch" Margin="0">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,-5" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{Binding Optreden, Converter={StaticResource OptredentToColorConverter}}">
+                <Grid HorizontalAlignment="Stretch" Margin="0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="*"/>
