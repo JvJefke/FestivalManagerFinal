@@ -49,5 +49,19 @@ namespace FestivalManager_2.Model.DAL
             return lFuncties;
         }
 
+
+        internal static void SaveFunctie(Functie functie)
+        {
+            if (functie.ID != 0)
+            {
+                string sql = "Update functie SET Naam = @Naam WHERE FunctieID = @ID";
+                Database.ModifyData(sql, Database.AddParameter("@Naam", functie.Naam), Database.AddParameter("@ID", functie.ID));
+            }
+            else
+            {
+                string sql = "INSERT INTO functie (Naam) VALUES (@Naam)";
+                Database.ModifyData(sql, Database.AddParameter("@Naam", functie.Naam));
+            }
+        }
     }
 }

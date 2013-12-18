@@ -30,6 +30,20 @@ namespace FestivalManager_2.Model.DAL
             g.Naam = reader["Naam"].ToString();
 
             return g;
-        }            
+        }
+
+        public static void SaveGenre(Genre genre)
+        {
+            if(genre.ID != 0)
+            {
+                string sql = "Update genre SET Naam = @Naam WHERE GenreID = @ID";
+                Database.ModifyData(sql, Database.AddParameter("@Naam", genre.Naam), Database.AddParameter("@ID", genre.ID));
+            }
+            else
+            {
+                string sql = "INSERT INTO genre (Naam) VALUES (@Naam)";
+                Database.ModifyData(sql, Database.AddParameter("@Naam", genre.Naam));
+            }
+        }
     }
 }

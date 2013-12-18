@@ -44,7 +44,6 @@ namespace FestivalManager_2.Model.DAL
 
         public static void SaveOrganisatie(Organisatie o)
         {
-            string sql = "UPDATE organisatie SET Naam = @Naam, Straat_Nr = @Straat_Nr, Postcode = @Postcode, Gemeente = @Gemeente, Tel = @Tel, Email = @Email WHERE OrganisatieID = @oID";
             DbParameter par1 = Database.AddParameter("@Naam", o.Naam);
             DbParameter par2 = Database.AddParameter("@Tel", o.Tel);
             DbParameter par3 = Database.AddParameter("@Email", o.Email);
@@ -53,7 +52,16 @@ namespace FestivalManager_2.Model.DAL
             DbParameter par6 = Database.AddParameter("@Gemeente", o.Gemeente);
             DbParameter par7 = Database.AddParameter("@oID", o.ID);
 
-            Database.ModifyData(sql, par1, par2, par3, par4, par5, par6, par7);
+            if (o.ID != 0)
+            {
+                string sql = "UPDATE organisatie SET Naam = @Naam, Straat_Nr = @Straat_Nr, Postcode = @Postcode, Gemeente = @Gemeente, Tel = @Tel, Email = @Email WHERE OrganisatieID = @oID";
+                Database.ModifyData(sql, par1, par2, par3, par4, par5, par6, par7);
+            }
+            else
+            {
+                string sql = "INSERT INTO organisatie (Naam, Straat_Nr, Postcode, Gemeente, Tel, Email) VALUES (@Naam, @Straat_Nr, @Postcode, @Gemeente, @Tel, @Email)";
+                Database.ModifyData(sql, par1, par2, par3, par4, par5, par6);
+            }
         }
 
         public static ObservableCollection<Organisatie> GetOrganisaties()
