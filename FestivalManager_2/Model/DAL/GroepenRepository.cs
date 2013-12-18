@@ -35,6 +35,7 @@ namespace FestivalManager_2.Model.DAL
             g.Image = reader["Image"].ToString();
             g.Facebook = reader["Facebook"].ToString();
             g.Twitter = reader["Twitter"].ToString();
+            g.Genres = GenreRepository.GetGenresByGroepId(g.ID);
 
             return g;
         }
@@ -59,6 +60,24 @@ namespace FestivalManager_2.Model.DAL
                 return MaakGroep(reader);
             else
                 return null;
+        }
+
+        public static void RemoveGenre(Groep g, Genre gr)
+        {
+            string sql = "DELETE FROM groep_genre WHERE GroepID = @GID and GenreID = @GrID";
+            Database.ModifyData(sql,
+                Database.AddParameter("@GID", g.ID),
+                Database.AddParameter("@GrID", gr.ID)
+                );
+        }
+
+        internal static void AddGenre(Genre genre, Groep groep)
+        {
+            string sql = "INSERT INTO groep_genre VALUES (@GID, @GrID)";
+            Database.ModifyData(sql,
+                Database.AddParameter("@GID", groep.ID),
+                Database.AddParameter("@GrID", genre.ID)
+                );
         }
     }
 }

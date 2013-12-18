@@ -19,7 +19,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Padding="10,0,10,0" Margin="0,3,0,0" Text="Genre" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Padding="10,0,10,0" Margin="0,3,0,0" Text="{Binding Naam}" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"/>
                     <Rectangle Grid.Column="0" Width="1" VerticalAlignment="Stretch" Margin="0,5,0,5" HorizontalAlignment="Right" Fill="Black"/>
                     <Image Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/Images/Delete-icon.png" Height="15"/>
                     <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0" Cursor="Hand" Command="{Binding DataContext.VerwijderGenreCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
@@ -61,16 +61,12 @@
         <TextBlock Grid.Column="3" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Top" Margin="50,176,10,10" Width="100" Height="25" Text="00:00 - 00:00" FontSize="12"/>
         <Button Content="Wijzig" Grid.Column="3" HorizontalAlignment="Right" Margin="10,201,10,0" VerticalAlignment="Top" Width="75" Height="35" />
 
-        <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Beschrijving:" RenderTransformOrigin="0.3,0.062" Grid.Row="1"/>
+        <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Beschrijving:" Grid.Row="1"/>
         <TextBox Grid.Row="2" Grid.ColumnSpan="4" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding SelectedGroep.Beschrijving}"/>
 
-        <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Genres:" RenderTransformOrigin="0.3,0.062" Grid.Row="3"/>
-        <ItemsControl Grid.ColumnSpan="4" Grid.Row="4" ItemsPanel="{StaticResource Genres_Wrappanel}" ItemTemplate="{StaticResource List_Genres}">
-            <ListItem></ListItem>
-            <ListItem></ListItem>
-            <ListItem></ListItem>
-            <ListItem></ListItem>
-            <ListItem></ListItem>
-        </ItemsControl>        
+        <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Genres:" Grid.Row="3"/>
+        <ItemsControl Grid.ColumnSpan="4" Grid.Row="4" ItemsPanel="{StaticResource Genres_Wrappanel}" ItemTemplate="{StaticResource List_Genres}" ItemsSource="{Binding SelectedGroep.Genres}" Margin="0,0,150,0" />
+        <ComboBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" Height="25" Margin="0,10,10,0" ItemsSource="{Binding GenresVrToevoegen}" SelectedItem="{Binding SelectedGenreVrToevoegen}" Style="{StaticResource Algemeen_ComboBox}" />
+        <Button Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" Height="25" Margin="0,59,10,0" Content="Toevoegen" Command="{Binding GenreToevoegenAanGroepCommand}"/>
     </Grid>
 </UserControl>

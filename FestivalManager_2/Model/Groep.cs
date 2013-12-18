@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,7 @@ namespace FestivalManager_2.Model
         public string Image { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
+
+        public ObservableCollection<Genre> Genres { get; set; }
     }
 }

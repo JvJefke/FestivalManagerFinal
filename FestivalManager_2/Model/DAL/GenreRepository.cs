@@ -45,5 +45,17 @@ namespace FestivalManager_2.Model.DAL
                 Database.ModifyData(sql, Database.AddParameter("@Naam", genre.Naam));
             }
         }
+
+        internal static ObservableCollection<Genre> GetGenresByGroepId(int ID)
+        {
+            ObservableCollection<Genre> lGenres = new ObservableCollection<Genre>();
+            string sql = "SELECT * FROM genre INNER JOIN groep_genre ON genre.GenreID = groep_genre.GenreID WHERE GroepID = @ID";
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", ID));
+
+            while (reader.Read())
+                lGenres.Add(MaakNieuwGenre(reader));
+
+            return lGenres;
+        }
     }
 }

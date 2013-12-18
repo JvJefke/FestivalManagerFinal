@@ -16,10 +16,14 @@ namespace FestivalManager_2.ViewModel
     {
         public Line_UpGroepenVM()
         {
-            _alleGroepen = GroepenRepository.GetGroepen();
-            _groepen = _alleGroepen;
-            _isBewerkVisible = Visibility.Collapsed;
-            _isOverzichtVisible = Visibility.Visible;
+            this._alleGroepen = GroepenRepository.GetGroepen();
+            this._groepen = _alleGroepen;
+            this._isBewerkVisible = Visibility.Collapsed;
+            this._isOverzichtVisible = Visibility.Visible;
+            this._genres = GenreRepository.GetGenres();
+            this._genres.Insert(0, new Genre() { Naam = "---- Alle groepen ----" });
+            this._genresVrToevoegen = GenreRepository.GetGenres();
+            this._selectedGenreVrToevoegen = this.GenresVrToevoegen[0];            
         }
 
         public string Name
@@ -53,22 +57,42 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _search = value;
-                UpdateGroepen(this.Search);
+                UpdateGroepen();
             }
         }
 
-        private void UpdateGroepen(string p)
+        private void UpdateGroepen()
         {
-            if (p == null || p == "")
+            string p = this.Search;
+
+            if (this.SelectedGenre != null && this.SelectedGenre.ID != 0)
+                this.Groepen = FilterGroepenByGenre();
+            else
                 this.Groepen = this._alleGroepen;
 
+            if (p == null || p == "")
+                return;
+
             ObservableCollection<Groep> lGroepen = new ObservableCollection<Groep>();
-            foreach(Groep g in this._alleGroepen)
+            foreach(Groep g in this.Groepen)
             {
                 if (g.Naam.ToLower().Contains(p.ToLower()))
                     lGroepen.Add(g);
             }
             this.Groepen = lGroepen;
+        }
+
+        private ObservableCollection<Groep> FilterGroepenByGenre()
+        {
+            ObservableCollection<Groep> lGroepen = new ObservableCollection<Groep>();
+
+            foreach(Groep g in this._alleGroepen)
+            {                
+               if (g.Genres.Where(x => x.ID == this.SelectedGenre.ID).FirstOrDefault() != null)
+                        lGroepen.Add(g);                
+            }
+
+            return lGroepen;            
         }
 
         private Visibility _isBewerkVisible;
@@ -173,5 +197,99 @@ namespace FestivalManager_2.ViewModel
         {
             GroepenRepository.DeleteGroep(g);
         }
-    }
+
+        public ICommand VerwijderGenreCommand
+        {
+            get { return new RelayCommand<Genre>(VerwijderGenre); }
+        }
+
+        private void VerwijderGenre(Genre g)
+        {
+            Groep temp = this.SelectedGroep;
+            GroepenRepository.RemoveGenre(temp, g);
+
+            this._alleGroepen = GroepenRepository.GetGroepen();
+            this.Groepen = _alleGroepen;
+
+            UpdateGroepen();
+            this.SelectedGroep = this.Groepen.Where(x => x.ID == temp.ID).FirstOrDefault();            
+        }
+
+        private Genre _selectedGenre;
+        public Genre SelectedGenre
+        {
+            get
+            {
+                return _selectedGenre;
+            }
+            set
+            {
+                _selectedGenre = value;
+                UpdateGroepen();
+                OnPropertyChanged("SelectedGenre");
+            }
+        }
+
+        private ObservableCollection<Genre> _genres;
+        public ObservableCollection<Genre> Genres
+        {
+            get 
+            { 
+                return _genres; 
+            }
+            set 
+            { 
+                _genres = value;
+                OnPropertyChanged("Genres");
+            }
+        }
+
+        private ObservableCollection<Genre> _genresVrToevoegen;
+        public ObservableCollection<Genre> GenresVrToevoegen
+        {
+            get
+            {
+                return _genresVrToevoegen;
+            }
+            set
+            {
+                _genresVrToevoegen = value;
+                OnPropertyChanged("GenresVrToevoegen");
+            }
+        }
+
+        private Genre _selectedGenreVrToevoegen;
+        public Genre SelectedGenreVrToevoegen
+        {
+            get
+            {
+                return _selectedGenreVrToevoegen;
+            }
+            set
+            {
+                this._selectedGenreVrToevoegen = value;
+                OnPropertyChanged("SelectedGenreVrToevoegen");
+            }
+        }
+
+        public ICommand GenreToevoegenAanGroepCommand
+        {
+            get
+            {
+                return new RelayCommand(GenreToevoegenAanGroep);
+            }
+        }
+
+        private void GenreToevoegenAanGroep()
+        {
+            if (this.SelectedGroep.Genres.Where(x => x.ID == this.SelectedGenreVrToevoegen.ID).FirstOrDefault() == null)
+            {
+                int TempID = this.SelectedGroep.ID;
+
+                GroepenRepository.AddGenre(this.SelectedGenreVrToevoegen, this.SelectedGroep);
+                this.Groepen = GroepenRepository.GetGroepen();
+                this.SelectedGroep = this.Groepen.Where(x => x.ID == TempID).FirstOrDefault();
+            }
+        }
+    }    
 }
