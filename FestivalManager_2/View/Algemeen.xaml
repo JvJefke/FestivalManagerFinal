@@ -56,17 +56,8 @@
             <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Gemeente}"/>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" Style="{DynamicResource Lijn_Stretched}" />
 
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Contact Organisatie" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="181" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,52,0,0" Text="E-mail:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" />
-            <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,82,0,0" Text="Tel.:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" />
-            <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,112,0,0" Text="Straat + Nr:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" />
-            <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,142,0,0" Text="Postcode:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" />
-            <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,142,0,0" Text="Gemeente:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" Width="73" />
-            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,51,10,0" Text="{Binding CurrentOrganisatie.Email}"/>
-            <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,81,10,0" Text="{Binding CurrentOrganisatie.Tel}"/>
-            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,111,10,0" Text="{Binding CurrentOrganisatie.Straat_Nr}"/>
-            <TextBox Grid.Column="1" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,141,10,0" Text="{Binding CurrentOrganisatie.Postcode}"/>
-            <TextBox Grid.Column="3" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,141,10,0" Text="{Binding CurrentOrganisatie.Gemeente}"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Beschrijving" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="181" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox Margin="10,45,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Beschrijving}"/>
         </Grid>
     </Border>
 </UserControl>

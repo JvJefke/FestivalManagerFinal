@@ -55,5 +55,56 @@ namespace FestivalManager_2.Model.DAL
 
             return lUren;
         }
+
+        internal static ObservableCollection<Uur> GetUrenByUurTekst(int MinUur, int MinMin, int MaxUur, int MaxMin)
+        {            
+            string sUMin = MinUur.ToString() + ":" + MinMin.ToString();
+            string sUMax = MaxUur.ToString() + ":" + MaxMin.ToString();
+            Uur uMin = MaakUurByNaam(sUMin);
+            Uur uMax = MaakUurByNaam(sUMax);
+
+            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+
+            if((uMax.UrenID - uMin.UrenID) > 1)
+            {                
+                string sql = "SELECT * FROM uur WHERE UurID > @UurMinID and UurID < @UurMaxID";
+                DbDataReader reader = Database.GetData(sql, Database.AddParameter("@UurMinID", uMin.UrenID), Database.AddParameter("@UurMaxID", uMax.UrenID));
+
+                while(reader.Read())
+                {
+                    lUren.Add(MaakUur(reader, false));
+                }
+
+                reader.Close();
+                return lUren;
+            }
+            else if(uMax.UrenID == uMin.UrenID)
+            {
+                lUren.Add(uMax);
+                return lUren;
+            }
+            else
+            {
+                lUren.Add(uMax);
+                lUren.Add(uMin);
+                return lUren;
+            }            
+        }
+
+        private static Uur MaakUurByNaam(string Naam)
+        {
+            Uur u = null;
+            string sql = "SELECT * FROM uur WHERE Uur = @Uur";
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@Uur", Naam));
+
+            if (reader.Read())
+            {
+                u = MaakUur(reader, false);
+            }
+
+            reader.Close();
+
+            return u;
+        }
     }
 }

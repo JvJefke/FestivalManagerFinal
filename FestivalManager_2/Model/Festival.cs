@@ -16,6 +16,7 @@ namespace FestivalManager_2.Model
         public string Straat_Nr { get; set; }
         public string Postcode { get; set; }
         public string Gemeente { get; set; }
-        public string Image { get; set; }       
+        public string Image { get; set; }
+        public string Beschrijving { get; set; }
     }
 }

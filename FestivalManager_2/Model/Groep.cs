@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FestivalManager_2.Model
 {
-    class Groep
+    class Groep : IComparable
     {
         public int ID { get; set; }
         public string Naam { get; set; }
@@ -17,5 +17,16 @@ namespace FestivalManager_2.Model
         public string Twitter { get; set; }
 
         public ObservableCollection<Genre> Genres { get; set; }
+
+        public override string ToString()
+        {
+            return this.Naam;
+        }
+
+        public int CompareTo(object obj)
+        {
+            Groep g = (Groep)obj;
+            return this.Naam.CompareTo(g.Naam);
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace FestivalManager_2.Model.DAL
                 f.Gemeente = reader["Gemeente"].ToString();
                 f.Image = reader["Image"].ToString();
                 f.Organisatie = OrganisatieRepository.GetOrganisatieFromID(Convert.ToInt32(reader["OrganisatieID"]));
+                f.Beschrijving = reader["Beschrijving"].ToString();
 
                 return f;
             }
@@ -39,7 +40,7 @@ namespace FestivalManager_2.Model.DAL
         {
             OrganisatieRepository.SaveOrganisatie(f.Organisatie);
 
-            string sql = "UPDATE festival SET Naam = @Naam, OrganisatieID = @OrganisatieID, Startdatum = @Startdatum, Einddatum = @Einddatum, Straat_Nr = @Straat_Nr, Postcode = @Postcode, Gemeente = @Gemeente, Image = @Image";
+            string sql = "UPDATE festival SET Naam = @Naam, OrganisatieID = @OrganisatieID, Startdatum = @Startdatum, Einddatum = @Einddatum, Straat_Nr = @Straat_Nr, Postcode = @Postcode, Gemeente = @Gemeente, Image = @Image, Beschrijving = @Beschrijving";
             DbParameter par1 = Database.AddParameter("@Naam", f.Naam);
             DbParameter par2 = Database.AddParameter("@OrganisatieID", f.Organisatie.ID);
             DbParameter par3 = Database.AddParameter("@Startdatum", f.Startdatum);
@@ -48,8 +49,9 @@ namespace FestivalManager_2.Model.DAL
             DbParameter par6 = Database.AddParameter("@Postcode", f.Postcode);
             DbParameter par7 = Database.AddParameter("@Gemeente", f.Gemeente);
             DbParameter par8 = Database.AddParameter("@Image", f.Image);
+            DbParameter par9 = Database.AddParameter("@Beschrijving", f.Beschrijving);
 
-            Database.ModifyData(sql, par1, par2, par3, par4, par5, par6, par7, par8);
+            Database.ModifyData(sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
         }
     }
 }

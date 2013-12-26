@@ -25,6 +25,12 @@ namespace FestivalManager_2.ViewModel
             
             _datums = DatumRepository.GetDatums();
             _selectedDatum = _datums[0];
+
+            Groepen = GroepenRepository.GetGroepen();
+
+            _allUrenForOptredenAdd = UrenRepository.GetUren();
+            _nieuwOptredenUur = new OptredenUurVM(){Optreden = new Optreden(), Uren = new ObservableCollection<Uur>()};
+
         }
         public string Name
         {
@@ -45,7 +51,39 @@ namespace FestivalManager_2.ViewModel
             }
         }
 
-        private Visibility _isOverzichtVisible;
+        private OptredenUurVM _nieuwOptredenUur;
+        public OptredenUurVM NieuwOptredenUur
+        {
+            get
+            {
+                return _nieuwOptredenUur;
+            }
+            set
+            {
+                _nieuwOptredenUur = value;
+                OnPropertyChanged("NieuwOptreden");
+            }
+        }
+
+        private ObservableCollection<Groep> _groepen;
+        public ObservableCollection<Groep> Groepen
+        {
+            get
+            {
+                return _groepen;
+            }
+            set
+            {
+                _groepen = value;
+                _groepen.OrderBy(i => i);
+                OnPropertyChanged("Groepen");
+            }
+        }
+
+        private ObservableCollection<Uur> _VolledigeUrenLijst;
+        private ObservableCollection<Uur> _VolledigeUrenLijst;
+
+       private Visibility _isOverzichtVisible;
         public Visibility IsOverzichtVisible
         {
             get
@@ -71,7 +109,7 @@ namespace FestivalManager_2.ViewModel
                 _isBewerkVisible = value;
                 OnPropertyChanged("IsBewerkVisible");
             }
-        }
+        }       
 
         private Podium _selectedPodium;
         public Podium SelectedPodium
@@ -83,6 +121,7 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _selectedPodium = value;
+                _nieuwOptredenUur.Optreden.Podium = this._selectedPodium;
                 InitLineUp();
                 OnPropertyChanged("SelectedPodium");
             }
@@ -197,6 +236,7 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _selectedDatum = value;
+                NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
                 FilterUren();
                 OnPropertyChanged("SelectedDatum");
             }
@@ -258,5 +298,8 @@ namespace FestivalManager_2.ViewModel
             this.IsOverzichtVisible = Visibility.Collapsed;
             this.IsBewerkVisible = Visibility.Visible;
         }
+       
+
+
     }
 }

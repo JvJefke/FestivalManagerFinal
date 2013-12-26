@@ -97,7 +97,10 @@ namespace FestivalManager_2.Model.DAL
             foreach(Reservering r in lOud)
                 if(lNieuw.FirstOrDefault(x => x.ID == r.ID) == null)
                 {
-                    string sql = "DELETE FROM reservering WHERE ReserveringID = @ID";
+                    string sql = "DELETE FROM reservering_ticket WHERE ReserveringID = @ID";
+                    Database.ModifyData(sql, Database.AddParameter("@ID", r.ID));
+
+                    sql = "DELETE FROM reservering WHERE ReserveringID = @ID";
                     Database.ModifyData(sql, Database.AddParameter("@ID", r.ID));
                 }
 
