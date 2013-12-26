@@ -47,5 +47,47 @@ namespace FestivalManager_2.Model.DAL
             else
                 return null;
         }
+
+        internal static int SaveOptreden(Optreden optreden)
+        {
+            if (optreden.ID == 0)
+                return SaveNew(optreden);
+            else
+                return Update(optreden);
+        }
+
+        private static int Update(Optreden optreden)
+        {
+            string sql = "UPDATE optreden SET GroepID = @GroepID, PodiumID = @PodiumID, DatumID = @DatumID WHERE OptredenID = @OptredenID";
+            int i = Database.ModifyData(sql
+                , Database.AddParameter("@GroepID", optreden.Groep.ID)
+                , Database.AddParameter("@PodiumID", optreden.Podium.ID)
+                , Database.AddParameter("@DatumID", optreden.Datum.DatumID)
+                , Database.AddParameter("@OptredenID", optreden.ID));
+
+            if (i == 1)
+                return optreden.ID;
+            else
+                return 0;
+        }
+
+        private static int SaveNew(Optreden optreden)
+        {
+            string sql = "INSERT INTO optreden (GroepID, PodiumID, DatumID) VALUES (@GroepID, @PodiumID, @DatumID); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+            DbDataReader reader = Database.GetData(sql
+                , Database.AddParameter("@GroepID", optreden.Groep.ID)
+                , Database.AddParameter("@PodiumID", optreden.Podium.ID)
+                , Database.AddParameter("@DatumID", optreden.Datum.DatumID)
+                );
+
+            if(reader.Read())
+            {
+                int i = Convert.ToInt32(reader[0]); 
+                reader.Close();
+                return i;
+            }
+            
+            return 0;
+        }
     }
 }

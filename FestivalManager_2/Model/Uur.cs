@@ -12,5 +12,10 @@ namespace FestivalManager_2.Model
         public string UurTekst { get; set; }
 
         public Optreden Optreden { get; set; }
+
+        public override string ToString()
+        {
+            return this.UurTekst;
+        }
     }
 }

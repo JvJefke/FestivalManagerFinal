@@ -137,6 +137,7 @@
     <Compile Include="ViewModel\TicketsBeherenVM.cs" />
     <Compile Include="ViewModel\TicketsOverzichtVM.cs" />
     <Compile Include="ViewModel\TicketsVM.cs" />
+    <Compile Include="ViewModel\UurAddVM.cs" />
     <Compile Include="View\ContactContainer.xaml.cs">
       <DependentUpon>ContactContainer.xaml</DependentUpon>
     </Compile>

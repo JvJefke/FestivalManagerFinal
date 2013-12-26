@@ -20,17 +20,17 @@ namespace FestivalManager_2.ViewModel
         {
             _isOverzichtVisible = Visibility.Visible;
             _isBewerkVisible = Visibility.Collapsed;
+
+            _urenAdd = UurAddVM.GetUren();
+            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden(), Uren = new ObservableCollection<Uur>() };
             
             _podiums = PodiumRepository.GetPodia();
             
             _datums = DatumRepository.GetDatums();
             _selectedDatum = _datums[0];
+            NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
 
             Groepen = GroepenRepository.GetGroepen();
-
-            _allUrenForOptredenAdd = UrenRepository.GetUren();
-            _nieuwOptredenUur = new OptredenUurVM(){Optreden = new Optreden(), Uren = new ObservableCollection<Uur>()};
-
         }
         public string Name
         {
@@ -80,8 +80,19 @@ namespace FestivalManager_2.ViewModel
             }
         }
 
-        private ObservableCollection<Uur> _VolledigeUrenLijst;
-        private ObservableCollection<Uur> _VolledigeUrenLijst;
+        private ObservableCollection<UurAddVM> _urenAdd;
+        public ObservableCollection<UurAddVM> UrenAdd
+        {
+            get
+            {
+                return _urenAdd;
+            }
+            set
+            {
+                _urenAdd = value;
+                OnPropertyChanged("UrenAdd");
+            }
+        }
 
        private Visibility _isOverzichtVisible;
         public Visibility IsOverzichtVisible
@@ -158,8 +169,6 @@ namespace FestivalManager_2.ViewModel
         private void InitLineUp()
         {            
             FillUren();
-            //GetFirstOfOptreden();
-            //this.Optredens = OptredenRepository.GetOptredensVanPodium(this.SelectedPodium);
         }
 
         private void GetFirstOfOptreden()
@@ -186,7 +195,7 @@ namespace FestivalManager_2.ViewModel
         private void FillUren()
         {
             this.Uren = UrenRepository.GetUrenByPodiumAndDatumId(this.SelectedPodium, this.SelectedDatum);
-            ObservableCollection<Uur> lUren = UrenRepository.GetUren();  
+            ObservableCollection<Uur> lUren = UrenRepository.GetUren(false);  
             ObservableCollection<Uur> LNieuweUren = new ObservableCollection<Uur>();
 
             if (this.Uren.Count == 0)
@@ -299,7 +308,46 @@ namespace FestivalManager_2.ViewModel
             this.IsBewerkVisible = Visibility.Visible;
         }
        
+        public ICommand VoegGroepToeCommand
+        {
+            get { return new RelayCommand(VoegGroepToe); }
+        }
+
+        private void VoegGroepToe()
+        {
+            this.NieuwOptredenUur.Uren = GetSelectedUren();
+            if (UurAddVM.Save(this.NieuwOptredenUur))
+                this.ErrorMessage = "Het is niet gelukt om de groep in de line-up te plaatsen. Kijk of er al geen groep aanwezig is op dat tijdstip.";
+        }
+
+        private ObservableCollection<Uur> GetSelectedUren()
+        {
+            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+
+            foreach(UurAddVM uaVM in this.UrenAdd)
+            {
+                if(uaVM.IsSelected == true)
+                {
+                    lUren.Add(uaVM.Uur);
+                }
+            }
+
+            return lUren;
+        }
 
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged("ErrorMessage");
+            }
+        }
     }
 }

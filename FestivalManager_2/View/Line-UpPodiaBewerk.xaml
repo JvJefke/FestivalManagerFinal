@@ -60,7 +60,13 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <ComboBox Margin="10,10,10,10" Grid.ColumnSpan="2" ItemsSource="{Binding Groepen}" Style="{StaticResource Algemeen_ComboBox}" SelectedItem="{Binding NieuwOptredenUur.Optreden.Groep}"/>
-            <ListBox Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10,10,10" ItemsSource="{Binding VolledigeUrenLijst}" SelectionMode="Multiple" SelectedItem="{Binding NieuwOptredenUur.Uren}" />
+            <ListBox Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10,10,10" ItemsSource="{Binding UrenAdd}" SelectionMode="Extended" VirtualizingPanel.IsVirtualizing="False">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
             <Button x:Name="VoegNieuwPodiumToe" Grid.Row="2" Grid.ColumnSpan="2" Content="Voeg een nieuwe groep toe" Margin="10,10,10,10" Command="{Binding VoegGroepToeCommand}" />
         </Grid>        
     </Grid>

@@ -10,16 +10,21 @@ namespace FestivalManager_2.Model.DAL
 {
     class UrenRepository
     {
-        public static ObservableCollection<Uur> GetUren()
+        public static ObservableCollection<Uur> GetUren(bool IsOptreden)
         {
             ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+            string sql = "SELECT * FROM uur ORDER BY UurID";            
 
-            string sql = "SELECT * FROM uur";
+            if (IsOptreden)
+                sql = "SELECT uur.UurID, uur.Uur, optreden.OptredenID FROM uur INNER JOIN optreden_uur ON uur.UurID = optreden_uur.UurID INNER JOIN optreden ON optreden_uur.OptredenID = optreden.OptredenID ORDER BY UurID";
+            
+
             DbDataReader reader = Database.GetData(sql);
+            
 
             while (reader.Read())
             {
-                lUren.Add(MaakUur(reader, false));
+                lUren.Add(MaakUur(reader, IsOptreden));
             }
 
             return lUren;
@@ -42,7 +47,7 @@ namespace FestivalManager_2.Model.DAL
         {
             ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
 
-            string sql = "SELECT uur.UurID, uur.Uur, optreden.OptredenID FROM uur INNER JOIN optreden_uur ON uur.UurID = optreden_uur.UurID INNER JOIN optreden ON optreden_uur.OptredenID = optreden.OptredenID WHERE PodiumID = @PodiumID and DatumID = @DatumID";
+            string sql = "SELECT uur.UurID, uur.Uur, optreden.OptredenID FROM uur INNER JOIN optreden_uur ON uur.UurID = optreden_uur.UurID INNER JOIN optreden ON optreden_uur.OptredenID = optreden.OptredenID WHERE PodiumID = @PodiumID and DatumID = @DatumID ORDER BY UurID";
             DbDataReader reader = Database.GetData(sql, 
                 Database.AddParameter("@PodiumID", podium.ID),
                 Database.AddParameter("@DatumID", SelectedDatum.DatumID)
@@ -67,7 +72,7 @@ namespace FestivalManager_2.Model.DAL
 
             if((uMax.UrenID - uMin.UrenID) > 1)
             {                
-                string sql = "SELECT * FROM uur WHERE UurID > @UurMinID and UurID < @UurMaxID";
+                string sql = "SELECT * FROM uur WHERE UurID > @UurMinID and UurID < @UurMaxID ORDER BY UurID";
                 DbDataReader reader = Database.GetData(sql, Database.AddParameter("@UurMinID", uMin.UrenID), Database.AddParameter("@UurMaxID", uMax.UrenID));
 
                 while(reader.Read())
@@ -94,7 +99,7 @@ namespace FestivalManager_2.Model.DAL
         private static Uur MaakUurByNaam(string Naam)
         {
             Uur u = null;
-            string sql = "SELECT * FROM uur WHERE Uur = @Uur";
+            string sql = "SELECT * FROM uur WHERE Uur = @Uur ORDER BY UurID";
             DbDataReader reader = Database.GetData(sql, Database.AddParameter("@Uur", Naam));
 
             if (reader.Read())
@@ -106,5 +111,44 @@ namespace FestivalManager_2.Model.DAL
 
             return u;
         }
+
+        internal static bool SaveOptredenUren(ObservableCollection<Uur> lu, int OptredenID)
+        {
+            ObservableCollection<Uur> lUren = GetUren(true);
+
+            foreach(Uur u in lUren)
+            {
+                if (lu.Where(x => x.UrenID == u.UrenID).FirstOrDefault() != null)
+                {
+                    if (u.Optreden != null || u.Optreden.ID != OptredenID)
+                        return false;                    
+                }               
+            }
+
+            if (lUren.Where(x => x.Optreden != null && x.Optreden.ID == OptredenID).FirstOrDefault() != null)
+                VerwijderAlleHuidige(OptredenID);
+
+            foreach(Uur u in lu)
+            {
+                AddNewOptredenUur(u, OptredenID);
+            }
+
+            return true;
+        }
+
+        private static void AddNewOptredenUur(Uur u, int OptredenID)
+        {
+            string sql = "INSERT INTO optreden_uur VALUES (@UurID, @OptredenID)";
+            Database.ModifyData(sql
+               , Database.AddParameter("@UurID", u.UrenID)
+               , Database.AddParameter("@OptredenID", OptredenID)
+               );
+        }
+
+        private static void VerwijderAlleHuidige(int OptredenID)
+        {
+            string sql = "DELETE FROM optreden_uur WHERE OptredenID = @OptredenID";
+            Database.ModifyData(sql, Database.AddParameter("@OptredenID", OptredenID));
+        }        
     }
 }
