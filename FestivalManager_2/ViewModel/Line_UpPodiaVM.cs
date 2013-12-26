@@ -318,6 +318,7 @@ namespace FestivalManager_2.ViewModel
             this.NieuwOptredenUur.Uren = GetSelectedUren();
             if (UurAddVM.Save(this.NieuwOptredenUur))
                 this.ErrorMessage = "Het is niet gelukt om de groep in de line-up te plaatsen. Kijk of er al geen groep aanwezig is op dat tijdstip.";
+            this.SelectedDatum = NieuwOptredenUur.Optreden.Datum;
         }
 
         private ObservableCollection<Uur> GetSelectedUren()
