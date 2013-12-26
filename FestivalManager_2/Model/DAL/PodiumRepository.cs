@@ -22,6 +22,8 @@ namespace FestivalManager_2.Model.DAL
                 lPodiums.Add(MaakPodium(reader));
             }
 
+            reader.Close();
+
             return lPodiums;
         }
 
@@ -47,9 +49,14 @@ namespace FestivalManager_2.Model.DAL
             DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", ID));
 
             if (reader.Read())
-                return MaakPodium(reader);
-            else
-                return null;
+            {
+                Podium p = MaakPodium(reader);
+                reader.Close();
+                return p;
+            }
+
+            reader.Close();
+            return null;
         }
     }
 }

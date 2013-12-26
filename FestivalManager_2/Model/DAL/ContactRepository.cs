@@ -21,6 +21,8 @@ namespace FestivalManager_2.Model.DAL
             while(reader.Read())
                 lContacts.Add(MaakContact(reader));
 
+            reader.Close();
+
             return lContacts;
         }
 

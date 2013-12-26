@@ -19,10 +19,15 @@ namespace FestivalManager_2.Model.DAL
             DbParameter par = Database.AddParameter("filter", ID);
             DbDataReader reader = Database.GetData(sql, par);
 
-           if(reader.Read())
-                return MaakFunctie(reader);
-           else 
-                return null;
+            if(reader.Read())
+            {
+                f = MaakFunctie(reader);
+                reader.Close();
+                return f;
+            }
+
+           reader.Close();
+           return null;
         }
 
         private static Functie MaakFunctie(DbDataReader rij)
@@ -45,6 +50,8 @@ namespace FestivalManager_2.Model.DAL
             {
                 lFuncties.Add(MaakFunctie(reader));
             }
+
+            reader.Close();
 
             return lFuncties;
         }

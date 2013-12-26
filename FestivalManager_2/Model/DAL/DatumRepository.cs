@@ -17,7 +17,11 @@ namespace FestivalManager_2.Model.DAL
             DbDataReader reader = Database.GetData(sql, Database.AddParameter("@DatumID", ID));
 
             if(reader.Read())
-                return MaakDatum(reader);
+            {
+                Datum d = MaakDatum(reader);
+                reader.Close();
+                return d;
+            }
             else
                 return null;
         }
@@ -41,6 +45,8 @@ namespace FestivalManager_2.Model.DAL
 
             while(reader.Read())
                 lDatums.Add(MaakDatum(reader));
+
+            reader.Close();
 
             return lDatums;
         }

@@ -23,6 +23,7 @@ namespace FestivalManager_2.Model.DAL
             {
                 ct.ID = ID;
                 ct.Naam = reader["Naam"].ToString();
+                reader.Close();
 
                 return ct;
             }

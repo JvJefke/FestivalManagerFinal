@@ -22,10 +22,13 @@ namespace FestivalManager_2.Model.DAL
 
             if (reader.Read())
             {
-                return MaakOrganisatie(reader);
+                o = MaakOrganisatie(reader);
+                reader.Close();
+                return o;
             }
-            else
-                return null;
+
+            reader.Close();
+            return null;
         }
 
         private static Organisatie MaakOrganisatie(DbDataReader reader)
@@ -75,6 +78,8 @@ namespace FestivalManager_2.Model.DAL
             {
                 lOrganisaties.Add(MaakOrganisatie(reader));
             }
+
+            reader.Close();
 
             return lOrganisaties;
         }        

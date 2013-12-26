@@ -22,6 +22,8 @@ namespace FestivalManager_2.Model.DAL
                 lGroepen.Add(MaakGroep(reader));
             }
 
+            reader.Close();
+
             return lGroepen;
         }
 
@@ -57,9 +59,14 @@ namespace FestivalManager_2.Model.DAL
             DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", ID));
 
             if (reader.Read())
-                return MaakGroep(reader);
-            else
-                return null;
+            {
+                Groep g = MaakGroep(reader);
+                reader.Close();
+                return g;
+            }
+
+            reader.Close();
+            return null;
         }
 
         public static void RemoveGenre(Groep g, Genre gr)

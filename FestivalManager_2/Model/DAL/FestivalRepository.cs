@@ -30,10 +30,14 @@ namespace FestivalManager_2.Model.DAL
                 f.Organisatie = OrganisatieRepository.GetOrganisatieFromID(Convert.ToInt32(reader["OrganisatieID"]));
                 f.Beschrijving = reader["Beschrijving"].ToString();
 
+                reader.Close();
+
                 return f;
             }
-            else
-                return null;
+
+            reader.Close();
+            return null;
+                
         }
 
         internal static void SaveFestival(Festival f)

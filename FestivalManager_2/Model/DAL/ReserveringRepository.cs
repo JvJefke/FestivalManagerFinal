@@ -22,6 +22,8 @@ namespace FestivalManager_2.Model.DAL
             while (reader.Read())
                 iAantal++;
 
+            reader.Close();
+
             return iAantal;
         }
 
@@ -35,6 +37,8 @@ namespace FestivalManager_2.Model.DAL
             {
                 lReserveringen.Add(MaakReservering(reader));
             }
+
+            reader.Close();
 
             return lReserveringen;
         }
@@ -71,6 +75,7 @@ namespace FestivalManager_2.Model.DAL
                         );
                     reader.Read();
                     int NieuwID = Convert.ToInt32(reader[0]);
+                    reader.Close();
                     sql = "INSERT INTO reservering_ticket (TicketID, ReserveringID) VALUES (@TicketID, @ReserveringID)";
                     Database.ModifyData(sql
                         , Database.AddParameter("@TicketID", r.Ticket.ID)

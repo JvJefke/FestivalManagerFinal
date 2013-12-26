@@ -22,6 +22,7 @@ namespace FestivalManager_2.Model.DAL
                 lOptredens.Add(MaakOptreden(reader));
             }
 
+            reader.Close();
             return lOptredens;
         }
 
@@ -43,9 +44,14 @@ namespace FestivalManager_2.Model.DAL
             DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", ID));
 
             if (reader.Read())
-                return MaakOptreden(reader);
-            else
-                return null;
+            {
+                Optreden o = MaakOptreden(reader);
+                reader.Close();
+                return o;
+            }
+
+            reader.Close();
+            return null;
         }
 
         internal static int SaveOptreden(Optreden optreden)
@@ -86,7 +92,8 @@ namespace FestivalManager_2.Model.DAL
                 reader.Close();
                 return i;
             }
-            
+
+            reader.Close();
             return 0;
         }
     }

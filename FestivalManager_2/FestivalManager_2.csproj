@@ -107,7 +107,6 @@
     <Compile Include="Model\DAL\OptredenRepository.cs" />
     <Compile Include="Model\DAL\OrganisatieRepository.cs" />
     <Compile Include="Model\DAL\PodiumRepository.cs" />
-    <Compile Include="Model\DAL\RelayCommand.cs" />
     <Compile Include="Model\DAL\ReserveringRepository.cs" />
     <Compile Include="Model\DAL\TicketRepository.cs" />
     <Compile Include="Model\DAL\UrenRepository.cs" />

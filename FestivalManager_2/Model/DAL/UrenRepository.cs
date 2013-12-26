@@ -27,6 +27,8 @@ namespace FestivalManager_2.Model.DAL
                 lUren.Add(MaakUur(reader, IsOptreden));
             }
 
+            reader.Close();
+
             return lUren;
         }
 
@@ -57,6 +59,8 @@ namespace FestivalManager_2.Model.DAL
             {
                 lUren.Add(MaakUur(reader, true));
             }
+
+            reader.Close();
 
             return lUren;
         }

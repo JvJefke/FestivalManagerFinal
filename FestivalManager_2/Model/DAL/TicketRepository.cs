@@ -23,6 +23,7 @@ namespace FestivalManager_2.Model.DAL
                 lTickets.Add(MaakTicket(reader));
             }
 
+            reader.Close();
             return lTickets;
         }
 
@@ -46,9 +47,15 @@ namespace FestivalManager_2.Model.DAL
             DbDataReader reader = Database.GetData(sql, par);
 
             if (reader.Read())
-                return MaakTicket(reader);
-            else
-                return null;
+            {
+                Ticket t = MaakTicket(reader);
+                reader.Close();
+                return t;
+            }
+             
+            reader.Close();              
+            
+            return null;
         }        
     }
 }

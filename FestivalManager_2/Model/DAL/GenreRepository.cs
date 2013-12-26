@@ -19,6 +19,8 @@ namespace FestivalManager_2.Model.DAL
             while (reader.Read())
                 lGenres.Add(MaakNieuwGenre(reader));
 
+            reader.Close();
+
             return lGenres;
         }
 
@@ -54,6 +56,8 @@ namespace FestivalManager_2.Model.DAL
 
             while (reader.Read())
                 lGenres.Add(MaakNieuwGenre(reader));
+
+            reader.Close();
 
             return lGenres;
         }
