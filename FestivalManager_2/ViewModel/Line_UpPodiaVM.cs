@@ -20,17 +20,18 @@ namespace FestivalManager_2.ViewModel
         {
             _isOverzichtVisible = Visibility.Visible;
             _isBewerkVisible = Visibility.Collapsed;
+            _isProgressVisible = Visibility.Collapsed;
+
+            Groepen = GroepenRepository.GetGroepen();
 
             _urenAdd = UurAddVM.GetUren();
-            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden(), Uren = new ObservableCollection<Uur>() };
+            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
             
             _podiums = PodiumRepository.GetPodia();
             
             _datums = DatumRepository.GetDatums();
             _selectedDatum = _datums[0];
             NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
-
-            Groepen = GroepenRepository.GetGroepen();
         }
         public string Name
         {
@@ -120,7 +121,20 @@ namespace FestivalManager_2.ViewModel
                 _isBewerkVisible = value;
                 OnPropertyChanged("IsBewerkVisible");
             }
-        }       
+        }
+        private Visibility _isProgressVisible;
+        public Visibility IsProgressVisible
+        {
+            get
+            {
+                return _isProgressVisible;
+            }
+            set
+            {
+                _isProgressVisible = value;
+                OnPropertyChanged("IsProgressVisible");
+            }
+        }
 
         private Podium _selectedPodium;
         public Podium SelectedPodium
@@ -315,10 +329,13 @@ namespace FestivalManager_2.ViewModel
 
         private void VoegGroepToe()
         {
+            this.IsProgressVisible = Visibility.Visible;
+
             this.NieuwOptredenUur.Uren = GetSelectedUren();
             if (UurAddVM.Save(this.NieuwOptredenUur))
                 this.ErrorMessage = "Het is niet gelukt om de groep in de line-up te plaatsen. Kijk of er al geen groep aanwezig is op dat tijdstip.";
-            this.SelectedDatum = NieuwOptredenUur.Optreden.Datum;
+
+            this.IsProgressVisible = Visibility.Collapsed;
         }
 
         private ObservableCollection<Uur> GetSelectedUren()
@@ -350,14 +367,15 @@ namespace FestivalManager_2.ViewModel
 
         private void SelecteerUren(Uur u)
         {
-            this.NieuwOptredenUur = new OptredenUurVM(){Optreden = u.Optreden};
             if (u.Optreden == null)
             {
-                this.NieuwOptredenUur.Uren = new ObservableCollection<Uur>();
-                this.UrenAdd.Where(x => x.Uur.UrenID == u.UrenID).FirstOrDefault().IsSelected = true;
+                MaakNieuwOptredenUur(u);               
             }                
             else
             {
+                this.NieuwOptredenUur = new OptredenUurVM() { Optreden = u.Optreden };
+                this.NieuwOptredenUur.Optreden.Groep = this.Groepen.Where(x => x.ID == u.Optreden.Groep.ID).FirstOrDefault();
+
                 ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
 
                 foreach(Uur uur in this.Uren)
@@ -365,14 +383,37 @@ namespace FestivalManager_2.ViewModel
                     if (uur.Optreden != null && uur.Optreden.ID == u.Optreden.ID)
                     {
                         lUren.Add(uur);
-                        this.UrenAdd.Where(x => x.Uur.UrenID == uur.UrenID).FirstOrDefault().IsSelected = true;
+                        _urenAdd.Where(x => x.Uur.UrenID == uur.UrenID).FirstOrDefault().IsSelected = true;
                     }
                         
                 }
 
+                HernieuwSelectieUren(this._urenAdd);
                 this.NieuwOptredenUur.Uren = lUren;               
                 
             }
+        }
+
+        private void MaakNieuwOptredenUur(Uur u)
+        {
+            this.NieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
+
+            if(u != null)
+                this.UrenAdd.Where(x => x.Uur.UrenID == u.UrenID).FirstOrDefault().IsSelected = true;     
+
+            HernieuwSelectieUren(this._urenAdd);  
+        }
+
+        private void HernieuwSelectieUren(ObservableCollection<UurAddVM> urenAddVMs)
+        {
+            ObservableCollection<UurAddVM> lVM = new ObservableCollection<UurAddVM>();
+
+            foreach(UurAddVM vm in urenAddVMs)
+            {
+                lVM.Add(new UurAddVM() { IsSelected = vm.IsSelected, Uur = vm.Uur });
+            }
+
+            this.UrenAdd = lVM;
         }
 
         private void DeselectAlleUren()
@@ -391,9 +432,29 @@ namespace FestivalManager_2.ViewModel
             get { return new RelayCommand<Uur>(VerwijderOptredenVanUur); }
         }
 
-        private void VerwijderOptredenVanUur(Uur obj)
+        private void VerwijderOptredenVanUur(Uur u)
         {
-            throw new NotImplementedException();
+            this.IsProgressVisible = Visibility.Visible;
+
+            Optreden o = u.Optreden;
+            UrenRepository.DeleteOptredenVanUur(u);
+            this.Uren.Where(x => x.UrenID == u.UrenID).FirstOrDefault().Optreden = null;
+            this.SelectedDatum = NieuwOptredenUur.Optreden.Datum;
+
+            if (this.Uren.Where(x => x.Optreden != null && x.Optreden.ID == o.ID).FirstOrDefault() == null)
+                OptredenRepository.Delete(u.Optreden);
+
+            this.IsProgressVisible = Visibility.Collapsed;
+        }
+
+        public ICommand ZetNieuweGoepKlaarCommand
+        {
+            get { return new RelayCommand(ZetNieuweGoepKlaar); }
+        }
+
+        private void ZetNieuweGoepKlaar()
+        {
+            MaakNieuwOptredenUur(null);
         }
 
         private string _errorMessage;

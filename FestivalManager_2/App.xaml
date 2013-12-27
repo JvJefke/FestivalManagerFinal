@@ -146,6 +146,8 @@
                 </Grid>                
             </StackPanel>
         </ControlTemplate>
+
+        <Storyboard x:Key="LoadingAnimation"></Storyboard>
         
     </Application.Resources>
 </Application>

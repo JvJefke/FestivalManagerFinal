@@ -130,6 +130,7 @@
     <Compile Include="ViewModel\IPage.cs" />
     <Compile Include="ViewModel\Line_UpGroepenVM.cs" />
     <Compile Include="ViewModel\Line_UpPodiaVM.cs" />
+    <Compile Include="ViewModel\Line_UpVM.cs" />
     <Compile Include="ViewModel\ObservableObject.cs" />
     <Compile Include="ViewModel\OptredenUurVM.cs" />
     <Compile Include="ViewModel\SettingsVM.cs" />
@@ -137,10 +138,17 @@
     <Compile Include="ViewModel\TicketsOverzichtVM.cs" />
     <Compile Include="ViewModel\TicketsVM.cs" />
     <Compile Include="ViewModel\UurAddVM.cs" />
+    <Compile Include="View\Animations\Block.xaml.cs">
+      <DependentUpon>Block.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Animations\LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ContactContainer.xaml.cs">
       <DependentUpon>ContactContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Converters\IsOptredenToColorConverter.cs" />
+    <Compile Include="View\Converters\OptredenToButtonTextConverter.cs" />
     <Compile Include="View\Converters\OptredentToDeleteVisibleConverter.cs" />
     <Compile Include="View\GridLengthAnimations.cs" />
     <Compile Include="View\ContactBewerk.xaml.cs">
@@ -182,6 +190,14 @@
     <Page Include="View\Algemeen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Animations\Block.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Animations\LoadingAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ContactBewerk.xaml">
       <SubType>Designer</SubType>
@@ -295,9 +311,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Animations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\person-icon.png" />
   </ItemGroup>

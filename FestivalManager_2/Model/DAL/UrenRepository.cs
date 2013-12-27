@@ -124,7 +124,7 @@ namespace FestivalManager_2.Model.DAL
             {
                 if (lu.Where(x => x.UrenID == u.UrenID).FirstOrDefault() != null)
                 {
-                    if (u.Optreden != null || u.Optreden.ID != OptredenID)
+                    if (u.Optreden != null && u.Optreden.ID != OptredenID)
                         return false;                    
                 }               
             }
@@ -155,9 +155,13 @@ namespace FestivalManager_2.Model.DAL
             Database.ModifyData(sql, Database.AddParameter("@OptredenID", OptredenID));
         }
 
-        internal static ObservableCollection<Uur> GetUrenByOptreden(Optreden optreden)
+        internal static void DeleteOptredenVanUur(Uur u)
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM optreden_uur WHERE OptredenID = @OptredenID and UurID = @UurID";
+            Database.ModifyData(sql
+                , Database.AddParameter("@OptredenID", u.Optreden.ID)
+                , Database.AddParameter("@UurID", u.UrenID)
+                );
         }
     }
 }

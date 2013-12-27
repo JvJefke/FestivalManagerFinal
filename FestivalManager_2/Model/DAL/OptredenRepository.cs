@@ -96,5 +96,11 @@ namespace FestivalManager_2.Model.DAL
             reader.Close();
             return 0;
         }
+
+        public static void Delete(Optreden o)
+        {
+            string sql = "DELETE FROM optreden WHERE OptredenID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", o.ID));
+        }
     }
 }

@@ -128,6 +128,7 @@ namespace FestivalManager_2.ViewModel
             this.Organisaties = this._alleOrganisaties;
 
             this.CurrentOrganisatie = temp;
+            OnPropertyChanged(null);
         }
 
          public ICommand WijzigGenreCommand

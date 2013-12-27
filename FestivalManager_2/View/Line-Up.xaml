@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="517">
     <UserControl.DataContext>
-        <vm:ApplicationVM/>
+        <vm:Line_UpVM />
     </UserControl.DataContext>
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:Line_UpPodiaVM}">
