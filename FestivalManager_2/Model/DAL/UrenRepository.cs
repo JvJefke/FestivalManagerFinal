@@ -153,6 +153,11 @@ namespace FestivalManager_2.Model.DAL
         {
             string sql = "DELETE FROM optreden_uur WHERE OptredenID = @OptredenID";
             Database.ModifyData(sql, Database.AddParameter("@OptredenID", OptredenID));
-        }        
+        }
+
+        internal static ObservableCollection<Uur> GetUrenByOptreden(Optreden optreden)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

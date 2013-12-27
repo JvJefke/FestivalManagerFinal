@@ -140,8 +140,8 @@
     <Compile Include="View\ContactContainer.xaml.cs">
       <DependentUpon>ContactContainer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Converters\DummyConvertercs.cs" />
     <Compile Include="View\Converters\IsOptredenToColorConverter.cs" />
+    <Compile Include="View\Converters\OptredentToDeleteVisibleConverter.cs" />
     <Compile Include="View\GridLengthAnimations.cs" />
     <Compile Include="View\ContactBewerk.xaml.cs">
       <DependentUpon>ContactBewerk.xaml</DependentUpon>

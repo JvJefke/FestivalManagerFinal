@@ -61,7 +61,7 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _nieuwOptredenUur = value;
-                OnPropertyChanged("NieuwOptreden");
+                OnPropertyChanged("NieuwOptredenUur");
             }
         }
 
@@ -75,7 +75,7 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _groepen = value;
-                _groepen.OrderBy(i => i);
+                //_groepen.OrderBy(i => i);
                 OnPropertyChanged("Groepen");
             }
         }
@@ -336,6 +336,65 @@ namespace FestivalManager_2.ViewModel
             return lUren;
         }
 
+        public ICommand LaadOptredenVoorWijzigingCommand
+        {
+            get { return new RelayCommand<Uur>(LaadOptredenVoorWijziging); }
+        }
+
+        private void LaadOptredenVoorWijziging(Uur u)
+        {
+            DeselectAlleUren();
+            SelecteerUren(u);
+            MaakNieuwPodiumUur(u);
+        }
+
+        private void SelecteerUren(Uur u)
+        {
+            this.NieuwOptredenUur = new OptredenUurVM(){Optreden = u.Optreden};
+            if (u.Optreden == null)
+            {
+                this.NieuwOptredenUur.Uren = new ObservableCollection<Uur>();
+                this.UrenAdd.Where(x => x.Uur.UrenID == u.UrenID).FirstOrDefault().IsSelected = true;
+            }                
+            else
+            {
+                ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+
+                foreach(Uur uur in this.Uren)
+                {
+                    if (uur.Optreden != null && uur.Optreden.ID == u.Optreden.ID)
+                    {
+                        lUren.Add(uur);
+                        this.UrenAdd.Where(x => x.Uur.UrenID == uur.UrenID).FirstOrDefault().IsSelected = true;
+                    }
+                        
+                }
+
+                this.NieuwOptredenUur.Uren = lUren;               
+                
+            }
+        }
+
+        private void DeselectAlleUren()
+        {
+            foreach (UurAddVM vm in UrenAdd)
+                vm.IsSelected = false;
+        }
+
+        private void MaakNieuwPodiumUur(Uur u)
+        {
+            this.NieuwOptredenUur = new OptredenUurVM() { Optreden = u.Optreden, Uren = new ObservableCollection<Uur>() };
+        }
+
+        public ICommand VerwijderOptredenVanUurCommand
+        {
+            get { return new RelayCommand<Uur>(VerwijderOptredenVanUur); }
+        }
+
+        private void VerwijderOptredenVanUur(Uur obj)
+        {
+            throw new NotImplementedException();
+        }
 
         private string _errorMessage;
         public string ErrorMessage
