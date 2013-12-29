@@ -62,7 +62,7 @@ namespace FestivalManager_2.Model.DAL
                 return Update(optreden);
         }
 
-        private static int Update(Optreden optreden)
+        public static int Update(Optreden optreden)
         {
             string sql = "UPDATE optreden SET GroepID = @GroepID, PodiumID = @PodiumID, DatumID = @DatumID WHERE OptredenID = @OptredenID";
             int i = Database.ModifyData(sql
@@ -77,7 +77,7 @@ namespace FestivalManager_2.Model.DAL
                 return 0;
         }
 
-        private static int SaveNew(Optreden optreden)
+        public static int SaveNew(Optreden optreden)
         {
             string sql = "INSERT INTO optreden (GroepID, PodiumID, DatumID) VALUES (@GroepID, @PodiumID, @DatumID); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
             DbDataReader reader = Database.GetData(sql
