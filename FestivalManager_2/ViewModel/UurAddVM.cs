@@ -15,9 +15,9 @@ namespace FestivalManager_2.ViewModel
         public Uur Uur { get; set; }
         public bool IsSelected { get; set; }
 
-        internal static ObservableCollection<UurAddVM> GetUren()
+        internal static ObservableCollection<UurAddVM> GetUren(Datum d, Podium p)
         {
-            ObservableCollection<Uur> lUren = UrenRepository.GetUren(false);
+            ObservableCollection<Uur> lUren = UrenRepository.GetUrenThatHaveNoOptredenOfDateAndPodium(d, p);
             ObservableCollection<UurAddVM> lUrenVM = new ObservableCollection<UurAddVM>();
 
             foreach(Uur u in lUren)
@@ -33,7 +33,7 @@ namespace FestivalManager_2.ViewModel
             return this.Uur.UurTekst;
         }
 
-        public static bool Save(OptredenUurVM optredenUurVM)
+        /*public static bool Save(OptredenUurVM optredenUurVM)
         {
                int i = OptredenRepository.SaveOptreden(optredenUurVM.Optreden);
                if(i == 0)
@@ -42,6 +42,21 @@ namespace FestivalManager_2.ViewModel
                    return false;
 
                return true;
+        }*/
+
+        public static void Save(OptredenUurVM optredenUurVM)
+        {
+            if(optredenUurVM.Optreden == null || optredenUurVM.Optreden.ID == 0)
+            {
+                int ID = OptredenRepository.SaveNew(optredenUurVM.Optreden);
+                UrenRepository.SaveOptredenUren(optredenUurVM.Uren, ID);
+            }
+            else
+            {
+                OptredenRepository.Update(optredenUurVM.Optreden);
+                UrenRepository.UpdateOptredenUren(optredenUurVM.Uren, optredenUurVM.Optreden.ID);
+            }
         }
     }
+
 }

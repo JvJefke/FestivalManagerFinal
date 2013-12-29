@@ -58,5 +58,20 @@ namespace FestivalManager_2.Model.DAL
             reader.Close();
             return null;
         }
+
+        internal static void Update(Podium podium)
+        {
+            string sql;
+
+            if (podium != null && podium.ID != 0)
+                sql = "UPDATE podia SET Naam = @Naam WHERE PodiumID = @ID";
+            else
+                sql = "INSERT INTO podia (Naam) VALUES (@Naam)";
+
+            Database.ModifyData(sql
+                    , Database.AddParameter("@Naam", podium.Naam)
+                    , Database.AddParameter("@ID", podium.ID)
+                    );
+        }
     }
 }

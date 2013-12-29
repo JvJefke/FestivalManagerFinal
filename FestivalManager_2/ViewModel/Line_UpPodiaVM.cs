@@ -24,14 +24,19 @@ namespace FestivalManager_2.ViewModel
 
             Groepen = GroepenRepository.GetGroepen();
 
-            _urenAdd = UurAddVM.GetUren();
-            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
-            
-            _podiums = PodiumRepository.GetPodia();
-            
             _datums = DatumRepository.GetDatums();
             _selectedDatum = _datums[0];
+
+            _podiums = PodiumRepository.GetPodia();
+            
+            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
+
+
             NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
+
+            
+            
+            
         }
         public string Name
         {
@@ -148,9 +153,10 @@ namespace FestivalManager_2.ViewModel
                 _selectedPodium = value;
                 _nieuwOptredenUur.Optreden.Podium = this._selectedPodium;
                 InitLineUp();
+                this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.Podiums[0]);
                 OnPropertyChanged("SelectedPodium");
             }
-        }
+        }        
 
         private ObservableCollection<Uur> _uren;
         public ObservableCollection<Uur> Uren
@@ -260,6 +266,7 @@ namespace FestivalManager_2.ViewModel
             {
                 _selectedDatum = value;
                 NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
+                this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.SelectedPodium);
                 FilterUren();
                 OnPropertyChanged("SelectedDatum");
             }
@@ -321,6 +328,17 @@ namespace FestivalManager_2.ViewModel
             this.IsOverzichtVisible = Visibility.Collapsed;
             this.IsBewerkVisible = Visibility.Visible;
         }
+
+        public ICommand GaNaarPodiumOverzichtCommand
+        {
+            get { return new RelayCommand(GaNaarPodiumOverzicht); }
+        }
+
+        private void GaNaarPodiumOverzicht()
+        {
+            this.IsBewerkVisible = Visibility.Collapsed;
+            this.IsOverzichtVisible = Visibility.Visible;
+        }
        
         public ICommand VoegGroepToeCommand
         {
@@ -329,11 +347,10 @@ namespace FestivalManager_2.ViewModel
 
         private void VoegGroepToe()
         {
-            this.IsProgressVisible = Visibility.Visible;
-
             this.NieuwOptredenUur.Uren = GetSelectedUren();
-            if (UurAddVM.Save(this.NieuwOptredenUur))
-                this.ErrorMessage = "Het is niet gelukt om de groep in de line-up te plaatsen. Kijk of er al geen groep aanwezig is op dat tijdstip.";
+            UurAddVM.Save(this.NieuwOptredenUur);
+
+            FilterUren();
 
             this.IsProgressVisible = Visibility.Collapsed;
         }
@@ -361,8 +378,22 @@ namespace FestivalManager_2.ViewModel
         private void LaadOptredenVoorWijziging(Uur u)
         {
             DeselectAlleUren();
+            FillUrenAddMetSelectedOptreden(u);
             SelecteerUren(u);
             MaakNieuwPodiumUur(u);
+        }
+
+        private void FillUrenAddMetSelectedOptreden(Uur u)
+        {
+            this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.SelectedPodium);
+            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+
+            foreach (Uur uur in this.Uren)
+                if(uur.Optreden != null && uur.Optreden.ID == u.Optreden.ID)
+                    this.UrenAdd.Insert(uur.UrenID -1,new UurAddVM() { Uur = uur });
+
+            this.UrenAdd.OrderBy(x => x.Uur.UrenID);
+            //HernieuwSelectieUren(this._urenAdd);
         }
 
         private void SelecteerUren(Uur u)
@@ -373,6 +404,7 @@ namespace FestivalManager_2.ViewModel
             }                
             else
             {
+                
                 this.NieuwOptredenUur = new OptredenUurVM() { Optreden = u.Optreden };
                 this.NieuwOptredenUur.Optreden.Groep = this.Groepen.Where(x => x.ID == u.Optreden.Groep.ID).FirstOrDefault();
 
@@ -457,18 +489,14 @@ namespace FestivalManager_2.ViewModel
             MaakNieuwOptredenUur(null);
         }
 
-        private string _errorMessage;
-        public string ErrorMessage
+        public ICommand UpdatePodiumCommand
         {
-            get
-            {
-                return _errorMessage;
-            }
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged("ErrorMessage");
-            }
+            get { return new RelayCommand(UpdatePodium); }
+        }
+
+        private void UpdatePodium()
+        {
+            PodiumRepository.Update(this._selectedPodium);
         }
     }
 }

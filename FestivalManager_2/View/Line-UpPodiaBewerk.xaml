@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:FestivalManager_2.View.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="545" d:DesignWidth="500">
@@ -52,7 +53,22 @@
             <RowDefinition Height="45" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" Text="{Binding SelectedPodium.Naam, UpdateSourceTrigger=LostFocus}" />
+        
+        <Button Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,-50,0,0" VerticalAlignment="Top" Width="120" Cursor="Hand" Command="{Binding GaNaarPodiumOverzichtCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/Images/Logo.png" Stretch="None" HorizontalAlignment="Left" Height="45" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        
+        <TextBox Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" Text="{Binding SelectedPodium.Naam, UpdateSourceTrigger=LostFocus, Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding UpdatePodiumCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
         <ComboBox Grid.Column="2" Margin="10,10,10,10" Style="{StaticResource Algemeen_ComboBox}" ItemsSource="{Binding Datums}" SelectedItem="{Binding SelectedDatum}"/>       
         <ListBox Grid.Row="2" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,10" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000" ItemsSource="{Binding Uren}" ItemTemplate="{StaticResource List_Grid_Podia_Bewerk}">           
 
@@ -64,7 +80,7 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition />
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -80,25 +96,7 @@
                 </ListBox.ItemContainerStyle>
             </ListBox>
             <Button Grid.Row="3" Grid.ColumnSpan="2" Content="{Binding NieuwOptredenUur.Optreden, Converter={StaticResource OptredenToButtonTextConverter}}" Margin="10,10,10,10" Command="{Binding VoegGroepToeCommand}" />
-            <Grid Visibility="{Binding IsProgressVisible}" Grid.Row="4" Grid.ColumnSpan="2" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,10,10,10">
-                <ProgressBar Value="0" Maximum="100">
-                    <ProgressBar.Triggers>
-                        <EventTrigger RoutedEvent="ProgressBar.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation 
-                                    Storyboard.TargetProperty="Value"
-                                    From="0"
-                                    To="100"
-                                    Duration="00:00:02"
-                                    RepeatBehavior="Forever"
-                                    />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </ProgressBar.Triggers>
-                </ProgressBar>
-            </Grid>            
+            
         </Grid>
     </Grid>
 </UserControl>

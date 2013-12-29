@@ -32,6 +32,27 @@ namespace FestivalManager_2.Model.DAL
             return lUren;
         }
 
+        public static ObservableCollection<Uur> GetUrenThatHaveNoOptredenOfDateAndPodium(Datum d, Podium p)
+        {
+            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+
+            string sql = "SELECT uur.UurID, uur.Uur FROM uur WHERE uur.UurID NOT IN(SELECT UurID FROM optreden_uur INNER JOIN optreden ON optreden_uur.OptredenID = optreden.OptredenID WHERE optreden.DatumID = @DatumID and PodiumID = @PodiumID) ORDER BY UurID";
+
+            DbDataReader reader = Database.GetData(sql
+                , Database.AddParameter("@DatumID", d.DatumID)
+                , Database.AddParameter("@PodiumID", p.ID)
+                );
+
+            while (reader.Read())
+            {
+                lUren.Add(MaakUur(reader, false));
+            }
+
+            reader.Close();
+
+            return lUren;
+        }
+
         private static Uur MaakUur(DbDataReader reader, bool IsOptreden)
         {
             Uur u = new Uur();
@@ -116,28 +137,10 @@ namespace FestivalManager_2.Model.DAL
             return u;
         }
 
-        internal static bool SaveOptredenUren(ObservableCollection<Uur> lu, int OptredenID)
+        internal static void SaveOptredenUren(ObservableCollection<Uur> lu, int OptredenID)
         {
-            ObservableCollection<Uur> lUren = GetUren(true);
-
-            foreach(Uur u in lUren)
-            {
-                if (lu.Where(x => x.UrenID == u.UrenID).FirstOrDefault() != null)
-                {
-                    if (u.Optreden != null && u.Optreden.ID != OptredenID)
-                        return false;                    
-                }               
-            }
-
-            if (lUren.Where(x => x.Optreden != null && x.Optreden.ID == OptredenID).FirstOrDefault() != null)
-                VerwijderAlleHuidige(OptredenID);
-
-            foreach(Uur u in lu)
-            {
+            foreach (Uur u in lu)
                 AddNewOptredenUur(u, OptredenID);
-            }
-
-            return true;
         }
 
         private static void AddNewOptredenUur(Uur u, int OptredenID)
@@ -149,19 +152,25 @@ namespace FestivalManager_2.Model.DAL
                );
         }
 
-        private static void VerwijderAlleHuidige(int OptredenID)
+        public static void VerwijderAlleHuidige(int OptredenID)
         {
             string sql = "DELETE FROM optreden_uur WHERE OptredenID = @OptredenID";
             Database.ModifyData(sql, Database.AddParameter("@OptredenID", OptredenID));
         }
 
-        internal static void DeleteOptredenVanUur(Uur u)
+        public static void DeleteOptredenVanUur(Uur u)
         {
             string sql = "DELETE FROM optreden_uur WHERE OptredenID = @OptredenID and UurID = @UurID";
             Database.ModifyData(sql
                 , Database.AddParameter("@OptredenID", u.Optreden.ID)
                 , Database.AddParameter("@UurID", u.UrenID)
                 );
+        }
+
+        internal static void UpdateOptredenUren(ObservableCollection<Uur> lu, int OptredenID)
+        {
+            VerwijderAlleHuidige(OptredenID);
+            SaveOptredenUren(lu, OptredenID);
         }
     }
 }
