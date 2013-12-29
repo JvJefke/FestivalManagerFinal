@@ -97,6 +97,22 @@ namespace FestivalManager_2.Model.DAL
             return 0;
         }
 
+        internal static int GetAantalOptredensByOptreden(Groep groep)
+        {
+            string sql = "SELECT COUNT(GroepID) FROM optreden WHERE GroepID = @ID";
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", groep.ID));
+
+            if (reader.Read())
+            {
+                int i = Convert.ToInt32(reader[0]);
+                reader.Close();
+                return i;
+            }
+
+            reader.Close();
+            return 0;                
+        }
+
         public static void Delete(Optreden o)
         {
             string sql = "DELETE FROM optreden WHERE OptredenID = @ID";

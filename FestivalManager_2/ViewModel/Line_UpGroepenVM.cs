@@ -133,7 +133,22 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 this._selectedGroep = value;
+                this.AantalOptredens = OptredenRepository.GetAantalOptredensByOptreden(this.SelectedGroep);
                 OnPropertyChanged("SelectedGroep");
+            }
+        }
+
+        private int _aantalOptredens;
+        public int AantalOptredens
+        {
+            get
+            {
+                return _aantalOptredens;
+            }
+            set
+            {
+                _aantalOptredens = value;
+                OnPropertyChanged("AantalOptredens");
             }
         }
 
@@ -147,7 +162,7 @@ namespace FestivalManager_2.ViewModel
 
         private void NieuweGroep()
         {
-            this.SelectedGroep = new Groep() { Image = "/Images/person-icon.png" };
+            this.SelectedGroep = new Groep() {Genres = new ObservableCollection<Genre>(), Image = "/Images/person-icon.png" };
             GaNaarBewerk();
         }
 
@@ -196,6 +211,8 @@ namespace FestivalManager_2.ViewModel
         private void DeleteGroep(Groep g)
         {
             GroepenRepository.DeleteGroep(g);
+            this._alleGroepen = GroepenRepository.GetGroepen();
+            UpdateGroepen();
         }
 
         public ICommand VerwijderGenreCommand
@@ -290,6 +307,16 @@ namespace FestivalManager_2.ViewModel
                 this.Groepen = GroepenRepository.GetGroepen();
                 this.SelectedGroep = this.Groepen.Where(x => x.ID == TempID).FirstOrDefault();
             }
+        }
+
+        public ICommand SaveGroepCommand
+        {
+            get { return new RelayCommand(SaveGroep); }
+        }
+
+        private void SaveGroep()
+        {
+            this.SelectedGroep.ID = GroepenRepository.SaveGroep(this.SelectedGroep);
         }
     }    
 }
