@@ -19,13 +19,13 @@
         </DataTemplate>
 
         <ItemsPanelTemplate x:Key="MijnButtons">
-            <WrapPanel ItemWidth="267.5" ItemHeight="50"/>
+            <WrapPanel ItemWidth="267.5" ItemHeight="45"/>
         </ItemsPanelTemplate>
     </UserControl.Resources>
     <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1">
         <Grid  Background="#FFF2F2F2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="45"/>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="15" />
             </Grid.RowDefinitions>

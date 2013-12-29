@@ -42,14 +42,48 @@ namespace FestivalManager_2.Model.DAL
             return g;
         }
 
-        internal static void SaveGroep(Groep g, ObservableCollection<Groep> observableCollection)
+        internal static int SaveGroep(Groep g)
         {
-            throw new NotImplementedException();
+            string sql;
+            if (g == null)
+                return g.ID;
+
+            DbParameter par1 = Database.AddParameter("@Naam", g.Naam);
+            DbParameter par2 = Database.AddParameter("@Beschrijving", g.Beschrijving);
+            DbParameter par3 = Database.AddParameter("@Image", g.Image);
+            DbParameter par4 = Database.AddParameter("@Facebook", g.Facebook);
+            DbParameter par5 = Database.AddParameter("@Twitter", g.Twitter);
+            DbParameter par6 = Database.AddParameter("@ID", g.ID);
+
+            if (g.ID != 0)
+            {
+                sql = "Update groep SET Naam = @Naam, Beschrijving = @Beschrijving, Image = @Image, Facebook = @Facebook, Twitter = @Twitter WHERE GroepID = @ID";
+                Database.ModifyData(sql, par1, par2, par3, par4, par5, par6);
+                return g.ID;
+            }
+            else
+            {
+                sql = "INSERT INTO groep (Naam, Beschrijving, Image, Facebook, Twitter) VALUES (@Naam, @Beschrijving, @Image, @Facebook, @Twitter); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+                DbDataReader reader =  Database.GetData(sql, par1, par2, par3, par4, par5);
+                if (reader.Read())
+                    return Convert.ToInt32(reader[0]);
+                else
+                    return 0;
+            }
+            
+
         }
 
         internal static void DeleteGroep(Groep g)
         {
-            throw new NotImplementedException();
+            if(g != null && g.ID != 0)
+            {
+                string sql = "DELETE FROM groep_genre WHERE GroepID = @ID";
+                Database.ModifyData(sql, Database.AddParameter("@ID", g.ID));
+
+                sql = "DELETE FROM groep WHERE GroepID = @ID";
+                Database.ModifyData(sql, Database.AddParameter("@ID", g.ID));
+            }
         }
 
         internal static Groep GetGroepenById(int ID)

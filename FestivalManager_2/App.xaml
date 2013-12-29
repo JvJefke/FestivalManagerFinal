@@ -68,6 +68,38 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="SaveButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="31" />
+            <Setter Property="Width" Value="31" />
+            <Setter Property="Margin" Value="0,10,10,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="/Images/save.png" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch"/>
+                    </ControlTemplate>                 
+                </Setter.Value>
+            </Setter>            
+        </Style>
+        
+        <Style x:Key="ReturnButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="45" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Margin" Value="-120,0,0,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="/Images/Logo.png" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style TargetType="{x:Type ListBoxItem}">
             <Setter Property="Template">
