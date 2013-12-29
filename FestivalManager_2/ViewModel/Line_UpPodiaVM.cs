@@ -20,7 +20,6 @@ namespace FestivalManager_2.ViewModel
         {
             _isOverzichtVisible = Visibility.Visible;
             _isBewerkVisible = Visibility.Collapsed;
-            _isProgressVisible = Visibility.Collapsed;
 
             Groepen = GroepenRepository.GetGroepen();
 
@@ -32,11 +31,7 @@ namespace FestivalManager_2.ViewModel
             _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
 
 
-            NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
-
-            
-            
-            
+            NieuwOptredenUur.Optreden.Datum = this._selectedDatum;       
         }
         public string Name
         {
@@ -125,19 +120,6 @@ namespace FestivalManager_2.ViewModel
             {
                 _isBewerkVisible = value;
                 OnPropertyChanged("IsBewerkVisible");
-            }
-        }
-        private Visibility _isProgressVisible;
-        public Visibility IsProgressVisible
-        {
-            get
-            {
-                return _isProgressVisible;
-            }
-            set
-            {
-                _isProgressVisible = value;
-                OnPropertyChanged("IsProgressVisible");
             }
         }
 
@@ -351,8 +333,6 @@ namespace FestivalManager_2.ViewModel
             UurAddVM.Save(this.NieuwOptredenUur);
 
             FilterUren();
-
-            this.IsProgressVisible = Visibility.Collapsed;
         }
 
         private ObservableCollection<Uur> GetSelectedUren()
@@ -428,7 +408,7 @@ namespace FestivalManager_2.ViewModel
 
         private void MaakNieuwOptredenUur(Uur u)
         {
-            this.NieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
+            this.NieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0], Podium = this.SelectedPodium, Datum = this.SelectedDatum }, Uren = new ObservableCollection<Uur>() };
 
             if(u != null)
                 this.UrenAdd.Where(x => x.Uur.UrenID == u.UrenID).FirstOrDefault().IsSelected = true;     
@@ -466,17 +446,13 @@ namespace FestivalManager_2.ViewModel
 
         private void VerwijderOptredenVanUur(Uur u)
         {
-            this.IsProgressVisible = Visibility.Visible;
-
             Optreden o = u.Optreden;
             UrenRepository.DeleteOptredenVanUur(u);
             this.Uren.Where(x => x.UrenID == u.UrenID).FirstOrDefault().Optreden = null;
             this.SelectedDatum = NieuwOptredenUur.Optreden.Datum;
 
             if (this.Uren.Where(x => x.Optreden != null && x.Optreden.ID == o.ID).FirstOrDefault() == null)
-                OptredenRepository.Delete(u.Optreden);
-
-            this.IsProgressVisible = Visibility.Collapsed;
+                OptredenRepository.Delete(o);
         }
 
         public ICommand ZetNieuweGoepKlaarCommand

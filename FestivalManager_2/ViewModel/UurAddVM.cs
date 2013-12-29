@@ -53,8 +53,12 @@ namespace FestivalManager_2.ViewModel
             }
             else
             {
-                OptredenRepository.Update(optredenUurVM.Optreden);
                 UrenRepository.UpdateOptredenUren(optredenUurVM.Uren, optredenUurVM.Optreden.ID);
+                if (optredenUurVM.Uren.Count == 0)
+                    OptredenRepository.Delete(optredenUurVM.Optreden);
+                else
+
+                    OptredenRepository.Update(optredenUurVM.Optreden);
             }
         }
     }
