@@ -29,11 +29,8 @@
             <Image HorizontalAlignment="Left" Height="181" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Festival.Image}"/>
             <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="39" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image}"/>
             <TextBlock HorizontalAlignment="Right" Margin="0,20,10,0" Text="Algemeen" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="90" Grid.Column="2"/>
-            <Button Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="3" Margin="0,10,10,0"  Command="{Binding SaveFestivalCommand}">
-                <Button.Content>
-                    <Image  Source="/Images/save.png"/>
-                </Button.Content>
-            </Button>
+            <Button Grid.Column="3" Command="{Binding SaveFestivalCommand}" Style="{StaticResource SaveButton}"/>
+               
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,61,0,0" Text="Naam festival:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,96,0,0" Text="Organisatie:" RenderTransformOrigin="0.3,0.062" />
             <TextBox Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,10,0" Text="{Binding Festival.Naam}"/>

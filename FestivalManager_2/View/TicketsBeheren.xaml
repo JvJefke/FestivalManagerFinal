@@ -16,11 +16,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" Text="Reserveringen" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Button HorizontalAlignment="Right" Margin="0,0,0,10" Command="{Binding SaveReserveringenCommand}">
-            <Button.Content>
-                <Image Source="/Images/save.png" />
-            </Button.Content>
-        </Button>
+        <Button Margin="0,0,0,10" Command="{Binding SaveReserveringenCommand}" Style="{StaticResource SaveButton}" />
         <TextBox Style="{StaticResource Algemeen_Textbox}" Grid.Row="1" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" />
         <DataGrid HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding Reserveringen}" AutoGenerateColumns="False">
             <DataGrid.Columns>               

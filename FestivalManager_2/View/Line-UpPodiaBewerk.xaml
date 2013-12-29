@@ -54,13 +54,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <Button Grid.RowSpan="2" HorizontalAlignment="Left" Height="45" Margin="-120,-50,0,0" VerticalAlignment="Top" Width="120" Cursor="Hand" Command="{Binding GaNaarPodiumOverzichtCommand}">
-            <Button.Template>
-                <ControlTemplate>
-                    <Image Source="/Images/Logo.png" Stretch="None" HorizontalAlignment="Left" Height="45" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <Button Grid.RowSpan="2" Margin="-120,-45,0,0" Command="{Binding GaNaarPodiumOverzichtCommand}" Style="{StaticResource ReturnButton}" />         
         
         <TextBox Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" Text="{Binding SelectedPodium.Naam, UpdateSourceTrigger=LostFocus, Mode=TwoWay}">
             <i:Interaction.Triggers>
