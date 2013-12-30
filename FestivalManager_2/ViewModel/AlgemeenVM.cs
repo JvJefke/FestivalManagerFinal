@@ -54,7 +54,8 @@ namespace FestivalManager_2.ViewModel
             this.Festival.Organisatie = this.CurrentOrganisatie;
             FestivalRepository.SaveFestival(this.Festival);
             this.Festival = FestivalRepository.GetFestival();
-        }
+            DatumRepository.ChangeDatums(this.Festival.Startdatum, this.Festival.Einddatum);
+        }       
 
         public ObservableCollection<Organisatie> _organisaties;
         public ObservableCollection<Organisatie> Organisaties

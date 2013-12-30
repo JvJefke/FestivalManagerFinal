@@ -118,5 +118,21 @@ namespace FestivalManager_2.Model.DAL
             string sql = "DELETE FROM optreden WHERE OptredenID = @ID";
             Database.ModifyData(sql, Database.AddParameter("@ID", o.ID));
         }
+
+        internal static ObservableCollection<Optreden> GetOptredensByDatum(Datum d)
+        {
+            ObservableCollection<Optreden> lOptredens = new ObservableCollection<Optreden>();
+
+            string sql = "SELECT * FROM optreden WHERE DatumID = @DatumID";
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@DatumID", d.DatumID));
+
+            while (reader.Read())
+            {
+                lOptredens.Add(MaakOptreden(reader));
+            }
+
+            reader.Close();
+            return lOptredens;
+        }
     }
 }

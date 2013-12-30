@@ -172,5 +172,13 @@ namespace FestivalManager_2.Model.DAL
             VerwijderAlleHuidige(OptredenID);
             SaveOptredenUren(lu, OptredenID);
         }
+
+        internal static void VerwijderOptredenUurByOptreden(Optreden o)
+        {
+            string sql = "DELETE FROM optreden_uur WHERE OptredenID = @OptredenID";
+            Database.ModifyData(sql
+                , Database.AddParameter("@OptredenID", o.ID)
+                );
+        }
     }
 }
