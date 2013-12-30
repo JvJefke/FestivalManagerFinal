@@ -83,19 +83,18 @@ namespace FestivalManager_2.ViewModel
                 OnPropertyChanged("CurrentOrganisatie");
 
             }
+        }       
+
+       public ICommand RefreshOrganisatiesCommand
+        {
+            get { return new RelayCommand(RefreshOrganisaties); }
         }
 
-        public ICommand IUploadLogoCommand
-        {
-            get
-            {
-                return new RelayCommand(UploadImage);
-            }                     
-        }
-
-        public void UploadImage()
-        {
-            
-        }        
+       private void RefreshOrganisaties()
+       {
+           Organisatie o = this.CurrentOrganisatie;
+           this.Organisaties = OrganisatieRepository.GetOrganisaties();
+           this.CurrentOrganisatie = o;
+       }
     }
 }

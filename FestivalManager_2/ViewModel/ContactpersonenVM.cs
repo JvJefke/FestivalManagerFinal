@@ -22,6 +22,8 @@ namespace FestivalManager_2.ViewModel
             _contacts = _allContacts;
             FillFuncties();
             FillOrganisaties();
+            FillOverzichtFuncties();
+            FillOverzichtOrganisaties();
             _bewerkVisibility = Visibility.Collapsed;
             _overzichtVisibility = Visibility.Visible;
             _isNieuwContact = false;
@@ -29,10 +31,27 @@ namespace FestivalManager_2.ViewModel
 
         private void FillOrganisaties()
         {
-            _organisaties = OrganisatieRepository.GetOrganisaties();
-            _organisaties.Insert(0, new Organisatie() { ID = 0, Naam = "-- Alle organisaties--" });
+            this.Organisaties = OrganisatieRepository.GetOrganisaties();
+        }
+
+        private void FillOverzichtOrganisaties()
+        {
+            this.OverzichtOrganisaties = OrganisatieRepository.GetOrganisaties();
+            this.OverzichtOrganisaties.Insert(0, new Organisatie() { ID = 0, Naam = "-- Alle organisaties--" });
 
         }
+
+        private void FillFuncties()
+        {
+            this.Functies = FunctieRepository.GetFuncties();
+        }
+
+        private void FillOverzichtFuncties()
+        {
+            this.OverzichtFuncties = FunctieRepository.GetFuncties();
+            this.OverzichtFuncties.Insert(0, new Functie() { ID = 0, Naam = "-- Alle functies--" });
+        }
+
         private Visibility _overzichtVisibility;
         public Visibility OverzichtVisibility
         {
@@ -54,13 +73,7 @@ namespace FestivalManager_2.ViewModel
                 OnPropertyChanged("BewerkVisibility");
             }
         }
-
-
-        private void FillFuncties()
-        {
-            _functies = FunctieRepository.GetFuncties();
-            _functies.Insert(0, new Functie() { ID = 0, Naam = "-- Alle functies--" });
-        }
+       
         private ObservableCollection<Contact> _allContacts;
 
         private ObservableCollection<Contact> _contacts;
@@ -99,6 +112,7 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _functies = value;
+                OnPropertyChanged("Functies");
             }
         }
         private ObservableCollection<Organisatie> _organisaties;
@@ -112,6 +126,36 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _organisaties = value;
+                OnPropertyChanged("Organisaties");
+            }
+        }
+
+        private ObservableCollection<Functie> _overzichtFuncties;
+
+        public ObservableCollection<Functie> OverzichtFuncties
+        {
+            get
+            {
+                return _overzichtFuncties;
+            }
+            set
+            {
+                _overzichtFuncties = value;
+                OnPropertyChanged("OverzichtFuncties");
+            }
+        }
+        private ObservableCollection<Organisatie> _overzichtOrganisaties;
+
+        public ObservableCollection<Organisatie> OverzichtOrganisaties
+        {
+            get
+            {
+                return _overzichtOrganisaties;
+            }
+            set
+            {
+                _overzichtOrganisaties = value;
+                OnPropertyChanged("OverzichtOrganisaties");
             }
         }
 
@@ -266,6 +310,76 @@ namespace FestivalManager_2.ViewModel
             ContactRepository.RemoveContact(current);
             this._allContacts.Remove(current);
             FilterContacts();
+        }
+
+        public ICommand RefreshFunctiesCommand
+        {
+            get { return new RelayCommand(RefreshFuncties); }
+        }
+
+        private void RefreshFuncties()
+        {
+            Functie f = this.SelectedContact.Functie;
+            FillFuncties();
+            Functie f2 = this.Functies.Where(x => f != null && x.ID == f.ID).FirstOrDefault();
+            if (f2 != null)
+                this.SelectedContact.Functie = f2;
+            else
+                this.SelectedContact.Functie = this.Functies[0];
+
+            Contact c = this.SelectedContact;
+            this.SelectedContact = c;
+        }
+
+        public ICommand RefreshOrganisatiesCommand
+        {
+            get { return new RelayCommand(RefreshOrganisaties); }
+        }
+
+        private void RefreshOrganisaties()
+        {
+            Organisatie o = this.SelectedContact.Organisatie;
+            FillOrganisaties();
+            Organisatie o2 = this.Organisaties.Where(x => o != null && x.ID == o.ID).FirstOrDefault();
+            if (o2 != null)
+                this.SelectedContact.Organisatie = o2;
+            else
+                this.SelectedContact.Organisatie = this.Organisaties[0];
+
+            Contact c = this.SelectedContact;
+            this.SelectedContact = c;
+        }
+
+        public ICommand RefreshOverzichtFunctiesCommand
+        {
+            get { return new RelayCommand(RefreshOverzichtFuncties); }
+        }
+
+        private void RefreshOverzichtFuncties()
+        {
+            Functie f = this.CurrentFunctie;
+            FillOverzichtFuncties();
+            Functie f2 = this.OverzichtFuncties.Where(x =>f != null && x.ID == f.ID).FirstOrDefault();
+            if (f2 != null)
+                this.CurrentFunctie = f2;
+            else
+                this.CurrentFunctie = this.OverzichtFuncties[0];
+        }
+
+        public ICommand RefreshOverzichtOrganisatiesCommand
+        {
+            get { return new RelayCommand(RefreshOverzichtOrganisaties); }
+        }
+
+        private void RefreshOverzichtOrganisaties()
+        {
+            Organisatie o = this.CurrentOrganisatie;
+            FillOverzichtOrganisaties();
+            Organisatie o2 = this.OverzichtOrganisaties.Where(x => o != null && x.ID == o.ID).FirstOrDefault();
+            if (o2 != null)
+                this.CurrentOrganisatie = o2;
+            else
+                this.CurrentOrganisatie = this.OverzichtOrganisaties[0];
         }
     }
 }

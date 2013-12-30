@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:FestivalManager_2.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="500">
 
@@ -27,14 +28,52 @@
                 <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
             <Image HorizontalAlignment="Left" Height="181" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Festival.Image}"/>
-            <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="39" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image}"/>
+            
+            <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image}">
+                <TextBox.Triggers>
+                    <EventTrigger RoutedEvent="TextBox.LostFocus">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard Storyboard.TargetName="UploadButton">
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </TextBox.Triggers>
+            </TextBox>
+
+            <Button x:Name="UploadButton" Grid.Row="1" Content="Upload nieuw logo" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.ColumnSpan="2" >
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            
             <TextBlock HorizontalAlignment="Right" Margin="0,20,10,0" Text="Algemeen" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="90" Grid.Column="2"/>
             <Button Grid.Column="3" Command="{Binding SaveFestivalCommand}" Style="{StaticResource SaveButton}"/>
                
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,61,0,0" Text="Naam festival:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,96,0,0" Text="Organisatie:" RenderTransformOrigin="0.3,0.062" />
             <TextBox Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,10,0" Text="{Binding Festival.Naam}"/>
-            <ComboBox Grid.Column="3" Style="{DynamicResource Algemeen_ComboBox}" Margin="10,95,10,0" ItemsSource="{Binding Organisaties}" Text="{Binding CurrentOrganisatie.Naam}" SelectedItem="{Binding CurrentOrganisatie}"/>
+            <ComboBox Grid.Column="3" Style="{DynamicResource Algemeen_ComboBox}" Margin="10,95,10,0" ItemsSource="{Binding Organisaties}" Text="{Binding CurrentOrganisatie.Naam}" SelectedItem="{Binding CurrentOrganisatie}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding RefreshOrganisatiesCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
             <Rectangle Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Style="{DynamicResource Lijn_Stretched}" />
 
             <TextBlock HorizontalAlignment="Right" Margin="0,10,10,0" Text="Datum" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left"  RenderTransformOrigin="0.3,0.062" Width="90" Grid.Row="1" Grid.Column="2"/>

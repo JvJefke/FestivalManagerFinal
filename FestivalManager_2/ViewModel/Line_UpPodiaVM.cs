@@ -248,8 +248,12 @@ namespace FestivalManager_2.ViewModel
             {
                 _selectedDatum = value;
                 NieuwOptredenUur.Optreden.Datum = this._selectedDatum;
-                this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.SelectedPodium);
-                FilterUren();
+                if(this._selectedDatum != null)
+                {
+                    this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.SelectedPodium);
+                    FilterUren();
+                }
+                
                 OnPropertyChanged("SelectedDatum");
             }
         }
@@ -473,6 +477,43 @@ namespace FestivalManager_2.ViewModel
         private void UpdatePodium()
         {
             PodiumRepository.Update(this._selectedPodium);
+        }
+
+        public ICommand RefreshDatumsCommand
+        {
+            get { return new RelayCommand(RefreshDatums); }
+        }
+
+        private void RefreshDatums()
+        {
+            Datum d = this.SelectedDatum;
+            this.Datums = DatumRepository.GetDatums();
+            Datum d2 = this.Datums.Where(x => d != null && x.DatumID == d.DatumID).FirstOrDefault();
+            if (d2 != null)
+                this._selectedDatum = d2;
+            else
+                this._selectedDatum = this.Datums[0];
+
+            OnPropertyChanged("SelectedDatum");
+        }
+
+        public ICommand RefreshGroepenCommand
+        {
+            get { return new RelayCommand(RefreshGroepen); }
+        }
+
+        private void RefreshGroepen()
+        {
+            Groep g = this.NieuwOptredenUur.Optreden.Groep;
+            this.Groepen = GroepenRepository.GetGroepen();
+            Groep g2 = this.Groepen.Where(x => g != null && x.ID == g.ID).FirstOrDefault();
+            if (g2 != null)
+                this.NieuwOptredenUur.Optreden.Groep = g2;
+            else
+                this.NieuwOptredenUur.Optreden.Groep = this.Groepen[0];
+
+            OptredenUurVM ouVM = this.NieuwOptredenUur;
+            this.NieuwOptredenUur = ouVM;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace FestivalManager_2.ViewModel
             this._isBewerkVisible = Visibility.Collapsed;
             this._isOverzichtVisible = Visibility.Visible;
             this._genres = GenreRepository.GetGenres();
-            this._genres.Insert(0, new Genre() { Naam = "---- Alle groepen ----" });
+            this._genres.Insert(0, new Genre() { Naam = "---- Alle genres ----" });
             this._genresVrToevoegen = GenreRepository.GetGenres();
             this._selectedGenreVrToevoegen = this.GenresVrToevoegen[0];            
         }
@@ -318,5 +318,39 @@ namespace FestivalManager_2.ViewModel
         {
             this.SelectedGroep.ID = GroepenRepository.SaveGroep(this.SelectedGroep);
         }
+
+        public ICommand RefreshGenresCommand
+        {
+            get { return new RelayCommand(RefreshGenres); }
+        }
+
+        private void RefreshGenres()
+        {
+            Genre g = this.SelectedGenre;
+            this.Genres = GenreRepository.GetGenres();
+            Genre g2 = this.Genres.Where(x => g != null && x.ID == g.ID).FirstOrDefault();
+            if (g2 != null)
+                this.SelectedGenre = g2;
+            else
+                this.SelectedGenre = this.Genres[0];
+        }   
+    
+        public ICommand RefreshOverzichtGenresCommand
+        {
+            get { return new RelayCommand(RefreshOverzichtGenres); }
+        }
+
+        private void RefreshOverzichtGenres()
+        {
+            Genre g = this.SelectedGenre;
+            this.Genres = GenreRepository.GetGenres();
+            this._genres.Insert(0, new Genre() { Naam = "---- Alle genres ----" });
+            Genre g2 = this.Genres.Where(x => g != null && x.ID == g.ID).FirstOrDefault();
+            if (g2 != null)
+                this.SelectedGenre = g2;
+            else
+                this.SelectedGenre = this.Genres[0];
+        }
+
     }    
 }

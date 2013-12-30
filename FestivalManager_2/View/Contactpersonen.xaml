@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:FestivalManager_2.ViewModel"
              xmlns:v="clr-namespace:FestivalManager_2.View"
              xmlns:c="clr-namespace:FestivalManager_2.View.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="500">   
     <UserControl.Resources>
@@ -54,8 +55,20 @@
                 <RowDefinition Height="15" />
             </Grid.RowDefinitions>
             <TextBox  Grid.ColumnSpan="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,10,0" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox Grid.Column="2" Grid.Row="0" Margin="10,20,10,0" Style="{DynamicResource Algemeen_ComboBox}" ItemsSource="{Binding Functies}" Text="Functies" SelectedItem="{Binding CurrentFunctie}"/>
-            <ComboBox Grid.Column="3" Grid.Row="0" Margin="10,20,10,0" Style="{DynamicResource Algemeen_ComboBox}" ItemsSource="{Binding Organisaties}" Text="Organisaties" SelectedItem="{Binding CurrentOrganisatie}"/>
+            <ComboBox Grid.Column="2" Grid.Row="0" Margin="10,20,10,0" Style="{DynamicResource Algemeen_ComboBox}" ItemsSource="{Binding OverzichtFuncties}" Text="Functies" SelectedItem="{Binding CurrentFunctie}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding RefreshOverzichtFunctiesCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox Grid.Column="3" Grid.Row="0" Margin="10,20,10,0" Style="{DynamicResource Algemeen_ComboBox}" ItemsSource="{Binding OverzichtOrganisaties}" Text="Organisaties" SelectedItem="{Binding CurrentOrganisatie}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding RefreshOverzichtOrganisatiesCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
             <Button x:Name="VoegNieuwToe" Grid.ColumnSpan="4" Content="Voeg een nieuw contactpersoon toe" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Stretch" Command="{Binding NieuwContactCommand}" />
             <ListBox BorderThickness="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch"  Margin="10,10,10,0" Grid.Row="2" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid}" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" HorizontalContentAlignment="Stretch" IsHitTestVisible="True">
             </ListBox>

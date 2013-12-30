@@ -125,7 +125,6 @@
     <Compile Include="ViewModel\AlgemeenVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\ContactBewerkVM.cs" />
-    <Compile Include="ViewModel\ContactContainerVM.cs" />
     <Compile Include="ViewModel\ContactpersonenVM.cs" />
     <Compile Include="ViewModel\IPage.cs" />
     <Compile Include="ViewModel\Line_UpGroepenVM.cs" />
