@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
             <Image HorizontalAlignment="Left" Height="181" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Festival.Image}"/>
 
-            <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image, ValidatesOnDataErrors=True}">
+            <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Validate_Textbox}">
                 <TextBox.Triggers>
                     <EventTrigger RoutedEvent="TextBox.LostFocus">
                         <EventTrigger.Actions>
@@ -62,12 +62,33 @@
             </Button>
             
             <TextBlock HorizontalAlignment="Right" Margin="0,20,10,0" Text="Algemeen" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="90" Grid.Column="2"/>
-            <Button Grid.Column="3" Command="{Binding SaveFestivalCommand}" Style="{StaticResource SaveButton}"/>
+            <Button Grid.Column="3" Command="{Binding SaveFestivalCommand}">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource SaveButton}" TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=Naam, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Organisatie, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Startdatum, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Einddatum, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=StraatNr, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Postcode, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Gemeente, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Beschrijving, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
                
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,61,0,0" Text="Naam festival:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,96,0,0" Text="Organisatie:" RenderTransformOrigin="0.3,0.062" />
-            <TextBox Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,10,0" Text="{Binding Festival.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <ComboBox Grid.Column="3" Style="{DynamicResource Algemeen_ComboBox}" Margin="10,95,10,0" ItemsSource="{Binding Organisaties}" Text="{Binding CurrentOrganisatie.Naam}" SelectedItem="{Binding CurrentOrganisatie}">
+            <TextBox x:Name="Naam" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,10,0" Text="{Binding Festival.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox x:Name="Organisatie" Grid.Column="3" Style="{DynamicResource Algemeen_ComboBox}" Margin="10,95,10,0" ItemsSource="{Binding Organisaties}" Text="{Binding CurrentOrganisatie.Naam}" SelectedItem="{Binding CurrentOrganisatie, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
                         <i:InvokeCommandAction Command="{Binding RefreshOrganisatiesCommand}" />
@@ -79,21 +100,21 @@
             <TextBlock HorizontalAlignment="Right" Margin="0,10,10,0" Text="Datum" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left"  RenderTransformOrigin="0.3,0.062" Width="90" Grid.Row="1" Grid.Column="2"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,51,0,0" Text="Startdatum:" RenderTransformOrigin="0.3,0.062" Grid.Row="1"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,81,0,0" Text="Einddatum:" RenderTransformOrigin="0.3,0.062" Grid.Row="1" />
-            <DatePicker Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,50,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" SelectedDate="{Binding Festival.Startdatum}"/>
-            <DatePicker Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,80,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" SelectedDate="{Binding Festival.Einddatum}"/>
+            <DatePicker x:Name="Startdatum" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,50,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" SelectedDate="{Binding Festival.Startdatum, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker x:Name="Einddatum" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,80,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" SelectedDate="{Binding Festival.Einddatum, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Style="{DynamicResource Lijn_Stretched}"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Adres festival" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="181" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
             <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,56,0,0" Text="Straat + Nr:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
             <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,86,0,0" Text="Postcode:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,86,0,0" Text="Gemeente:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" Width="73" />
-            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding Festival.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="StraatNr" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding Festival.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Postcode" Grid.Column="1" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Gemeente" Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" Style="{DynamicResource Lijn_Stretched}" />
 
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Beschrijving" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="181" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBox Margin="10,45,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Beschrijving, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Beschrijving" Style="{StaticResource Validate_Textbox}" Margin="10,45,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Beschrijving, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>
 </UserControl>

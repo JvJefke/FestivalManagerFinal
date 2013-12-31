@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
             <Image Grid.Row="1" Grid.ColumnSpan="2" Margin="10,20,10,50" Grid.RowSpan="2" Source="{Binding SelectedContact.Image}" Stretch="UniformToFill"/>
 
-            <TextBox HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedContact.Image, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedContact.Image, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Validate_Textbox}">
                 <TextBox.Triggers>
                     <EventTrigger RoutedEvent="TextBox.LostFocus">
                         <EventTrigger.Actions>

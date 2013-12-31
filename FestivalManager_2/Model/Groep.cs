@@ -15,11 +15,11 @@ namespace FestivalManager_2.Model
         public string Naam { get; set; }
         [Required(ErrorMessage="De beschrijving is vereist")]
         public string Beschrijving { get; set; }
-        [Url(ErrorMessage = "Dit moet een URL zijn")]
+        [RegularExpression(@"^(|https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)$", ErrorMessage = "Dit moet een URL zijn")]
         public string Image { get; set; }
-        [Url(ErrorMessage="Dit moet een URL zijn")]
+        [RegularExpression(@"^(|https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)$", ErrorMessage = "Dit moet een URL zijn")]
         public string Facebook { get; set; }
-        [Url(ErrorMessage = "Dit moet een URL zijn")]
+        [RegularExpression(@"^(|https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)$", ErrorMessage = "Dit moet een URL zijn")]
         public string Twitter { get; set; }
 
         public ObservableCollection<Genre> Genres { get; set; }

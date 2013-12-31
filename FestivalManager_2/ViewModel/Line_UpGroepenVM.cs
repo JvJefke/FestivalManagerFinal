@@ -132,7 +132,7 @@ namespace FestivalManager_2.ViewModel
             }
             set
             {
-                this._selectedGroep = value;
+                this._selectedGroep = value;               
                 this.AantalOptredens = OptredenRepository.GetAantalOptredensByOptreden(this.SelectedGroep);
                 OnPropertyChanged("SelectedGroep");
             }

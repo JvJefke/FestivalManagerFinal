@@ -29,24 +29,71 @@
                 
                 <TextBlock Margin="10,10,0,0" Text="Functies" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"/>
                 <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,56,0,0" Text="Naam:" Grid.Row="0" />
-                <TextBox Grid.Column="1" Grid.Row="0" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding CurrentFunctie.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Margin="10,67,95,0" Grid.Row="0" Grid.Column="1" Height="25" Content="Uitvoeren" Command="{Binding WijzigFunctieCommand}"/>
+                <TextBox x:Name="Functie" Grid.Column="1" Grid.Row="0" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding CurrentFunctie.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="10,67,95,0" Grid.Row="0" Grid.Column="1" Height="25" Content="Uitvoeren" Command="{Binding WijzigFunctieCommand}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="IsEnabled" Value="false" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=Functie, Path=(Validation.HasError)}" Value="false" />                                        
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="true" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button Margin="95,67,10,0" Grid.Row="0" Grid.Column="1" Height="25" Content="Nieuw" Command="{Binding NieuwFunctieCommand}"/>
                 <ListBox Grid.Column="2" Grid.Row="0" Margin="10,55,10,25" ItemsSource="{Binding Functies}" SelectedItem="{Binding CurrentFunctie}"></ListBox>
                 <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Style="{DynamicResource Lijn_Stretched}" />
 
                 <TextBlock Margin="10,10,0,0" Text="Genres" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"/>
                 <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,56,0,0" Text="Naam:" Grid.Row="1" />
-                <TextBox Grid.Column="1" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding CurrentGenre.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Margin="10,67,95,0" Grid.Row="1" Grid.Column="1" Height="25" Content="Uitvoeren" Command="{Binding WijzigGenreCommand}"/>
+                <TextBox x:Name="Genre" Grid.Column="1" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding CurrentGenre.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="10,67,95,0" Grid.Row="1" Grid.Column="1" Height="25" Content="Uitvoeren" Command="{Binding WijzigGenreCommand}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="IsEnabled" Value="false" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=Genre, Path=(Validation.HasError)}" Value="false" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="true" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button Margin="95,67,10,0" Grid.Row="1" Grid.Column="1" Height="25" Content="Nieuw" Command="{Binding NieuwGenreCommand}"/>
                 <ListBox Grid.Column="2" Grid.Row="1" Margin="10,55,10,25" ItemsSource="{Binding Genres}" SelectedItem="{Binding CurrentGenre}"></ListBox>
                 <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Style="{DynamicResource Lijn_Stretched}" />
 
                 <TextBlock Margin="10,10,0,0" Text="Organisaties" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"/>
                 <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,56,0,0" Text="Naam:" Grid.Row="2" />
-                <TextBox Grid.Column="1" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding CurrentOrganisatie.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Margin="10,67,95,0" Grid.Row="2" Grid.Column="1" Height="25" Content="Uitvoeren" Command="{Binding WijzigOrganisatieCommand}"/>
+                <TextBox x:Name="OrganisatieNaam" Grid.Column="1" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding CurrentOrganisatie.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="10,67,95,0" Grid.Row="2" Grid.Column="1" Height="25" Content="Uitvoeren" Command="{Binding WijzigOrganisatieCommand}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="IsEnabled" Value="false" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=OrganisatieNaam, Path=(Validation.HasError)}" Value="false" />
+                                        <Condition Binding="{Binding ElementName=Email, Path=(Validation.HasError)}" Value="false" />
+                                        <Condition Binding="{Binding ElementName=Tel, Path=(Validation.HasError)}" Value="false" />
+                                        <Condition Binding="{Binding ElementName=StraatNr, Path=(Validation.HasError)}" Value="false" />
+                                        <Condition Binding="{Binding ElementName=Postcode, Path=(Validation.HasError)}" Value="false" />
+                                        <Condition Binding="{Binding ElementName=Gemeente, Path=(Validation.HasError)}" Value="false" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="true" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button Margin="95,67,10,0" Grid.Row="2" Grid.Column="1" Height="25" Content="Nieuw" Command="{Binding NieuwOrganisatieCommand}"/>
                 <ListBox Grid.Column="2" Grid.Row="2" Margin="10,55,10,25" ItemsSource="{Binding Organisaties}" SelectedItem="{Binding CurrentOrganisatie}"></ListBox>
 
@@ -55,11 +102,11 @@
                 <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,72,0,0" Text="Straat + Nr:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" />
                 <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,102,0,0" Text="Postcode:" RenderTransformOrigin="0.3,0.062" Grid.Row="3" />
                 <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,102,0,0" Text="Gemeente:" Grid.Row="3" Width="73" HorizontalAlignment="Left" />
-                <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,11,10,0" Text="{Binding CurrentOrganisatie.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,41,10,0" Text="{Binding CurrentOrganisatie.Tel, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,71,10,0" Text="{Binding CurrentOrganisatie.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Grid.Column="1" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,101,10,0" Text="{Binding CurrentOrganisatie.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Grid.Column="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="90,101,10,0" Text="{Binding CurrentOrganisatie.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>                
+                <TextBox x:Name="Email" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,11,10,0" Text="{Binding CurrentOrganisatie.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="Tel" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,41,10,0" Text="{Binding CurrentOrganisatie.Tel, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="StraatNr" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,71,10,0" Text="{Binding CurrentOrganisatie.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="Postcode" Grid.Column="1" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,101,10,0" Text="{Binding CurrentOrganisatie.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="Gemeente" Grid.Column="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textbox}" Margin="90,101,10,0" Text="{Binding CurrentOrganisatie.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>                
 
             </Grid>
         </Border>

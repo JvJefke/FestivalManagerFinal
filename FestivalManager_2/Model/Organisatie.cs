@@ -12,7 +12,7 @@ namespace FestivalManager_2.Model
         public int ID { get; set; }
         [Required(ErrorMessage="De naam moet ingevuld worden")]
         public string Naam { get; set; }
-        [EmailAddress(ErrorMessage="Dit moet een e-mail adres zijn")]
+        [RegularExpression(@"^$|[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", ErrorMessage = "Dit moet een e-mail adres zijn")]
         public string Email { get; set; }
         [Required(ErrorMessage="Het telefoonnummer moet ingevuld worden")]
         [Phone(ErrorMessage="Dit moet een telefoonnummer zijn")]

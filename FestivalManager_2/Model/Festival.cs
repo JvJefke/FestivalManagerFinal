@@ -26,8 +26,9 @@ namespace FestivalManager_2.Model
         public string Postcode { get; set; }
         [Required(ErrorMessage="De gemeente moet ingvuld worden")]
         public string Gemeente { get; set; }
-        [Url(ErrorMessage="Dit moet een URL zijn")]
+        [RegularExpression(@"^(|https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)$", ErrorMessage="Dit moet een URL zijn")]
         public string Image { get; set; }
+        [Required]
         public string Beschrijving { get; set; }
     }
 }

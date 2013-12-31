@@ -27,17 +27,14 @@
                 </Grid.RowDefinitions>
                     <Button Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="15" Height="15" Style="{StaticResource DeleteButton}" Command="{Binding DataContext.RemoveTicketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
                     <TextBlock Grid.Row="1" Text="Naam:" Margin="0,0,0,10"/>
-                    <TextBox Grid.Row="1" Text="{Binding Type}" Margin="40,0,10,10" />
+                    <TextBox Grid.Row="1" Text="{Binding Type, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Margin="40,0,10,10" Style="{StaticResource Validate_Textbox}"/>
                     <TextBlock Grid.Row="2" Text="Prijs:" Margin="0,0,0,10"/>
-                    <!--<TextBox Grid.Row="2" Margin="40,0,10,10" Text="{Binding Prijs}" />-->
                     <xceed:DecimalUpDown Grid.Row="2" Margin="40,0,10,10" Minimum="0" Value="{Binding Prijs}" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="Aantal:"/>
-                    <!--<TextBox Grid.Row="2" Grid.Column="1" Margin="50,0,10,10" Text="{Binding Aantal}"/>-->
                     <xceed:DecimalUpDown Grid.Row="2" Grid.Column="1" Margin="50,0,10,10" Minimum="0" Value="{Binding Aantal}" />
                     <TextBlock Grid.Row="3" Text="Reeds verkocht:" Margin="0,0,0,10"/>
                     <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Verkocht}" TextAlignment="Right" HorizontalAlignment="Stretch" Margin="10,0,10,10"/>
                     <ProgressBar Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="10" Margin="0,0,10,0" Foreground="#FF6EAFF0" Maximum="{Binding Aantal}" IsEnabled="False" Value="{Binding Verkocht}"/>
-                    <!--<Rectangle Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Lijn_Stretched}" Margin="0,0,0,0"/>-->
                 </Grid>
             </Border>
         </DataTemplate>

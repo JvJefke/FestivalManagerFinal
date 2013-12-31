@@ -23,7 +23,9 @@ namespace FestivalManager_2.Model
         public string Postcode { get; set; }
         [Required(ErrorMessage = "Gelieve een gemeente op te geven.")]
         public string Gemeente { get; set; }
+        [Required]
         public Functie Functie { get; set; }
+        [Required]
         public Organisatie Organisatie { get; set; }
         public ContactType Type { get; set; }
         [Required(ErrorMessage = "Gelieve een Telefoonnummer op te geven.")]
@@ -33,7 +35,7 @@ namespace FestivalManager_2.Model
         [EmailAddress(ErrorMessage = "Dit is geen correct e-mailadres.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Gelieve een URL op te geven.")]
-        [Url(ErrorMessage = "Dit is geen correcte URL.")]
+        [RegularExpression(@"^(|https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)$", ErrorMessage = "Dit moet een URL zijn")]
         public string Image { get; set; }
         
     }       
