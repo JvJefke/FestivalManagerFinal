@@ -4,38 +4,50 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:FestivalManager_2.ViewModel"
+             xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="350">
     <UserControl.DataContext>
         <vm:TicketsOverzichtVM/>
     </UserControl.DataContext>
-    <UserControl.Resources>
+    <UserControl.Resources>        
         <DataTemplate x:Key="List_Grid_Tickets">
-            <Grid Margin="0,10,0,10">
+            <Border BorderBrush="Black" BorderThickness="1" Background="White" Padding="10">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding Type}" Margin="0,0,0,5"/>
-                <TextBlock Grid.Row="1" Text="Prijs" Margin="0,0,0,5"/>
-                <TextBox Grid.Row="1" Margin="35,0,10,5" Text="{Binding Prijs}" />
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="Aantal"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="50,0,10,5" Text="{Binding Aantal}"/>
-                <TextBlock Grid.Row="2" Text="Reeds verkocht" Margin="0,0,0,5"/>
-                <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Verkocht}" HorizontalAlignment="Stretch" Margin="10,0,10,5"/>
-                <Slider Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,0,0,10" Maximum="{Binding Aantal}" IsEnabled="False" Value="{Binding Verkocht}"/>
-                <Rectangle Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Lijn_Stretched}" Margin="0,0,0,0"/>
-            </Grid>
+                    <Button Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="15" Height="15" Style="{StaticResource DeleteButton}" Command="{Binding DataContext.RemoveTicketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+                    <TextBlock Grid.Row="1" Text="Naam:" Margin="0,0,0,10"/>
+                    <TextBox Grid.Row="1" Text="{Binding Type}" Margin="40,0,10,10" />
+                    <TextBlock Grid.Row="2" Text="Prijs:" Margin="0,0,0,10"/>
+                    <!--<TextBox Grid.Row="2" Margin="40,0,10,10" Text="{Binding Prijs}" />-->
+                    <xceed:DecimalUpDown Grid.Row="2" Margin="40,0,10,10" Minimum="0" Value="{Binding Prijs}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Aantal:"/>
+                    <!--<TextBox Grid.Row="2" Grid.Column="1" Margin="50,0,10,10" Text="{Binding Aantal}"/>-->
+                    <xceed:DecimalUpDown Grid.Row="2" Grid.Column="1" Margin="50,0,10,10" Minimum="0" Value="{Binding Aantal}" />
+                    <TextBlock Grid.Row="3" Text="Reeds verkocht:" Margin="0,0,0,10"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Verkocht}" TextAlignment="Right" HorizontalAlignment="Stretch" Margin="10,0,10,10"/>
+                    <ProgressBar Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="10" Margin="0,0,10,0" Foreground="#FF6EAFF0" Maximum="{Binding Aantal}" IsEnabled="False" Value="{Binding Verkocht}"/>
+                    <!--<Rectangle Grid.ColumnSpan="2" Grid.Row="3" Style="{DynamicResource Lijn_Stretched}" Margin="0,0,0,0"/>-->
+                </Grid>
+            </Border>
         </DataTemplate>
     </UserControl.Resources>
-    
-    <ListBox BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,10" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid_Tickets}" ItemsSource="{Binding Tickets}">
-        
-    </ListBox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Voeg een nieuw tickettype toe" Margin="10,10,10,10" Command="{Binding VoegNieuwTicketToeCommand, UpdateSourceTrigger=PropertyChanged}" />
+        <ListBox Grid.Row="1" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,10" HorizontalContentAlignment="Stretch" Background="#00000000" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Stretch" ItemTemplate="{StaticResource List_Grid_Tickets}" ItemsSource="{Binding Tickets}" ItemContainerStyle="{StaticResource ListBoxWithNoSelection}"/>
+    </Grid>    
 </UserControl>

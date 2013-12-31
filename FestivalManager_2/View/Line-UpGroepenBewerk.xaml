@@ -51,7 +51,7 @@
         <Button Grid.RowSpan="2" Margin="-120,-45,0,0" Command="{Binding GaNaarOverzichtCommand}" Style="{StaticResource ReturnButton}" />
         
         <Image Grid.Row="1" HorizontalAlignment="Left" Height="181" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding SelectedGroep.Image}"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedGroep.Image}">
+        <TextBox HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedGroep.Image, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.Triggers>
                 <EventTrigger RoutedEvent="TextBox.LostFocus">
                     <EventTrigger.Actions>
@@ -84,14 +84,14 @@
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource Algemeen_Textblock}" Margin="0,46,0,0" Text="Groepnaam:"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource Algemeen_Textblock}" Margin="0,86,0,0" Text="Facebook:"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource Algemeen_Textblock}" Margin="0,126,0,0" Text="Twitter:" />
-        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,46,10,0" Text="{Binding SelectedGroep.Naam}" TextWrapping="NoWrap"/>
-        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,85,10,0" Text="{Binding SelectedGroep.Facebook}" TextWrapping="NoWrap"/>
-        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,126,10,0" Text="{Binding SelectedGroep.Twitter}" TextWrapping="NoWrap"/>
+        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,46,10,0" Text="{Binding SelectedGroep.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="NoWrap"/>
+        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,85,10,0" Text="{Binding SelectedGroep.Facebook, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="NoWrap"/>
+        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,126,10,0" Text="{Binding SelectedGroep.Twitter, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="NoWrap"/>
         <TextBlock Grid.Column="3" Grid.Row="1" Margin="10,176,0,0" Text="Aantal optredens:" HorizontalAlignment="Stretch" TextAlignment="Left" VerticalAlignment="Top" FontSize="13" />
         <TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Top" Margin="50,176,10,10" Width="100" Height="25" Text="{Binding AantalOptredens}" FontSize="13" />
 
         <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Beschrijving:" Grid.Row="2"/>
-        <TextBox Grid.Row="3" Grid.ColumnSpan="4" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding SelectedGroep.Beschrijving}"/>
+        <TextBox Grid.Row="3" Grid.ColumnSpan="4" Margin="10,10,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding SelectedGroep.Beschrijving, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,10,0,0" TextAlignment="Left" Text="Genres:" Grid.Row="4"/>
         <ItemsControl Grid.ColumnSpan="4" Grid.Row="5" ItemsPanel="{StaticResource Genres_Wrappanel}" ItemTemplate="{StaticResource List_Genres}" ItemsSource="{Binding SelectedGroep.Genres}" Margin="0,0,150,0" />

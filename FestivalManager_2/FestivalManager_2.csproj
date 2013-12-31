@@ -95,6 +95,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BaseDataAnotations.cs" />
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\ContactType.cs" />
     <Compile Include="Model\DAL\ContactRepository.cs" />
@@ -147,9 +148,6 @@
     <Compile Include="View\ContactBewerk.xaml.cs">
       <DependentUpon>ContactBewerk.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Instellingen.xaml.cs">
-      <DependentUpon>Instellingen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Line-UpGroepen.xaml.cs">
       <DependentUpon>Line-UpGroepen.xaml</DependentUpon>
     </Compile>
@@ -193,10 +191,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Contactpersonen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Instellingen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

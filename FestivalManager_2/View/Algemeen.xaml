@@ -28,8 +28,8 @@
                 <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
             <Image HorizontalAlignment="Left" Height="181" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Grid.RowSpan="2" Grid.ColumnSpan="2" Source="{Binding Festival.Image}"/>
-            
-            <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image}">
+
+            <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Image, ValidatesOnDataErrors=True}">
                 <TextBox.Triggers>
                     <EventTrigger RoutedEvent="TextBox.LostFocus">
                         <EventTrigger.Actions>
@@ -66,7 +66,7 @@
                
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,61,0,0" Text="Naam festival:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,96,0,0" Text="Organisatie:" RenderTransformOrigin="0.3,0.062" />
-            <TextBox Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,10,0" Text="{Binding Festival.Naam}"/>
+            <TextBox Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,10,0" Text="{Binding Festival.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             <ComboBox Grid.Column="3" Style="{DynamicResource Algemeen_ComboBox}" Margin="10,95,10,0" ItemsSource="{Binding Organisaties}" Text="{Binding CurrentOrganisatie.Naam}" SelectedItem="{Binding CurrentOrganisatie}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
@@ -87,13 +87,13 @@
             <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,56,0,0" Text="Straat + Nr:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
             <TextBlock Style="{DynamicResource Algemeen_Textblock}" Margin="0,86,0,0" Text="Postcode:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,86,0,0" Text="Gemeente:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" Width="73" />
-            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding Festival.Straat_Nr}"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Postcode}"/>
-            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Gemeente}"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,55,10,0" Text="{Binding Festival.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,86,10,0" Text="{Binding Festival.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             <Rectangle Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" Style="{DynamicResource Lijn_Stretched}" />
 
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Beschrijving" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" RenderTransformOrigin="0.3,0.062" Width="181" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBox Margin="10,45,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Beschrijving}"/>
+            <TextBox Margin="10,45,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Festival.Beschrijving, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>
 </UserControl>
