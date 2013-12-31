@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
             <Image Grid.Row="1" Grid.ColumnSpan="2" Margin="10,20,10,50" Grid.RowSpan="2" Source="{Binding SelectedContact.Image}" Stretch="UniformToFill"/>
 
-            <TextBox HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedContact.Image}">
+            <TextBox HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="181" Height="35" Grid.Row="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedContact.Image, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.Triggers>
                     <EventTrigger RoutedEvent="TextBox.LostFocus">
                         <EventTrigger.Actions>
@@ -61,15 +61,15 @@
             <Button Grid.RowSpan="2" Command="{Binding GaNaarOverzichtCommand}" Style="{StaticResource ReturnButton}"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,31,0,0" Text="Voornaam:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,61,0,0" Text="Naam:" RenderTransformOrigin="0.3,0.062" />
-            <TextBox Grid.Row="1" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,30,3,0" Text="{Binding SelectedContact.Voornaam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,3,0" Text="{Binding SelectedContact.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Voornaam"  Grid.Row="1" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,30,3,0" Text="{Binding SelectedContact.Voornaam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Naam" Grid.Row="1" Grid.Column="3" Style="{DynamicResource Algemeen_Textbox}" Margin="10,60,3,0" Text="{Binding SelectedContact.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,20,0,0" Text="Straat + Nr:" RenderTransformOrigin="0.3,0.062" Grid.Row="2"/>
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,50,0,0" Text="Postcode:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
             <TextBlock Grid.Column="2" Style="{DynamicResource Algemeen_Textblock}" Margin="0,80,0,0" Text="Gemeente:" RenderTransformOrigin="0.3,0.062" Grid.Row="2" />
-            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,3,0" Text="{Binding SelectedContact.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,50,3,0" Text="{Binding SelectedContact.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,80,3,0" Text="{Binding SelectedContact.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="StraatNr" Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,3,0" Text="{Binding SelectedContact.Straat_Nr, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Postcode" Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,50,3,0" Text="{Binding SelectedContact.Postcode, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Gemeente" Grid.Column="3" Grid.Row="2" Style="{DynamicResource Algemeen_Textbox}" Margin="10,80,3,0" Text="{Binding SelectedContact.Gemeente, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Column="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textblock}" Margin="0,21,0,0" Text="Functie:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Column="2" Grid.Row="3" Style="{DynamicResource Algemeen_Textblock}" Margin="0,51,0,0" Text="Organisatie:" RenderTransformOrigin="0.3,0.062" />
@@ -90,10 +90,30 @@
 
             <TextBlock Grid.Column="2" Grid.Row="4" Style="{DynamicResource Algemeen_Textblock}" Margin="0,21,0,0" Text="Tel:" RenderTransformOrigin="0.3,0.062"/>
             <TextBlock Grid.Column="2" Grid.Row="4" Style="{DynamicResource Algemeen_Textblock}" Margin="0,51,0,0" Text="E-mail:" RenderTransformOrigin="0.3,0.062" />
-            <TextBox Grid.Column="3" Grid.Row="4" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,3,0" Text="{Binding SelectedContact.Tel, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="3" Grid.Row="4" Style="{DynamicResource Algemeen_Textbox}" Margin="10,50,3,0" Text="{Binding SelectedContact.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Tel" Grid.Column="3" Grid.Row="4" Style="{DynamicResource Algemeen_Textbox}" Margin="10,20,3,0" Text="{Binding SelectedContact.Tel, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="Email" Grid.Column="3" Grid.Row="4" Style="{DynamicResource Algemeen_Textbox}" Margin="10,50,3,0" Text="{Binding SelectedContact.Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             
-            <Button Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,10,20,0" Command="{Binding SaveContactCommand}" Style="{StaticResource SaveButton}" />
+            <Button Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,10,20,0" Command="{Binding SaveContactCommand}">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource SaveButton}" TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=Voornaam, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Naam, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=StraatNr, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Postcode, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Gemeente, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Tel, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=Email, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Border>
 </UserControl>
