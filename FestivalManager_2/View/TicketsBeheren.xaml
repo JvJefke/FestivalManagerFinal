@@ -16,7 +16,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" Text="Reserveringen" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBlock HorizontalAlignment="Right" Text="{Binding PrintError}" TextWrapping="Wrap" Margin="0,5,100,5" FontSize="11" Foreground="Red" Width="160"/>
+        <TextBlock HorizontalAlignment="Right" Text="{Binding PrintError}" TextWrapping="Wrap" Margin="0,5,90,5" FontSize="11" Foreground="Red" Width="180"/>
         <Button Margin="0,0,0,10" Command="{Binding SaveReserveringenCommand}" Style="{StaticResource SaveButton}" />
         <Button Margin="0,0,45,10" Command="{Binding PrintCommand}" HorizontalAlignment="Right" Width="30" Cursor="Hand">
             <Button.Template>

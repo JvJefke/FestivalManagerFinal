@@ -117,7 +117,7 @@ namespace FestivalManager_2.ViewModel
             Reservering r = Reservering.PrintGroup(this.Reserveringen);
             if(r != null)
             {
-                this.PrintError = "FOUT! Sluit alle conflicterende word documentend!";
+                this.PrintError = "FOUT! Sluit alle mogelijke conflicterende word documenten!";
             }
         }
 
