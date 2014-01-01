@@ -56,6 +56,59 @@ namespace FestivalManager_2.Model.DAL
             reader.Close();              
             
             return null;
-        }        
+        }
+
+        internal static void Save(ObservableCollection<Ticket> lTickets)
+        {
+            ObservableCollection<Ticket> DBTickets = GetTickets();
+
+            foreach(Ticket t in lTickets)
+            {
+                if (t.ID == 0)
+                    Insert(t);
+                else
+                    Update(t);
+            }
+
+            DBTickets = GetTickets();
+
+            foreach (Ticket t in DBTickets)
+            {
+                bool test = false;
+                foreach (Ticket tt in lTickets)
+                    if (tt.ID == 0 || t.ID == tt.ID)
+                        test = true;
+
+                if (test == false)
+                    Delete(t);
+            }
+        }
+
+        private static void Delete(Ticket t)
+        {
+            string sql = "DELETE FROM ticket WHERE TicketID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", t.ID));
+        }
+
+        private static void Update(Ticket t)
+        {
+            string sql = "UPDATE ticket SET Type = @Type, Prijs = @Prijs, Aantal = @Aantal WHERE TicketID = @ID";
+            Database.ModifyData(sql
+                , Database.AddParameter("@Type", t.Type)
+                , Database.AddParameter("@ID", t.ID)
+                , Database.AddParameter("@Prijs", t.Prijs)
+                , Database.AddParameter("@Aantal", t.Aantal)
+                );
+        }
+
+        private static void Insert(Ticket t)
+        {
+            string sql = "INSERT INTO ticket (Type, Prijs, Aantal) VALUES (@Type, @Prijs, @Aantal)";
+            Database.ModifyData(sql
+                , Database.AddParameter("@Type", t.Type)
+                , Database.AddParameter("@Prijs", t.Prijs)
+                , Database.AddParameter("@Aantal", t.Aantal)
+                );
+        }
     }
 }

@@ -12,7 +12,7 @@
     </UserControl.DataContext>
     <UserControl.Resources>        
         <DataTemplate x:Key="List_Grid_Tickets">
-            <Border BorderBrush="Black" BorderThickness="1" Background="White" Padding="10">
+            <Border BorderBrush="Black" BorderThickness="1" Background="White" Padding="10" Margin="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -39,12 +39,15 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Voeg een nieuw tickettype toe" Margin="10,10,10,10" Command="{Binding VoegNieuwTicketToeCommand, UpdateSourceTrigger=PropertyChanged}" />
-        <ListBox Grid.Row="1" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,10" HorizontalContentAlignment="Stretch" Background="#00000000" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Stretch" ItemTemplate="{StaticResource List_Grid_Tickets}" ItemsSource="{Binding Tickets}" ItemContainerStyle="{StaticResource ListBoxWithNoSelection}"/>
+        <TextBlock Margin="7,5,0,0" HorizontalAlignment="Left" Text="Reserveringen" Style="{DynamicResource Algemeen_Titel_Textblock}" TextAlignment="Left" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Button Margin="0,5,7,0" Command="{Binding SaveTicketsCommand}" Style="{StaticResource SaveButton}" />
+        <Button Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Voeg een nieuw tickettype toe" Margin="7,10,7,10" Command="{Binding VoegNieuwTicketToeCommand, UpdateSourceTrigger=PropertyChanged}" />
+        <ListBox Grid.Row="2" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="1,0,1,0" HorizontalContentAlignment="Stretch" Background="#00000000" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Stretch" ItemTemplate="{StaticResource List_Grid_Tickets}" ItemsSource="{Binding Tickets}" ItemContainerStyle="{StaticResource ListBoxWithNoSelection}"/>
     </Grid>    
 </UserControl>

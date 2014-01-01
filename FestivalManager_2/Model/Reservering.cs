@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FestivalManager_2.Model
 {
-    class Reservering
+    class Reservering : BaseDataAnotations
     {
         public int ID { get; set; }
         [Required]

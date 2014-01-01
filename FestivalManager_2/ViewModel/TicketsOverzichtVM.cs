@@ -15,7 +15,7 @@ namespace FestivalManager_2.ViewModel
     {
         public TicketsOverzichtVM()
         {
-            _tickets = TicketRepository.GetTickets();
+            this._tickets = TicketRepository.GetTickets();     
         }
 
         public string Name
@@ -36,7 +36,7 @@ namespace FestivalManager_2.ViewModel
                 OnPropertyChanged("Tickets");
             }
         }
-
+       
         public ICommand VoegNieuwTicketToeCommand
         {
             get { return new RelayCommand(VoegNieuwTicketToe); }
@@ -56,6 +56,32 @@ namespace FestivalManager_2.ViewModel
         {
             this.Tickets.Remove(t);
             this.Tickets = _tickets;
+        }
+
+        public ICommand SaveTicketsCommand
+        {
+            get { return new RelayCommand(SaveTickets); }
+        }
+
+        private void SaveTickets()
+        {
+            if (IsValid(this.Tickets))
+            {
+                TicketRepository.Save(this.Tickets);
+                this.Tickets = TicketRepository.GetTickets();
+            }
+        }
+
+        private bool IsValid(ObservableCollection<Ticket> lTickets)
+        {
+            bool b = true;
+            foreach(Ticket t in lTickets)
+            {
+                if(t.Type.Length < 1)
+                    b = false;
+            }
+
+            return b;
         }
     }
 }

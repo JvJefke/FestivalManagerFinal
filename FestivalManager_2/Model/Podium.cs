@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FestivalManager_2.Model
 {
-    class Podium
+    class Podium : BaseDataAnotations
     {
         public int ID { get; set; }
         [Required(ErrorMessage="De podiumnaam moet ingevuld worden")]
