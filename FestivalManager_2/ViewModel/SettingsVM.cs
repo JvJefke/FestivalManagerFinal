@@ -123,12 +123,13 @@ namespace FestivalManager_2.ViewModel
         {
             Organisatie temp = this.CurrentOrganisatie;
 
-            OrganisatieRepository.SaveOrganisatie(temp);
-            this._alleOrganisaties = OrganisatieRepository.GetOrganisaties();
-            this.Organisaties = this._alleOrganisaties;
+            if (this.CurrentOrganisatie.Email == null)
+                this.CurrentOrganisatie.Email = "";
+
+            OrganisatieRepository.SaveOrganisatie(this.CurrentOrganisatie);
+            this.Organisaties = OrganisatieRepository.GetOrganisaties();
 
             this.CurrentOrganisatie = temp;
-            OnPropertyChanged(null);
         }
 
          public ICommand WijzigGenreCommand
@@ -141,8 +142,7 @@ namespace FestivalManager_2.ViewModel
              Genre temp = this.CurrentGenre;
 
              GenreRepository.SaveGenre(temp);             
-             this._alleGenres = GenreRepository.GetGenres();
-             this.Genres = this._alleGenres;
+             this.Genres = GenreRepository.GetGenres();
 
              this.CurrentGenre = temp;
          }
@@ -157,8 +157,7 @@ namespace FestivalManager_2.ViewModel
              Functie temp = this.CurrentFunctie;
 
              FunctieRepository.SaveFunctie(temp);
-             this._alleFuncties = FunctieRepository.GetFuncties();
-             this.Functies = this._alleFuncties;
+             this.Functies = FunctieRepository.GetFuncties();
 
              this.CurrentFunctie = temp;
          }
@@ -192,5 +191,49 @@ namespace FestivalManager_2.ViewModel
          {
              this.CurrentOrganisatie = new Organisatie();
          }
+
+         public ICommand VerwijderFunctieCommand
+         {
+             get { return new RelayCommand(VerwijderFucntie); }
+         }
+
+        private void VerwijderFucntie()
+        {
+            if(this.CurrentFunctie.ID != 0)
+            {
+                FunctieRepository.Delete(this.CurrentFunctie);
+                this.Functies = FunctieRepository.GetFuncties();
+
+                NieuwFunctie();
+            }          
+        }
+        public ICommand VerwijderOrganisatieCommand
+        {
+            get { return new RelayCommand(VerwijderOrganisatie); }
+        }
+
+        private void VerwijderOrganisatie()
+        {
+            if (this.CurrentOrganisatie.ID != 0)
+            {
+                OrganisatieRepository.Delete(this.CurrentOrganisatie);
+                this.Organisaties = OrganisatieRepository.GetOrganisaties();
+                NieuwOrganisatie();
+            }           
+        }
+        public ICommand VerwijderGenreCommand
+        {
+            get { return new RelayCommand(VerwijderGenre); }
+        }
+
+        private void VerwijderGenre()
+        {
+            if (this.CurrentGenre.ID != 0)
+            {
+                GenreRepository.Delete(this.CurrentGenre);
+                this.Genres = GenreRepository.GetGenres();
+                NieuwGenre();
+            }           
+        }
     }
 }

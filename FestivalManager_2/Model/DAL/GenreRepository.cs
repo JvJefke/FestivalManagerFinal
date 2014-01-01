@@ -61,5 +61,11 @@ namespace FestivalManager_2.Model.DAL
 
             return lGenres;
         }
+
+        internal static void Delete(Genre genre)
+        {
+            string sql = "DELETE FROM genre WHERE GenreID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", genre.ID));
+        }
     }
 }

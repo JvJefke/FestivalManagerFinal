@@ -58,7 +58,7 @@ namespace FestivalManager_2.ViewModel
         private void ChangePage(IPage page)
         {
             currentPage = page;
-        }      
+        }
 
     }
 }

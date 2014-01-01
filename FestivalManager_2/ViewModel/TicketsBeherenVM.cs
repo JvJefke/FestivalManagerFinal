@@ -104,5 +104,34 @@ namespace FestivalManager_2.ViewModel
         {
             ReserveringRepository.Save(this.Reserveringen);
         }
+
+        public ICommand PrintCommand
+        {
+            get { return new RelayCommand(Print); }
+        }
+
+        private void Print()
+        {
+            this.PrintError = "";
+
+            Reservering r = Reservering.PrintGroup(this.Reserveringen);
+            if(r != null)
+            {
+                this.PrintError = "FOUT! Sluit alle conflicterende word documentend!";
+            }
+        }
+
+        private string _printError;
+        public string PrintError
+        {
+            get
+            {
+                return _printError;
+            }
+            set{
+                _printError = value;
+                OnPropertyChanged("PrintError");
+            }
+        }
     }
 }

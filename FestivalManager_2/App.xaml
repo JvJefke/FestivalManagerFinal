@@ -126,7 +126,7 @@
 
         <Style x:Key="DeleteButton" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="45" />
-            <Setter Property="Width" Value="120" />
+            <Setter Property="Width" Value="45" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>

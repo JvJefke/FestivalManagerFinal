@@ -82,6 +82,12 @@ namespace FestivalManager_2.Model.DAL
             reader.Close();
 
             return lOrganisaties;
-        }        
+        }
+
+        internal static void Delete(Organisatie organisatie)
+        {
+            string sql = "DELETE FROM organisatie WHERE OrganisatieID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", organisatie.ID));
+        }
     }
 }

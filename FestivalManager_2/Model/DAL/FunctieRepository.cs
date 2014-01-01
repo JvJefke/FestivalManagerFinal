@@ -70,5 +70,11 @@ namespace FestivalManager_2.Model.DAL
                 Database.ModifyData(sql, Database.AddParameter("@Naam", functie.Naam));
             }
         }
+
+        internal static void Delete(Functie functie)
+        {
+            string sql = "DELETE FROM functie WHERE FunctieID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", functie.ID));
+        }
     }
 }
