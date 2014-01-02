@@ -170,8 +170,14 @@ namespace FestivalManager_2.ViewModel
 
         private void InitLineUp()
         {            
-            //FillUren();
-            this.Uren = UrenRepository.getUrenVoorLineUp(this.SelectedDatum, this.SelectedPodium);
+            //FillUren();           
+
+            if (UrenRepository.GetAantalUrenByDatumEnPodium(this.SelectedDatum, this.SelectedPodium) == 0)
+                this.Uren = UrenRepository.GetUren(false);
+            else
+                this.Uren = UrenRepository.getUrenVoorLineUp(this.SelectedDatum, this.SelectedPodium);
+           
+            this.UrenAdd = UurAddVM.GetUren(this.SelectedDatum, this.SelectedPodium);
         }
 
         private void GetFirstOfOptreden()
@@ -312,6 +318,7 @@ namespace FestivalManager_2.ViewModel
 
         private void GaNaarPodiumBewerk()
         {
+            InitLineUp();
             this.IsOverzichtVisible = Visibility.Collapsed;
             this.IsBewerkVisible = Visibility.Visible;
         }
@@ -323,6 +330,9 @@ namespace FestivalManager_2.ViewModel
 
         private void GaNaarPodiumOverzicht()
         {
+            if (this.SelectedPodium.ID == 0)
+                this.Podiums.Remove(this.SelectedPodium);
+
             this.IsBewerkVisible = Visibility.Collapsed;
             this.IsOverzichtVisible = Visibility.Visible;
         }
@@ -340,7 +350,7 @@ namespace FestivalManager_2.ViewModel
             if (Podiums.Count() != 0)
                 this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.Podiums[0]);
 
-            FilterUren();
+            InitLineUp();
         }
 
         private ObservableCollection<Uur> GetSelectedUren()
@@ -486,6 +496,9 @@ namespace FestivalManager_2.ViewModel
 
         private void UpdatePodium()
         {
+            if (this.SelectedPodium.Naam == null || this.SelectedPodium.Naam == "")
+                return;
+
             this.SelectedPodium.ID = PodiumRepository.Update(this._selectedPodium);
             this.Podiums = PodiumRepository.GetPodia();
         }

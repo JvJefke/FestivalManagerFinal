@@ -239,7 +239,14 @@ namespace FestivalManager_2.ViewModel
 
         private void NieuwContact()
         {
-            this.SelectedContact = new Contact() { Image = "/Images/person-icon.png", Functie = this.Functies[1], Organisatie = this.Organisaties[1] };
+            Functie f = this.Functies[0];
+            Organisatie o = this.Organisaties[0];
+            if (this.CurrentFunctie != null && this.CurrentFunctie.ID != 0)
+                f = this.CurrentFunctie;
+            if (this.CurrentOrganisatie != null && this.CurrentOrganisatie.ID != 0)
+                o = this.CurrentOrganisatie;
+
+            this.SelectedContact = new Contact() { Image = "/Images/person-icon.png", Functie = f, Organisatie = o };
             _isNieuwContact = true;
             GaNaarDetail();
         }
@@ -251,6 +258,9 @@ namespace FestivalManager_2.ViewModel
         public void GaNaarOverzicht()
         {
             _isNieuwContact = false;
+            this._allContacts = ContactRepository.getContacts();
+            FilterContacts();
+
             this.OverzichtVisibility = Visibility.Visible;
             this.BewerkVisibility = Visibility.Collapsed;
         }
@@ -270,7 +280,7 @@ namespace FestivalManager_2.ViewModel
 
         private void PasContactAan(Contact current)
         {
-            this.SelectedContact = current;
+            this.SelectedContact = ContactRepository.GetContactByID(current.ID);
             GaNaarDetail();
         }
 

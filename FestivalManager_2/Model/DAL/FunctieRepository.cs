@@ -55,6 +55,22 @@ namespace FestivalManager_2.Model.DAL
 
             return lFuncties;
         }
+        public static ObservableCollection<Functie> GetFunctiesVoorBewerk()
+        {
+            ObservableCollection<Functie> lFuncties = new ObservableCollection<Functie>();
+            string sql = "SELECT * FROM functie WHERE FunctieID != 2010";
+
+            DbDataReader reader = Database.GetData(sql);
+
+            while (reader.Read())
+            {
+                lFuncties.Add(MaakFunctie(reader));
+            }
+
+            reader.Close();
+
+            return lFuncties;
+        }
 
 
         internal static int SaveFunctie(Functie functie)
@@ -81,7 +97,11 @@ namespace FestivalManager_2.Model.DAL
 
         internal static void Delete(Functie functie)
         {
-            string sql = "DELETE FROM functie WHERE FunctieID = @ID";
+            string sql;
+            sql = "UPDATE contact SET FunctieID = 2010 WHERE FunctieID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", functie.ID));
+
+            sql = "DELETE FROM functie WHERE FunctieID = @ID";
             Database.ModifyData(sql, Database.AddParameter("@ID", functie.ID));
         }
     }

@@ -139,5 +139,19 @@ namespace FestivalManager_2.Model.DAL
             string sql = "DELETE FROM contact WHERE ContactID = @ID";
             Database.ModifyData(sql, Database.AddParameter("@ID", contact.ID));
         }
+
+        internal static Contact GetContactByID(int id)
+        {
+            Contact c = new Contact();
+
+            string sql = "SELECT * FROM contact WHERE ContactID = @ID";
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", id));
+
+            if (reader.Read())
+                c = MaakContact(reader);
+
+            reader.Close();
+            return c;                
+        }
     }
 }

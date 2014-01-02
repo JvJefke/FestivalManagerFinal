@@ -73,7 +73,11 @@ namespace FestivalManager_2.Model.DAL
 
         internal static void Delete(Genre genre)
         {
-            string sql = "DELETE FROM genre WHERE GenreID = @ID";
+            string sql;
+            sql = "DELETE FROM groep_genre WHERE GenreID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", genre.ID));
+
+            sql = "DELETE FROM genre WHERE GenreID = @ID";
             Database.ModifyData(sql, Database.AddParameter("@ID", genre.ID));
         }
     }

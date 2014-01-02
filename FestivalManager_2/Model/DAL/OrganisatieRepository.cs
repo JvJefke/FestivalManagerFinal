@@ -93,9 +93,43 @@ namespace FestivalManager_2.Model.DAL
             return lOrganisaties;
         }
 
+        public static ObservableCollection<Organisatie> GetOrganisatiesVoorBewerken()
+        {
+            ObservableCollection<Organisatie> lOrganisaties = new ObservableCollection<Organisatie>();
+            string sql = "SELECT * FROM organisatie WHERE OrganisatieID != 2007";
+
+            DbDataReader reader = Database.GetData(sql);
+
+            while (reader.Read())
+            {
+                lOrganisaties.Add(MaakOrganisatie(reader));
+            }
+
+            reader.Close();
+
+            return lOrganisaties;
+        }
+
+        
+
         internal static void Delete(Organisatie organisatie)
         {
+            PasFestivalAan(organisatie);
+            PasContactsAan(organisatie);
+
             string sql = "DELETE FROM organisatie WHERE OrganisatieID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", organisatie.ID));
+        }
+
+        private static void PasContactsAan(Organisatie organisatie)
+        {
+            string sql = "UPDATE contact SET OrganisatieID = 2007 WHERE OrganisatieID = @ID";
+            Database.ModifyData(sql, Database.AddParameter("@ID", organisatie.ID));
+        }
+
+        private static void PasFestivalAan(Organisatie organisatie)
+        {
+            string sql = "UPDATE festival SET OrganisatieID = 2007 WHERE OrganisatieID = @ID";
             Database.ModifyData(sql, Database.AddParameter("@ID", organisatie.ID));
         }
     }

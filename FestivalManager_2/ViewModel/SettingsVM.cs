@@ -15,7 +15,7 @@ namespace FestivalManager_2.ViewModel
     {
         public SettingsVM()
         {
-            this._alleFuncties = FunctieRepository.GetFuncties();
+            this._alleFuncties = FunctieRepository.GetFunctiesVoorBewerk();
             this.Functies = this._alleFuncties;
             this.CurrentFunctie = this.Functies[0];
 
@@ -23,7 +23,7 @@ namespace FestivalManager_2.ViewModel
             this.Genres = this._alleGenres;
             this.CurrentGenre = this.Genres[0];
 
-            this._alleOrganisaties = OrganisatieRepository.GetOrganisaties();
+            this._alleOrganisaties = OrganisatieRepository.GetOrganisatiesVoorBewerken();
             this.Organisaties = this._alleOrganisaties;
             this.CurrentOrganisatie = this.Organisaties[0];
         }
@@ -127,7 +127,7 @@ namespace FestivalManager_2.ViewModel
                 this.CurrentOrganisatie.Email = "";
 
             temp.ID = OrganisatieRepository.SaveOrganisatie(this.CurrentOrganisatie);
-            this.Organisaties = OrganisatieRepository.GetOrganisaties();
+            this.Organisaties = OrganisatieRepository.GetOrganisatiesVoorBewerken();
 
             this.CurrentOrganisatie = temp;
         }
@@ -157,7 +157,7 @@ namespace FestivalManager_2.ViewModel
              Functie temp = this.CurrentFunctie;
 
              temp.ID = FunctieRepository.SaveFunctie(temp);
-             this.Functies = FunctieRepository.GetFuncties();
+             this.Functies = FunctieRepository.GetFunctiesVoorBewerk();
 
              this.CurrentFunctie = temp;
          }
@@ -202,7 +202,7 @@ namespace FestivalManager_2.ViewModel
             if(this.CurrentFunctie.ID != 0)
             {
                 FunctieRepository.Delete(this.CurrentFunctie);
-                this.Functies = FunctieRepository.GetFuncties();
+                this.Functies = FunctieRepository.GetFunctiesVoorBewerk();
 
                 NieuwFunctie();
             }          
@@ -217,7 +217,7 @@ namespace FestivalManager_2.ViewModel
             if (this.CurrentOrganisatie.ID != 0)
             {
                 OrganisatieRepository.Delete(this.CurrentOrganisatie);
-                this.Organisaties = OrganisatieRepository.GetOrganisaties();
+                this.Organisaties = OrganisatieRepository.GetOrganisatiesVoorBewerken();
                 NieuwOrganisatie();
             }           
         }

@@ -201,5 +201,22 @@ namespace FestivalManager_2.Model.DAL
 
             return lUren;
         }
+
+        internal static int GetAantalUrenByDatumEnPodium(Datum d, Podium p)
+        {
+            int aantal = 0;
+
+            string sql = "SELECT COUNT(OptredenID) FROM optreden WHERE DatumID = @DatumID and PodiumID = @PodiumID";
+            DbDataReader reader = Database.GetData(sql,
+                 Database.AddParameter("@PodiumID", p.ID),
+                 Database.AddParameter("@DatumID", d.DatumID)
+                 );
+
+            if (reader.Read())
+                aantal = Convert.ToInt32(reader[0]);
+
+            reader.Close();
+            return aantal;
+        }
     }
 }
