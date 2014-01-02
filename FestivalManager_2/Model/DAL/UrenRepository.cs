@@ -62,7 +62,6 @@ namespace FestivalManager_2.Model.DAL
             if(IsOptreden)
                 u.Optreden = !(reader["OptredenID"] == DBNull.Value) ? OptredenRepository.GetOptredenById(Convert.ToInt32(reader["OptredenID"])) : null;
             
-
             return u;
         }      
 
@@ -179,6 +178,28 @@ namespace FestivalManager_2.Model.DAL
             Database.ModifyData(sql
                 , Database.AddParameter("@OptredenID", o.ID)
                 );
+        }
+
+        internal static ObservableCollection<Uur> getUrenVoorLineUp(Datum datum, Podium podium)
+        {
+            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
+
+            string sql = "select u.*,d.*,ou.* from uur u left outer join datum d on datumid = @DatumID left outer join (select o.optredenid, groepid, podiumid, datumid, uurid from optreden o inner join optreden_uur u on u.optredenid = o.optredenid and podiumid = @PodiumID) ou on ou.datumid = d.datumid and ou.uurid = u.uurid where u.uurid >= (select min(optreden_uur.UurID) from optreden inner join optreden_uur on optreden.OptredenID = optreden_uur.OptredenID WHERE optreden.PodiumID = @PodiumID and optreden.DatumID = @DatumID  ) - 1 and u.uurid <= ( select max(optreden_uur.UurID) from optreden inner join optreden_uur on optreden.OptredenID = optreden_uur.OptredenID WHERE optreden.PodiumID = @PodiumID and optreden.DatumID = @DatumID ) + 1";
+            DbDataReader reader = Database.GetData(sql,
+                Database.AddParameter("@PodiumID", podium.ID),
+                Database.AddParameter("@DatumID", datum.DatumID)
+                );
+
+            int id = 0 + 5;
+           
+            while (reader.Read())
+            {
+                lUren.Add(MaakUur(reader, true));
+            }
+
+            reader.Close();
+
+            return lUren;
         }
     }
 }

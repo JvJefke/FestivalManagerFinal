@@ -28,10 +28,7 @@ namespace FestivalManager_2.ViewModel
 
             _podiums = PodiumRepository.GetPodia();
             
-            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0] }, Uren = new ObservableCollection<Uur>() };
-
-
-            NieuwOptredenUur.Optreden.Datum = this._selectedDatum;       
+            _nieuwOptredenUur = new OptredenUurVM() { Optreden = new Optreden() { Groep = Groepen[0], Datum = this._selectedDatum }, Uren = new ObservableCollection<Uur>() };   
         }
         public string Name
         {
@@ -133,9 +130,12 @@ namespace FestivalManager_2.ViewModel
             set
             {
                 _selectedPodium = value;
-                _nieuwOptredenUur.Optreden.Podium = this._selectedPodium;
+                this.NieuwOptredenUur.Optreden.Podium = this._selectedPodium;
                 InitLineUp();
-                this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.Podiums[0]);
+                if (Podiums.Count() != 0)
+                    this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.Podiums[0]);
+                else
+                    this.UrenAdd = new ObservableCollection<UurAddVM>();
                 OnPropertyChanged("SelectedPodium");
             }
         }        
@@ -170,7 +170,8 @@ namespace FestivalManager_2.ViewModel
 
         private void InitLineUp()
         {            
-            FillUren();
+            //FillUren();
+            this.Uren = UrenRepository.getUrenVoorLineUp(this.SelectedDatum, this.SelectedPodium);
         }
 
         private void GetFirstOfOptreden()
@@ -251,7 +252,7 @@ namespace FestivalManager_2.ViewModel
                 if(this._selectedDatum != null)
                 {
                     this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.SelectedPodium);
-                    FilterUren();
+                    InitLineUp();
                 }
                 
                 OnPropertyChanged("SelectedDatum");
@@ -275,7 +276,7 @@ namespace FestivalManager_2.ViewModel
         {
             this.SelectedPodium = new Podium();
             this.Podiums.Add(this.SelectedPodium);
-
+            MaakNieuwOptredenUur(null);
             GaNaarPodiumBewerk();
         }
 
@@ -336,6 +337,9 @@ namespace FestivalManager_2.ViewModel
             this.NieuwOptredenUur.Uren = GetSelectedUren();
             UurAddVM.Save(this.NieuwOptredenUur);
 
+            if (Podiums.Count() != 0)
+                this.UrenAdd = UurAddVM.GetUren(this._selectedDatum, this.Podiums[0]);
+
             FilterUren();
         }
 
@@ -361,6 +365,12 @@ namespace FestivalManager_2.ViewModel
 
         private void LaadOptredenVoorWijziging(Uur u)
         {
+            if (u.Optreden == null)
+            {
+                ZetNieuweGoepKlaar();
+                return;
+            }
+
             DeselectAlleUren();
             FillUrenAddMetSelectedOptreden(u);
             SelecteerUren(u);
@@ -476,7 +486,8 @@ namespace FestivalManager_2.ViewModel
 
         private void UpdatePodium()
         {
-            PodiumRepository.Update(this._selectedPodium);
+            this.SelectedPodium.ID = PodiumRepository.Update(this._selectedPodium);
+            this.Podiums = PodiumRepository.GetPodia();
         }
 
         public ICommand RefreshDatumsCommand
@@ -493,6 +504,8 @@ namespace FestivalManager_2.ViewModel
                 this._selectedDatum = d2;
             else
                 this._selectedDatum = this.Datums[0];
+
+            NieuwOptredenUur.Optreden.Datum = this.SelectedDatum;
 
             OnPropertyChanged("SelectedDatum");
         }

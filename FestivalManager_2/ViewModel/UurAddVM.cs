@@ -33,17 +33,6 @@ namespace FestivalManager_2.ViewModel
             return this.Uur.UurTekst;
         }
 
-        /*public static bool Save(OptredenUurVM optredenUurVM)
-        {
-               int i = OptredenRepository.SaveOptreden(optredenUurVM.Optreden);
-               if(i == 0)
-                   return false;
-               if (!UrenRepository.SaveOptredenUren(optredenUurVM.Uren, i))
-                   return false;
-
-               return true;
-        }*/
-
         public static void Save(OptredenUurVM optredenUurVM)
         {
             if(optredenUurVM.Optreden == null || optredenUurVM.Optreden.ID == 0)
@@ -57,7 +46,6 @@ namespace FestivalManager_2.ViewModel
                 if (optredenUurVM.Uren.Count == 0)
                     OptredenRepository.Delete(optredenUurVM.Optreden);
                 else
-
                     OptredenRepository.Update(optredenUurVM.Optreden);
             }
         }

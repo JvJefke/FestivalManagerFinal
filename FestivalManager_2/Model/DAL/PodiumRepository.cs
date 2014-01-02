@@ -39,8 +39,21 @@ namespace FestivalManager_2.Model.DAL
 
         internal static void Delete(Podium p)
         {
+            VerwijderOptredensVanPodium(p);
+
             string sql = "DELETE FROM podia WHERE PodiumID = @ID";
             Database.ModifyData(sql, Database.AddParameter("@ID", p.ID));
+        }
+
+        private static void VerwijderOptredensVanPodium(Podium p)
+        {
+            ObservableCollection<Optreden> lOptredens = OptredenRepository.GetOptredensVanPodium(p);
+
+            foreach(Optreden o in lOptredens)
+            {
+                UrenRepository.VerwijderOptredenUurByOptreden(o);
+                OptredenRepository.Delete(o);
+            }
         }
 
         internal static Podium GetPodiumById(int ID)
@@ -59,19 +72,39 @@ namespace FestivalManager_2.Model.DAL
             return null;
         }
 
-        internal static void Update(Podium podium)
+        internal static int Update(Podium podium)
         {
-            string sql;
-
             if (podium != null && podium.ID != 0)
-                sql = "UPDATE podia SET Naam = @Naam WHERE PodiumID = @ID";
+                return UpdatePodium(podium);
             else
-                sql = "INSERT INTO podia (Naam) VALUES (@Naam)";
+                return InsertGroep(podium);
+           
+        }
 
+        private static int InsertGroep(Podium podium)
+        {
+            int id = 0;
+
+            string sql = "INSERT INTO podia (Naam) VALUES (@Naam); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+            DbDataReader reader = Database.GetData(sql
+                   , Database.AddParameter("@Naam", podium.Naam)
+                   );
+            if (reader.Read())
+                id = Convert.ToInt32(reader[0]);
+
+            reader.Close();
+            return id;
+        }
+
+        private static int UpdatePodium(Podium podium)
+        {
+            string sql = "UPDATE podia SET Naam = @Naam WHERE PodiumID = @ID";
             Database.ModifyData(sql
-                    , Database.AddParameter("@Naam", podium.Naam)
-                    , Database.AddParameter("@ID", podium.ID)
-                    );
+                   , Database.AddParameter("@Naam", podium.Naam)
+                   , Database.AddParameter("@ID", podium.ID)
+                   );
+
+            return podium.ID;
         }
     }
 }

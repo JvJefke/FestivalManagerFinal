@@ -239,7 +239,7 @@ namespace FestivalManager_2.ViewModel
 
         private void NieuwContact()
         {
-            this.SelectedContact = new Contact() { Image = "/Images/person-icon.png" };
+            this.SelectedContact = new Contact() { Image = "/Images/person-icon.png", Functie = this.Functies[1], Organisatie = this.Organisaties[1] };
             _isNieuwContact = true;
             GaNaarDetail();
         }
@@ -260,16 +260,11 @@ namespace FestivalManager_2.ViewModel
             this.BewerkVisibility = Visibility.Visible;
         }
 
-        private ICommand _pasContactAanCommand;
         public ICommand PasContactAanCommand
         {
             get
-            {
-                if (_pasContactAanCommand == null)
-                {
-                    _pasContactAanCommand = new RelayCommand<Contact>(c => PasContactAan(c));
-                }
-                return _pasContactAanCommand;
+            {               
+                return new RelayCommand<Contact>(PasContactAan);
             }
         }
 
@@ -285,11 +280,18 @@ namespace FestivalManager_2.ViewModel
         }
 
         private void SaveContact()
-        {           
-            ContactRepository.saveContact(this.SelectedContact, this._allContacts);
-            if (_isNieuwContact)
-                this.Contacts.Add(this.SelectedContact);
+        {
+            int id = ContactRepository.saveContact(this.SelectedContact, this._allContacts);
+            if (this.SelectedContact.ID != 0)
+                return;
+            this._allContacts = ContactRepository.getContacts();
+            Contact temp = this._allContacts.Where(x => x.ID == id).FirstOrDefault();
+            if (temp != null)
+                this.SelectedContact = temp;
+            else
+                this.SelectedContact = this._allContacts[0];
 
+            FilterContacts();            
         }
 
         private ICommand _verwijderContactCommand;

@@ -24,10 +24,5 @@ namespace FestivalManager_2.View
         {
             InitializeComponent();
         }
-
-        private void Contact_Back_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 }

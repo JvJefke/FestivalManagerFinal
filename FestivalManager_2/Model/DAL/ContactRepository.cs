@@ -80,18 +80,22 @@ namespace FestivalManager_2.Model.DAL
         }
 
 
-        internal static void saveContact(Contact contact, ObservableCollection<Contact> lContacts)
+        internal static int saveContact(Contact contact, ObservableCollection<Contact> lContacts)
         {
             if(lContacts.FirstOrDefault(x => x.ID == contact.ID) == null)
-                InsertContact(contact);
+                return InsertContact(contact);                
             else
                 UpdateContact(contact);
+
+            return contact.ID;
         }
 
-        private static void InsertContact(Contact contact)
+        private static int InsertContact(Contact contact)
         {
-            string sql = "INSERT INTO contact (Voornaam, Naam, Straat_Nr, Postcode, Gemeente, FunctieID, OrganisatieID, Tel, Email, Image) VALUES (@VN, @N, @SN, @P, @G, @F, @O, @T, @E, @I)";
-            Database.ModifyData(sql
+            int id = 0;
+
+            string sql = "INSERT INTO contact (Voornaam, Naam, Straat_Nr, Postcode, Gemeente, FunctieID, OrganisatieID, Tel, Email, Image) VALUES (@VN, @N, @SN, @P, @G, @F, @O, @T, @E, @I); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+            DbDataReader reader = Database.GetData(sql
                 , Database.AddParameter("@VN", contact.Voornaam)
                 , Database.AddParameter("@N", contact.Naam)
                 , Database.AddParameter("@SN", contact.Straat_Nr)
@@ -103,6 +107,13 @@ namespace FestivalManager_2.Model.DAL
                 , ((contact.Image != null) ? Database.AddParameter("@I", contact.Image) : Database.AddParameter("@I", DBNull.Value))
                 , Database.AddParameter("@E", contact.Email)
                 );
+
+            if (reader.Read())
+                id = Convert.ToInt32(reader[0]);
+
+            reader.Close();
+
+            return id;
         }
 
         private static void UpdateContact(Contact contact)

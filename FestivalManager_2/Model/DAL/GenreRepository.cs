@@ -34,8 +34,10 @@ namespace FestivalManager_2.Model.DAL
             return g;
         }
 
-        public static void SaveGenre(Genre genre)
+        public static int SaveGenre(Genre genre)
         {
+            int id = genre.ID;
+
             if(genre.ID != 0)
             {
                 string sql = "Update genre SET Naam = @Naam WHERE GenreID = @ID";
@@ -43,9 +45,16 @@ namespace FestivalManager_2.Model.DAL
             }
             else
             {
-                string sql = "INSERT INTO genre (Naam) VALUES (@Naam)";
-                Database.ModifyData(sql, Database.AddParameter("@Naam", genre.Naam));
+                string sql = "INSERT INTO genre (Naam) VALUES (@Naam); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+                DbDataReader reader = Database.GetData(sql, Database.AddParameter("@Naam", genre.Naam));
+
+                if (reader.Read())
+                    id = Convert.ToInt32(reader[0]);
+
+                reader.Close();
             }
+
+            return id;
         }
 
         internal static ObservableCollection<Genre> GetGenresByGroepId(int ID)

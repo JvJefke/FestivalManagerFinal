@@ -23,7 +23,8 @@ namespace FestivalManager_2.ViewModel
             this._genres = GenreRepository.GetGenres();
             this._genres.Insert(0, new Genre() { Naam = "---- Alle genres ----" });
             this._genresVrToevoegen = GenreRepository.GetGenres();
-            this._selectedGenreVrToevoegen = this.GenresVrToevoegen[0];            
+            this._selectedGenreVrToevoegen = this.GenresVrToevoegen[0];
+            this._isGenreToevoegenEnabled = false;
         }
 
         public string Name
@@ -134,6 +135,12 @@ namespace FestivalManager_2.ViewModel
             {
                 this._selectedGroep = value;               
                 this.AantalOptredens = OptredenRepository.GetAantalOptredensByOptreden(this.SelectedGroep);
+
+                if (this._selectedGroep.ID != 0)
+                    this.IsGenreToevoegenEnabled = true;
+                else
+                    this.IsGenreToevoegenEnabled = false;
+
                 OnPropertyChanged("SelectedGroep");
             }
         }
@@ -162,7 +169,7 @@ namespace FestivalManager_2.ViewModel
 
         private void NieuweGroep()
         {
-            this.SelectedGroep = new Groep() {Genres = new ObservableCollection<Genre>(), Image = "/Images/person-icon.png" };
+            this.SelectedGroep = new Groep() {Genres = new ObservableCollection<Genre>(), Image = "/Images/person-icon.png", Facebook = "", Twitter = "" };
             GaNaarBewerk();
         }
 
@@ -223,7 +230,7 @@ namespace FestivalManager_2.ViewModel
         private void VerwijderGenre(Genre g)
         {
             Groep temp = this.SelectedGroep;
-            GroepenRepository.RemoveGenre(temp, g);
+            GroepenRepository.RemoveGenre(this.SelectedGroep, g);
 
             this._alleGroepen = GroepenRepository.GetGroepen();
             this.Groepen = _alleGroepen;
@@ -289,6 +296,17 @@ namespace FestivalManager_2.ViewModel
             }
         }
 
+        private bool _isGenreToevoegenEnabled;
+        public bool IsGenreToevoegenEnabled
+        {
+            get { return _isGenreToevoegenEnabled; }
+            set
+            {
+                _isGenreToevoegenEnabled = value;
+                OnPropertyChanged("IsGenreToevoegenEnabled");
+            }
+        }
+
         public ICommand GenreToevoegenAanGroepCommand
         {
             get
@@ -317,6 +335,10 @@ namespace FestivalManager_2.ViewModel
         private void SaveGroep()
         {
             this.SelectedGroep.ID = GroepenRepository.SaveGroep(this.SelectedGroep);
+            if (this.SelectedGroep.ID != 0)
+                this.IsGenreToevoegenEnabled = true;
+
+            this.Groepen = GroepenRepository.GetGroepen();
         }
 
         public ICommand RefreshGenresCommand

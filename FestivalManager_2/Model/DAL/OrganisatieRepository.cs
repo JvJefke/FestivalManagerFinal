@@ -45,8 +45,10 @@ namespace FestivalManager_2.Model.DAL
             return o;
         }
 
-        public static void SaveOrganisatie(Organisatie o)
+        public static int SaveOrganisatie(Organisatie o)
         {
+            int id = o.ID;
+
             DbParameter par1 = Database.AddParameter("@Naam", o.Naam);
             DbParameter par2 = Database.AddParameter("@Tel", o.Tel);
             DbParameter par3 = Database.AddParameter("@Email", o.Email);
@@ -62,9 +64,16 @@ namespace FestivalManager_2.Model.DAL
             }
             else
             {
-                string sql = "INSERT INTO organisatie (Naam, Straat_Nr, Postcode, Gemeente, Tel, Email) VALUES (@Naam, @Straat_Nr, @Postcode, @Gemeente, @Tel, @Email)";
-                Database.ModifyData(sql, par1, par2, par3, par4, par5, par6);
+                string sql = "INSERT INTO organisatie (Naam, Straat_Nr, Postcode, Gemeente, Tel, Email) VALUES (@Naam, @Straat_Nr, @Postcode, @Gemeente, @Tel, @Email); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+                DbDataReader reader = Database.GetData(sql, par1, par2, par3, par4, par5, par6);
+
+                if (reader.Read())
+                    id = Convert.ToInt32(reader[0]);
+
+                reader.Close();
             }
+
+            return id;
         }
 
         public static ObservableCollection<Organisatie> GetOrganisaties()

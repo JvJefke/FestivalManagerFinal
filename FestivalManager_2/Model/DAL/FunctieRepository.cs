@@ -57,8 +57,9 @@ namespace FestivalManager_2.Model.DAL
         }
 
 
-        internal static void SaveFunctie(Functie functie)
+        internal static int SaveFunctie(Functie functie)
         {
+            int id = functie.ID;
             if (functie.ID != 0)
             {
                 string sql = "Update functie SET Naam = @Naam WHERE FunctieID = @ID";
@@ -66,9 +67,16 @@ namespace FestivalManager_2.Model.DAL
             }
             else
             {
-                string sql = "INSERT INTO functie (Naam) VALUES (@Naam)";
-                Database.ModifyData(sql, Database.AddParameter("@Naam", functie.Naam));
+                string sql = "INSERT INTO functie (Naam) VALUES (@Naam); SELECT SCOPE_IDENTITY() AS [InsertedReserveringID]";
+                DbDataReader reader = Database.GetData(sql, Database.AddParameter("@Naam", functie.Naam));
+
+                if (reader.Read())
+                    id = Convert.ToInt32(reader[0]);
+
+                reader.Close();                    
             }
+
+            return id;
         }
 
         internal static void Delete(Functie functie)

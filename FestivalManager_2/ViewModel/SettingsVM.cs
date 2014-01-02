@@ -17,15 +17,15 @@ namespace FestivalManager_2.ViewModel
         {
             this._alleFuncties = FunctieRepository.GetFuncties();
             this.Functies = this._alleFuncties;
-            this.CurrentFunctie = new Functie();
+            this.CurrentFunctie = this.Functies[0];
 
             this._alleGenres = GenreRepository.GetGenres();
             this.Genres = this._alleGenres;
-            this.CurrentGenre = new Genre();
+            this.CurrentGenre = this.Genres[0];
 
             this._alleOrganisaties = OrganisatieRepository.GetOrganisaties();
             this.Organisaties = this._alleOrganisaties;
-            this.CurrentOrganisatie = new Organisatie();
+            this.CurrentOrganisatie = this.Organisaties[0];
         }
 
         private ObservableCollection<Genre> _alleGenres;
@@ -126,7 +126,7 @@ namespace FestivalManager_2.ViewModel
             if (this.CurrentOrganisatie.Email == null)
                 this.CurrentOrganisatie.Email = "";
 
-            OrganisatieRepository.SaveOrganisatie(this.CurrentOrganisatie);
+            temp.ID = OrganisatieRepository.SaveOrganisatie(this.CurrentOrganisatie);
             this.Organisaties = OrganisatieRepository.GetOrganisaties();
 
             this.CurrentOrganisatie = temp;
@@ -141,7 +141,7 @@ namespace FestivalManager_2.ViewModel
          {
              Genre temp = this.CurrentGenre;
 
-             GenreRepository.SaveGenre(temp);             
+             temp.ID = GenreRepository.SaveGenre(temp);             
              this.Genres = GenreRepository.GetGenres();
 
              this.CurrentGenre = temp;
@@ -156,7 +156,7 @@ namespace FestivalManager_2.ViewModel
          {
              Functie temp = this.CurrentFunctie;
 
-             FunctieRepository.SaveFunctie(temp);
+             temp.ID = FunctieRepository.SaveFunctie(temp);
              this.Functies = FunctieRepository.GetFuncties();
 
              this.CurrentFunctie = temp;

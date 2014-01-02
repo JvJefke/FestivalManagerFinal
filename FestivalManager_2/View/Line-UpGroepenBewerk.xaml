@@ -57,7 +57,6 @@
                                 <Condition Binding="{Binding ElementName=Naam, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=Facebook, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=Twitter, Path=(Validation.HasError)}" Value="false" />
-                                <Condition Binding="{Binding ElementName=Image, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=Beschrijving, Path=(Validation.HasError)}" Value="false" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="true" />
@@ -102,7 +101,7 @@
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource Algemeen_Textblock}" Margin="0,46,0,0" Text="Groepnaam:"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource Algemeen_Textblock}" Margin="0,86,0,0" Text="Facebook:"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Style="{DynamicResource Algemeen_Textblock}" Margin="0,126,0,0" Text="Twitter:" />
-        <TextBox Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,46,10,0" Text="{Binding SelectedGroep.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="NoWrap"/>
+        <TextBox x:Name="Naam" Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,46,10,0" Text="{Binding SelectedGroep.Naam, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="NoWrap"/>
         <TextBox x:Name="Facebook" Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,85,10,0" Text="{Binding SelectedGroep.Facebook, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="NoWrap"/>
         <TextBox x:Name="Twitter" Grid.Column="3" Grid.Row="1" Style="{DynamicResource Algemeen_Textbox}" Margin="10,126,10,0" Text="{Binding SelectedGroep.Twitter, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="NoWrap"/>
         <TextBlock Grid.Column="3" Grid.Row="1" Margin="10,176,0,0" Text="Aantal optredens:" HorizontalAlignment="Stretch" TextAlignment="Left" VerticalAlignment="Top" FontSize="13" />
@@ -120,7 +119,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-        <Button Grid.Row="5" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" Height="25" Margin="0,59,10,0" Content="Toevoegen" Command="{Binding GenreToevoegenAanGroepCommand}"/>
+        <Button IsEnabled="{Binding IsGenreToevoegenEnabled}" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" Height="25" Margin="0,59,10,0" Content="Toevoegen" Command="{Binding GenreToevoegenAanGroepCommand}"/>
         
     </Grid>
 </UserControl>

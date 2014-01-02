@@ -56,7 +56,7 @@
         
         <Button Grid.RowSpan="2" Margin="-120,-45,0,0" Command="{Binding GaNaarPodiumOverzichtCommand}" Style="{StaticResource ReturnButton}" />         
         
-        <TextBox Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" Text="{Binding SelectedPodium.Naam, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}">
+        <TextBox x:Name="Naam" Style="{StaticResource Algemeen_Textbox}" Margin="10,10,10,0" Text="{Binding SelectedPodium.Naam, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="LostFocus">
                     <i:InvokeCommandAction Command="{Binding UpdatePodiumCommand}" />
@@ -101,7 +101,21 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <Button Grid.Row="3" Grid.ColumnSpan="2" Content="{Binding NieuwOptredenUur.Optreden, Converter={StaticResource OptredenToButtonTextConverter}}" Margin="10,10,10,10" Command="{Binding VoegGroepToeCommand}" />
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Content="{Binding NieuwOptredenUur.Optreden, Converter={StaticResource OptredenToButtonTextConverter}}" Margin="10,10,10,10" Command="{Binding VoegGroepToeCommand}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=Naam, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             
         </Grid>
     </Grid>
