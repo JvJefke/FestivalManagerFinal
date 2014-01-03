@@ -92,7 +92,7 @@ namespace FestivalManager_2.ViewModel
             }
         }
 
-       private Visibility _isOverzichtVisible;
+        private Visibility _isOverzichtVisible;
         public Visibility IsOverzichtVisible
         {
             get
@@ -178,55 +178,7 @@ namespace FestivalManager_2.ViewModel
                 this.Uren = UrenRepository.getUrenVoorLineUp(this.SelectedDatum, this.SelectedPodium);
            
             this.UrenAdd = UurAddVM.GetUren(this.SelectedDatum, this.SelectedPodium);
-        }
-
-        private void GetFirstOfOptreden()
-        {
-            ObservableCollection<Uur> lNieuweUren = new ObservableCollection<Uur>();
-            
-            foreach(Uur u in this.Uren)
-            {
-                if (u.Optreden != null && this.Uren.Where(x => x.Optreden.ID == u.Optreden.ID).FirstOrDefault() != null)
-                {
-                    Uur first = this.Uren.Where(x => x.Optreden.ID == u.Optreden.ID).FirstOrDefault();
-                    if (u.UrenID == first.UrenID)
-                        lNieuweUren.Add(u);
-                    else
-                    {
-                        u.Optreden = null;
-                        lNieuweUren.Add(u);
-                    }
-                }else
-                        lNieuweUren.Add(u);
-            }
-        }
-
-        private void FillUren()
-        {
-            this.Uren = UrenRepository.GetUrenByPodiumAndDatumId(this.SelectedPodium, this.SelectedDatum);
-            ObservableCollection<Uur> lUren = UrenRepository.GetUren(false);  
-            ObservableCollection<Uur> LNieuweUren = new ObservableCollection<Uur>();
-
-            if (this.Uren.Count == 0)
-                this.Uren = lUren;
-            else
-            {
-                int BeginID = this.Uren.First().UrenID - 1;
-                int EindID = this.Uren.Last().UrenID + 1;
-
-                foreach (Uur u in lUren)
-                {
-                    if (u.UrenID <= EindID && u.UrenID >= BeginID)
-                        if (this.Uren.Where(x => x.UrenID == u.UrenID).FirstOrDefault() != null)
-                            LNieuweUren.Add(this.Uren.Where(x => x.UrenID == u.UrenID).First());
-                        else
-                            LNieuweUren.Add(u);
-                }
-
-                this.Uren = LNieuweUren;
-                this._alleUren = this.Uren;
-            }            
-        }
+        }             
 
         private ObservableCollection<Uur> _alleUren;
 
@@ -263,12 +215,7 @@ namespace FestivalManager_2.ViewModel
                 
                 OnPropertyChanged("SelectedDatum");
             }
-        }
-
-        private void FilterUren()
-        {
-            FillUren();
-        }
+        }        
 
         public ICommand MaakPodiumCommand
         {

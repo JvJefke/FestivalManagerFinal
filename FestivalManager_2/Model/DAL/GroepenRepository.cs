@@ -70,8 +70,6 @@ namespace FestivalManager_2.Model.DAL
                 else
                     return 0;
             }
-            
-
         }
 
         internal static void DeleteGroep(Groep g)

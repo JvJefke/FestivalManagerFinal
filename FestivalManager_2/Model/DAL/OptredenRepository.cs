@@ -54,7 +54,7 @@ namespace FestivalManager_2.Model.DAL
             return null;
         }
 
-        internal static int SaveOptreden(Optreden optreden)
+        public static int SaveOptreden(Optreden optreden)
         {
             if (optreden.ID == 0)
                 return SaveNew(optreden);
@@ -97,7 +97,7 @@ namespace FestivalManager_2.Model.DAL
             return 0;
         }
 
-        internal static int GetAantalOptredensByOptreden(Groep groep)
+        public static int GetAantalOptredensByOptreden(Groep groep)
         {
             string sql = "SELECT COUNT(GroepID) FROM optreden WHERE GroepID = @ID";
             DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", groep.ID));

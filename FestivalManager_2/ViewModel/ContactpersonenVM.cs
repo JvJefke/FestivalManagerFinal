@@ -189,12 +189,7 @@ namespace FestivalManager_2.ViewModel
             }
         }
 
-        public string Name
-        {
-            get { return "Overzicht"; }
-        }
-
-        private string _search;
+       private string _search;
         public string Search
         {
             get

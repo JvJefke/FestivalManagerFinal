@@ -63,62 +63,7 @@ namespace FestivalManager_2.Model.DAL
                 u.Optreden = !(reader["OptredenID"] == DBNull.Value) ? OptredenRepository.GetOptredenById(Convert.ToInt32(reader["OptredenID"])) : null;
             
             return u;
-        }      
-
-        internal static ObservableCollection<Uur> GetUrenByPodiumAndDatumId(Podium podium, Datum SelectedDatum)
-        {
-            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
-
-            string sql = "SELECT uur.UurID, uur.Uur, optreden.OptredenID FROM uur INNER JOIN optreden_uur ON uur.UurID = optreden_uur.UurID INNER JOIN optreden ON optreden_uur.OptredenID = optreden.OptredenID WHERE PodiumID = @PodiumID and DatumID = @DatumID ORDER BY UurID";
-            DbDataReader reader = Database.GetData(sql, 
-                Database.AddParameter("@PodiumID", podium.ID),
-                Database.AddParameter("@DatumID", SelectedDatum.DatumID)
-                );
-
-            while (reader.Read())
-            {
-                lUren.Add(MaakUur(reader, true));
-            }
-
-            reader.Close();
-
-            return lUren;
-        }
-
-        internal static ObservableCollection<Uur> GetUrenByUurTekst(int MinUur, int MinMin, int MaxUur, int MaxMin)
-        {            
-            string sUMin = MinUur.ToString() + ":" + MinMin.ToString();
-            string sUMax = MaxUur.ToString() + ":" + MaxMin.ToString();
-            Uur uMin = MaakUurByNaam(sUMin);
-            Uur uMax = MaakUurByNaam(sUMax);
-
-            ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
-
-            if((uMax.UrenID - uMin.UrenID) > 1)
-            {                
-                string sql = "SELECT * FROM uur WHERE UurID > @UurMinID and UurID < @UurMaxID ORDER BY UurID";
-                DbDataReader reader = Database.GetData(sql, Database.AddParameter("@UurMinID", uMin.UrenID), Database.AddParameter("@UurMaxID", uMax.UrenID));
-
-                while(reader.Read())
-                {
-                    lUren.Add(MaakUur(reader, false));
-                }
-
-                reader.Close();
-                return lUren;
-            }
-            else if(uMax.UrenID == uMin.UrenID)
-            {
-                lUren.Add(uMax);
-                return lUren;
-            }
-            else
-            {
-                lUren.Add(uMax);
-                lUren.Add(uMin);
-                return lUren;
-            }            
-        }
+        }  
 
         private static Uur MaakUurByNaam(string Naam)
         {

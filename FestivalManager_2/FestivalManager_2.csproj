@@ -101,7 +101,6 @@
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\ContactType.cs" />
     <Compile Include="Model\DAL\ContactRepository.cs" />
-    <Compile Include="Model\DAL\ContactTypeRepository.cs" />
     <Compile Include="Model\DAL\DatumRepository.cs" />
     <Compile Include="Model\DAL\FestivalRepository.cs" />
     <Compile Include="Model\DAL\FunctieRepository.cs" />
@@ -126,8 +125,6 @@
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Model\Uur.cs" />
     <Compile Include="ViewModel\AlgemeenVM.cs" />
-    <Compile Include="ViewModel\ApplicationVM.cs" />
-    <Compile Include="ViewModel\ContactBewerkVM.cs" />
     <Compile Include="ViewModel\ContactpersonenVM.cs" />
     <Compile Include="ViewModel\IPage.cs" />
     <Compile Include="ViewModel\Line_UpGroepenVM.cs" />
