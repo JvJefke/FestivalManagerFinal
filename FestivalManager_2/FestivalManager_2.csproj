@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="View\Converters\IsOptredenToColorConverter.cs" />
     <Compile Include="View\Converters\OptredenToButtonTextConverter.cs" />
+    <Compile Include="View\Converters\OptredenToTitelTextConverter.cs" />
     <Compile Include="View\Converters\OptredentToDeleteVisibleConverter.cs" />
     <Compile Include="View\GridLengthAnimations.cs" />
     <Compile Include="View\ContactBewerk.xaml.cs">

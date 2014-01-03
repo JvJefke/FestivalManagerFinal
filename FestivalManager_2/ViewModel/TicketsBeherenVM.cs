@@ -22,7 +22,7 @@ namespace FestivalManager_2.ViewModel
 
         public string Name
         {
-            get { return "Beheren"; }  //unieke naam
+            get { return "Reserveringen"; }  //unieke naam
         }
 
         private ObservableCollection<Reservering> _alleReserveringen;

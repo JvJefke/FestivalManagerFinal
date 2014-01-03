@@ -53,7 +53,7 @@
             </i:Interaction.Triggers>
         </ComboBox>
         <Button x:Name="VoegNieuwToe" Grid.ColumnSpan="4" Content="Voeg een nieuwe groep toe" HorizontalAlignment="Stretch" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Stretch" Command="{Binding NieuweGroepCommand}"/>
-        <ListBox BorderThickness="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch"  Margin="10,10,10,0" Grid.Row="2" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid}" ItemsSource="{Binding Groepen}" HorizontalContentAlignment="Stretch">
+        <ListBox BorderThickness="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch"  Margin="10,10,10,0" Grid.Row="2" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid}" ItemsSource="{Binding Groepen}" HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxWithNoSelection}">
         </ListBox>
     </Grid>
 </UserControl>

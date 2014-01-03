@@ -32,7 +32,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Content="Voeg nieuw podium toe" Command="{Binding MaakPodiumCommand}"/>
-        <ListBox Grid.Row="1" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,0" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid_Podia}" ItemsSource="{Binding Podiums}">
+        <ListBox Grid.Row="1" BorderThickness="0" HorizontalAlignment="Stretch"  Margin="10,10,10,0" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" Background="#00000000" ItemTemplate="{StaticResource List_Grid_Podia}" ItemsSource="{Binding Podiums}" ItemContainerStyle="{StaticResource ListBoxWithNoSelection}">
 
         </ListBox>
     </Grid>

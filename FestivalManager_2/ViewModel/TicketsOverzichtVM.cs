@@ -20,7 +20,7 @@ namespace FestivalManager_2.ViewModel
 
         public string Name
         {
-            get { return "Overzicht"; }  //unieke naam
+            get { return "Ticket types"; }  //unieke naam
         }
 
         public ObservableCollection<Ticket> _tickets;
