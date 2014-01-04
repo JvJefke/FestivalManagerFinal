@@ -134,5 +134,33 @@ namespace FestivalManager_2.Model.DAL
             reader.Close();
             return lOptredens;
         }
+
+        internal static ObservableCollection<Optreden> GetOptredensByGroep(Groep g)
+        {
+            ObservableCollection<Optreden> lOptredens = new ObservableCollection<Optreden>();
+
+            string sql = "SELECT * FROM optreden WHERE GroepID = @ID";
+            DbDataReader reader = Database.GetData(sql, Database.AddParameter("@ID", g.ID));
+
+            while (reader.Read())
+            {
+                lOptredens.Add(MaakOptreden(reader));
+            }
+
+            reader.Close();
+            return lOptredens;
+        }
+
+        internal static Optreden GetOptredenByIdSpeciaal(DbDataReader reader)
+        {
+            Optreden o = new Optreden();
+
+            o.ID = Convert.ToInt32(reader["OptredenID"]);
+            o.Podium = PodiumRepository.GetPodiumById(Convert.ToInt32(reader["PodiumID"]));
+            o.Groep = GroepenRepository.GetGroepenById(Convert.ToInt32(reader["GroepID"]));
+            o.Datum = new Datum() { DatumID = Convert.ToInt32(reader["DatumID"]), Date = Convert.ToDateTime(reader["Datum"]) };
+
+            return o;
+        }
     }
 }

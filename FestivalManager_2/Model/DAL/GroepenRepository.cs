@@ -76,11 +76,24 @@ namespace FestivalManager_2.Model.DAL
         {
             if(g != null && g.ID != 0)
             {
+                VerwijderOptredens(g);
+
                 string sql = "DELETE FROM groep_genre WHERE GroepID = @ID";
                 Database.ModifyData(sql, Database.AddParameter("@ID", g.ID));
 
                 sql = "DELETE FROM groep WHERE GroepID = @ID";
                 Database.ModifyData(sql, Database.AddParameter("@ID", g.ID));
+            }
+        }
+
+        private static void VerwijderOptredens(Groep g)
+        {
+            ObservableCollection<Optreden> lOptredens = OptredenRepository.GetOptredensByGroep(g);
+
+            foreach(Optreden o in lOptredens)
+            {
+                UrenRepository.VerwijderOptredenUurByOptreden(o);
+                OptredenRepository.Delete(o);
             }
         }
 

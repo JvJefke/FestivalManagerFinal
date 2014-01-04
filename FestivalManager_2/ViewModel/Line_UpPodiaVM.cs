@@ -332,6 +332,10 @@ namespace FestivalManager_2.ViewModel
             FillUrenAddMetSelectedOptreden(u);
             SelecteerUren(u);
             MaakNieuwPodiumUur(u);
+
+            ObservableCollection<Uur> lUren = this.Uren;
+            this.Uren = null;
+            this.Uren = lUren;
         }
 
         private void FillUrenAddMetSelectedOptreden(Uur u)
@@ -340,13 +344,15 @@ namespace FestivalManager_2.ViewModel
             ObservableCollection<Uur> lUren = new ObservableCollection<Uur>();
 
             foreach (Uur uur in this.Uren)
-                if(uur.Optreden != null && uur.Optreden.ID == u.Optreden.ID)
-                    this.UrenAdd.Insert(uur.UrenID -1,new UurAddVM() { Uur = uur });
+                if (uur.Optreden != null && uur.Optreden.ID == u.Optreden.ID)
+                    this.UrenAdd.Add(new UurAddVM() { Uur = uur });
 
-            this.UrenAdd.OrderBy(x => x.Uur.UrenID);
+            this.UrenAdd = new ObservableCollection<UurAddVM>(from x in this.UrenAdd orderby x.Uur.UrenID select x);
+            //this.UrenAdd.OrderBy(x => x.Uur.UrenID);
             //HernieuwSelectieUren(this._urenAdd);
         }
 
+       
         private void SelecteerUren(Uur u)
         {
             if (u.Optreden == null)

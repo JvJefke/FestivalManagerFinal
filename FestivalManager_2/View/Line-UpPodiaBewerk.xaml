@@ -17,7 +17,19 @@
         <c:OptredenToTitelTextConverter x:Key="OptredenToTitelTextConverter" />
 
         <DataTemplate x:Key="List_Grid_Podia_Bewerk">
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,-5" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{Binding Optreden, Converter={StaticResource OptredentToColorConverter}}">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,-5" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource OptredentToColorConverter}">
+                                    <Binding Path="Optreden" />
+                                    <Binding Path="DataContext.NieuwOptredenUur" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                </MultiBinding>                                      
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Border.Style>
                 <Grid HorizontalAlignment="Stretch" Margin="0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>

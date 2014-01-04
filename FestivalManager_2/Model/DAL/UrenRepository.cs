@@ -137,12 +137,23 @@ namespace FestivalManager_2.Model.DAL
            
             while (reader.Read())
             {
-                lUren.Add(MaakUur(reader, true));
+                lUren.Add(MaakUurSpeciaal(reader));
             }
 
             reader.Close();
 
             return lUren;
+        }
+
+        private static Uur MaakUurSpeciaal(DbDataReader reader)
+        {
+            Uur u = new Uur();
+
+            u.UrenID = Convert.ToInt32(reader["UurID"]);
+            u.UurTekst = reader["Uur"].ToString();
+            u.Optreden = !(reader["OptredenID"] == DBNull.Value) ? OptredenRepository.GetOptredenByIdSpeciaal(reader) : null;
+
+            return u;
         }
 
         internal static int GetAantalUrenByDatumEnPodium(Datum d, Podium p)

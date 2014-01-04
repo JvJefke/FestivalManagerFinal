@@ -348,13 +348,13 @@ namespace FestivalManager_2.ViewModel
 
         private void RefreshGenres()
         {
-            Genre g = this.SelectedGenre;
-            this.Genres = GenreRepository.GetGenres();
-            Genre g2 = this.Genres.Where(x => g != null && x.ID == g.ID).FirstOrDefault();
+            Genre g = this.SelectedGenreVrToevoegen;
+            this.GenresVrToevoegen = GenreRepository.GetGenres();
+            Genre g2 = this.GenresVrToevoegen.Where(x => g != null && x.ID == g.ID).FirstOrDefault();
             if (g2 != null)
-                this.SelectedGenre = g2;
+                this.SelectedGenreVrToevoegen = g2;
             else
-                this.SelectedGenre = this.Genres[0];
+                this.SelectedGenreVrToevoegen = this.Genres[0];
         }   
     
         public ICommand RefreshOverzichtGenresCommand
