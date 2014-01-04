@@ -7,9 +7,6 @@
         TextOptions.TextFormattingMode="Display"
         TextOptions.TextRenderingMode="ClearType"
         UseLayoutRounding="True">
-    <Window.DataContext>
-        <vm:ApplicationVM />
-    </Window.DataContext>
     <Window.Resources>        
         <Storyboard x:Key="Algemeen_Click"/>
 

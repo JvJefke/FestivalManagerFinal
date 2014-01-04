@@ -79,7 +79,7 @@ namespace FestivalManager_2.Model.DAL
         public static ObservableCollection<Organisatie> GetOrganisaties()
         {
             ObservableCollection<Organisatie> lOrganisaties = new ObservableCollection<Organisatie>();
-            string sql = "SELECT * FROM organisatie";
+            string sql = "SELECT * FROM organisatie ORDER BY Naam";
 
             DbDataReader reader = Database.GetData(sql);
 

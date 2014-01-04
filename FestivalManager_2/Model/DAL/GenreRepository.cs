@@ -13,7 +13,7 @@ namespace FestivalManager_2.Model.DAL
         public static ObservableCollection<Genre> GetGenres()
         {
             ObservableCollection<Genre> lGenres = new ObservableCollection<Genre>();
-            string sql = "SELECT * FROM genre";
+            string sql = "SELECT * FROM genre ORDER BY Naam";
             DbDataReader reader = Database.GetData(sql);
 
             while (reader.Read())

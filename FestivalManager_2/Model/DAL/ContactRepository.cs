@@ -15,7 +15,7 @@ namespace FestivalManager_2.Model.DAL
         {
             ObservableCollection<Contact> lContacts = new ObservableCollection<Contact>();
 
-            string sql = "SELECT * FROM Contact";
+            string sql = "SELECT * FROM Contact ORDER BY Voornaam";
             DbDataReader reader = Database.GetData(sql);
 
             while(reader.Read())

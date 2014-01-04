@@ -15,12 +15,12 @@ namespace FestivalManager_2.Model
     class Reservering : BaseDataAnotations
     {
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessage="De naam is vereist.")]
         public string Naam { get; set; }
-        [Required]
+        [Required(ErrorMessage = "De voornaam is vereist.")]
         public string Voornaam { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Het e-mail adres is vereist.")]
+        [EmailAddress(ErrorMessage = "Dit is geen correct e-mail adres.")]
         public string Email { get; set; }
         [Required]
         public Ticket Ticket { get; set; }
@@ -32,7 +32,7 @@ namespace FestivalManager_2.Model
                 try
                 {
                     Print(r);
-                }catch(Exception ex)
+                }catch
                 {
                     return r;
                 }

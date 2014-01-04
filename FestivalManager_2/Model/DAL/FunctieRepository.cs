@@ -42,7 +42,7 @@ namespace FestivalManager_2.Model.DAL
         public static ObservableCollection<Functie> GetFuncties()
         {
             ObservableCollection<Functie> lFuncties = new ObservableCollection<Functie>();            
-            string sql = "SELECT * FROM functie";
+            string sql = "SELECT * FROM functie ORDER BY Naam";
 
             DbDataReader reader = Database.GetData(sql);
 

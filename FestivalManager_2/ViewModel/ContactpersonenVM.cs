@@ -26,7 +26,7 @@ namespace FestivalManager_2.ViewModel
             FillOverzichtOrganisaties();
             _bewerkVisibility = Visibility.Collapsed;
             _overzichtVisibility = Visibility.Visible;
-            _isNieuwContact = false;
+            //_isNieuwContact = false;
         }
 
         private void FillOrganisaties()
@@ -225,7 +225,7 @@ namespace FestivalManager_2.ViewModel
             this.Contacts = ContactRepository.FilterContacts(this.Contacts, this.CurrentFunctie, this.CurrentOrganisatie);
         }
 
-        private bool _isNieuwContact;
+        //private bool _isNieuwContact;
 
         public ICommand NieuwContactCommand
         {
@@ -242,7 +242,7 @@ namespace FestivalManager_2.ViewModel
                 o = this.CurrentOrganisatie;
 
             this.SelectedContact = new Contact() { Image = "/Images/person-icon.png", Functie = f, Organisatie = o };
-            _isNieuwContact = true;
+            //_isNieuwContact = true;
             GaNaarDetail();
         }
         public ICommand GaNaarOverzichtCommand
@@ -252,7 +252,7 @@ namespace FestivalManager_2.ViewModel
 
         public void GaNaarOverzicht()
         {
-            _isNieuwContact = false;
+            //_isNieuwContact = false;
             this._allContacts = ContactRepository.getContacts();
             FilterContacts();
 

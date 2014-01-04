@@ -134,8 +134,6 @@ namespace FestivalManager_2.Model.DAL
                 Database.AddParameter("@PodiumID", podium.ID),
                 Database.AddParameter("@DatumID", datum.DatumID)
                 );
-
-            int id = 0 + 5;
            
             while (reader.Read())
             {

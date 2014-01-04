@@ -180,7 +180,7 @@ namespace FestivalManager_2.ViewModel
             this.UrenAdd = UurAddVM.GetUren(this.SelectedDatum, this.SelectedPodium);
         }             
 
-        private ObservableCollection<Uur> _alleUren;
+        //private ObservableCollection<Uur> _alleUren;
 
         private ObservableCollection<Datum> _datums;
         public ObservableCollection<Datum> Datums

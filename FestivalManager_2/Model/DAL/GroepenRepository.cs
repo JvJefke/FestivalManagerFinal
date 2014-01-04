@@ -13,7 +13,7 @@ namespace FestivalManager_2.Model.DAL
         public static ObservableCollection<Groep> GetGroepen()
         {
             ObservableCollection<Groep> lGroepen = new ObservableCollection<Groep>();
-            string sql = "SELECT * FROM groep";
+            string sql = "SELECT * FROM groep ORDER BY Naam";
 
             DbDataReader reader = Database.GetData(sql);
 
