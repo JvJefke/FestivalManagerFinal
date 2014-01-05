@@ -156,8 +156,8 @@ namespace FestivalManager_2.Model.DAL
             Optreden o = new Optreden();
 
             o.ID = Convert.ToInt32(reader["OptredenID"]);
-            o.Podium = PodiumRepository.GetPodiumById(Convert.ToInt32(reader["PodiumID"]));
-            o.Groep = GroepenRepository.GetGroepenById(Convert.ToInt32(reader["GroepID"]));
+            o.Podium = new Podium() { ID = Convert.ToInt32(reader["podiumid"]), Naam = reader["podiumnaam"].ToString() };
+            o.Groep = new Groep(){ID = Convert.ToInt32(reader["groepid"]), Beschrijving = reader["grpbeschrijving"].ToString(), Facebook = reader["grpfacebook"].ToString(), Image = reader["grpimage"].ToString(), Naam = reader["grpnaam"].ToString(), Twitter = reader["grptwitter"].ToString()};
             o.Datum = new Datum() { DatumID = Convert.ToInt32(reader["DatumID"]), Date = Convert.ToDateTime(reader["Datum"]) };
 
             return o;

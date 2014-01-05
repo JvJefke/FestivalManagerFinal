@@ -17,15 +17,15 @@ namespace FestivalManager_2.ViewModel
         {
             this._alleFuncties = FunctieRepository.GetFunctiesVoorBewerk();
             this.Functies = this._alleFuncties;
-            this.CurrentFunctie = this.Functies[0];
+            this.CurrentFunctie = new Functie();
 
             this._alleGenres = GenreRepository.GetGenres();
             this.Genres = this._alleGenres;
-            this.CurrentGenre = this.Genres[0];
+            this.CurrentGenre = new Genre();
 
             this._alleOrganisaties = OrganisatieRepository.GetOrganisatiesVoorBewerken();
             this.Organisaties = this._alleOrganisaties;
-            this.CurrentOrganisatie = this.Organisaties[0];
+            this.CurrentOrganisatie = new Organisatie();
         }
 
         private ObservableCollection<Genre> _alleGenres;
